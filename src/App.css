@@ -30,4 +30,7 @@ ul .list-item a.active {
   .sidebar {
     display: block;
   }
+  .mobile-menu {
+    display: none;
+  }
 }

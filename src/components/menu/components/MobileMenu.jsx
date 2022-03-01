@@ -18,11 +18,11 @@ import { IoMdClose } from 'react-icons/io';
 import logo from '../../../assets/icons/logo.svg';
 import { navLinks } from './sidebarData';
 
-const MobileMenu = () => {
+const MobileMenu = ({ onClose }) => {
   return (
     <Stack gap='1rem' bg='primary' w='100%' className='mobile-menu'>
       <HStack align='center' justify={'space-between'} pr='60px'>
-        <Box mt='2'>
+        <Box mt='2' onClick={onClose}>
           <IoMdClose size={25} />
         </Box>
         <HStack alignSelf={'center'}>
