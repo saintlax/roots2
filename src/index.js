@@ -30,7 +30,9 @@ const theme = extendTheme({
         color: '#4A4C4F',
       },
       h3: {
-        color: '#000',
+        fontSize: '18px',
+        fontWeight: 600,
+        color: '#4A4C4F',
       },
       placeholder: {
         color: '#061624',
