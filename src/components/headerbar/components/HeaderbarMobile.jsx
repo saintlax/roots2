@@ -31,7 +31,7 @@ const HeaderbarMobile = () => {
         <MobileMenu />
       </CustomDrawer>
 
-      <Text fontWeight='500' fontSize='22px'>
+      <Text fontWeight='500' fontSize='20px'>
         {getComponentTitle(pathname)}
       </Text>
       <Flex align={'center'} gap='3' pr='3'>
