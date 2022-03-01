@@ -14,6 +14,7 @@ export const PROTECTED_PATHS = {
   USERS: '/users',
   MARCHANTS: '/marchants',
   TRANSACTIONS: '/transactions',
+  LOANS: '/loans',
   SETTINGS: '/settings',
   ROLES: '/roles',
 };
