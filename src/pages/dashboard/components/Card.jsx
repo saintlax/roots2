@@ -7,9 +7,8 @@ const Card = (props) => {
   const { amount, icon, iconBg, percentage, title } = props;
 
   return (
-    <Square bg='white' w='260px' p='5' borderRadius={8} gap='6'>
+    <Square bg='white' w={['260px']} p='5' borderRadius={8} gap='6'>
       <Circle bg={iconBg} p='3'>
-        {/* <BiWalletAlt size={30} color='#1459DF' /> */}
         {icon}
       </Circle>
       <Stack>

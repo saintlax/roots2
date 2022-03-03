@@ -34,3 +34,10 @@ ul .list-item a.active {
     display: none;
   }
 }
+
+/* settings page */
+.active-setting {
+  font-weight: 600;
+  font-size: 18px;
+  color: #1459df;
+}
