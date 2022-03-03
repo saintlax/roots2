@@ -1,0 +1,16 @@
+.dashboard-grid {
+  /* background-color: red;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(12, 1fr); */
+  /* grid-template-rows: repeat(12 1fr); */
+}
+/* .cards-container {
+  grid-column: 1/12;
+}
+.graph-chart {
+  grid-column: 1/8;
+}
+.recent-activities {
+  grid-column: 8/13;
+} */
