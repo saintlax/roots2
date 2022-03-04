@@ -15,27 +15,25 @@ export const TableBody = () => {
               </Td>
               <Td>
                 <Flex alignItems={"center"}>
-                  <Avatar size={"sm"} name={data?.name} src={data?.imageUrl} mr="5px" />
-                  <Text>{data?.name}</Text>
+                  {/* <Avatar size={"sm"} name={data?.name} src={""} mr="5px" /> */}
+                  <Text>{data?.date}</Text>
                 </Flex>
               </Td>
-              <Td>{data?.email}</Td>
-              <Td>{data?.phone}</Td>
-              <Td>{data?.loanAmount}</Td>
+              <Td>{data?.description}</Td>
+              <Td>{data?.name}</Td>
+              <Td>{data?.amount}</Td>
               <Td>
                 <Text
-                  color={"#009A49"}
-                  bg="#F3FCF7"
+                  color={data?.status === "Completed" ? "#009A49" : data?.status === "Rejected" ? "red" : "yellow"}
+                  bg={data?.status === "Completed" ? "#F3FCF7" : "#f4f4f4"}
                   borderRadius={"5px"}
                   p="5px 8px"
                 >
                   {data?.status}
                 </Text>
               </Td>
-              <Td 
-                // position={["sticky", "unset"]} right={["-3%", 0]} marginTop={["-30px", 0]}
-              >
-               <MenuLItems name={data?.name} data={data} />
+              <Td>
+                <MenuLItems name={data?.name} dateCreated={data?.dateCreated} />
               </Td>
             </Tr>
           );

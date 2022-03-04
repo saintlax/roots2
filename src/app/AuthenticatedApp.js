@@ -29,7 +29,7 @@ const AuthenticatedApp = () => {
         </HStack>
 
         {/* main page */}
-        <Box p='9'>
+        <Box p={['10px 10px 40px 10px', '9']}>
           <Routes>
             <Route path={DASHBOARD} element={<Dashboard />} />
             <Route path={USERS} element={<Users />} />

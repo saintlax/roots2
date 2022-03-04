@@ -47,26 +47,54 @@ export const UserModal = ({ name, data }) => {
               <Text my="5px" fontWeight={"bold"}>
                 {name}
               </Text>
-              <Text>Account created {data?.dateCreated}</Text>
-            </Flex>
-            <Flex
-              my={"20px"}
-              justifyContent={"space-between"}
-              alignItems="center"
-              fontWeight={"semibold"}
-              borderBottom="5px solid #f4f4f4"
-            >
-              <Text>Transaction History</Text>
-              <Flex
-                width={"160px"}
-                justifyContent="center"
-                alignItems={"center"}
-                bg="#fff"
-                px="8px"
-                borderRadius={"5px"}
+              <Text
+                color={
+                  data?.status === "Accepted"
+                    ? "#009A49"
+                    : data?.status === "Rejected"
+                    ? "#FF1A1A"
+                    : "yellow"
+                }
               >
-                <BsBagCheck size={26} />
-                <Select
+                {data?.status}
+              </Text>
+            </Flex>
+            <Box borderBottom="5px solid #f4f4f4" fontWeight={"semibold"}>
+             { data?.status==="Pending" && <Flex
+                my={"20px"}
+                width="100%"
+                justifyContent={"space-between"}
+                alignItems="center"
+              >
+                <Box width={["50%"]}>
+                  <Button
+                    variant={"outline"}
+                    width={["100%"]}
+                    borderColor="#4A4C4F"
+                    color={"darkgreen"}
+                  >
+                    Reject Loan
+                  </Button>
+                </Box>
+
+                <Flex
+                  width={["50%"]}
+                  justifyContent="center"
+                  alignItems={"center"}
+                  bg="#fff"
+                  px="8px"
+                  borderRadius={"5px"}
+                >
+                  <Button
+                    bg="#1459DF"
+                    _hover={{ bg: "#1459DF" }}
+                    color={"#FFF"}
+                    width={["100%"]}
+                  >
+                    Accept Loan
+                  </Button>
+                  {/* <BsBagCheck size={26} /> */}
+                  {/* <Select
                   placeholder="Last 7 days"
                   border="none"
                   _focus={{ border: "none" }}
@@ -74,9 +102,13 @@ export const UserModal = ({ name, data }) => {
                   <option value="option1">Option 1</option>
                   <option value="option2">Option 2</option>
                   <option value="option3">Option 3</option>
-                </Select>
-              </Flex>
-            </Flex>
+                </Select> */}
+                </Flex>
+              </Flex>}
+              <Box my={"10px"}>
+                <Text>Loan Details</Text>
+              </Box>
+            </Box>
             <Flex
               my={"20px"}
               justifyContent={"space-between"}
@@ -88,15 +120,15 @@ export const UserModal = ({ name, data }) => {
                 justifyContent={"space-between"}
                 alignItems="center"
               >
-                <Circle size={"30px"} bg="#1459DF">
+                {/* <Circle size={"30px"} bg="#1459DF">
                   <BsArrowDownRight color="#fff" />
-                </Circle>
+                </Circle> */}
                 <Box>
-                  <Text>Loan Paid</Text>
-                  <Text>September 24, 2021 10:28pm</Text>
+                  <Text>Loan Amount</Text>
+                  {/* <Text>September 24, 2021 10:28pm</Text> */}
                 </Box>
               </Flex>
-              <Text color={"red"}>-#10,000</Text>
+              <Text>#10,000</Text>
             </Flex>
             <Flex
               my={"20px"}
@@ -109,15 +141,15 @@ export const UserModal = ({ name, data }) => {
                 justifyContent={"space-between"}
                 alignItems="center"
               >
-                <Circle size={"30px"} bg="#1459DF">
+                {/* <Circle size={"30px"} bg="#1459DF">
                   <BsArrowUpRight color="#fff" />
-                </Circle>
+                </Circle> */}
                 <Box>
-                  <Text>Loan Credited</Text>
-                  <Text>September 24, 2021 10:28pm</Text>
+                  <Text>Payback date</Text>
+                  {/* <Text>September 24, 2021 10:28pm</Text> */}
                 </Box>
               </Flex>
-              <Text color={"green"}>#43,000</Text>
+              <Text>24-11-2021</Text>
             </Flex>
           </ModalBody>
         </ModalContent>

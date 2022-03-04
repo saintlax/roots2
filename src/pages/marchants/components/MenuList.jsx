@@ -32,7 +32,7 @@ export const MenuLItems = ({ name, dateCreated }) => {
           <MenuItem>
             <CautionAlertDialog
               icon={
-                <Tooltip label="delete house" aria-label="A tooltip">
+                <Tooltip label="delete merchant" aria-label="A tooltip">
                   <Text className="red small">
                     <AiOutlineDelete />
                   </Text>
