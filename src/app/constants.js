@@ -12,7 +12,7 @@ export const PUBLIC_PATHS = {
 export const PROTECTED_PATHS = {
   DASHBOARD: '/dashboard',
   USERS: '/users',
-  MARCHANTS: '/marchant',
+  MERCHANTS: '/merchants',
   TRANSACTIONS: '/transactions',
   LOANS: '/loans',
   SETTINGS: '/settings',

@@ -19,20 +19,22 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
-        // fontFamily: "",
         fontSize: '14px',
         fontWeight: 400,
         color: '#4A4C4F',
+        fontFamily: 'FilsonPro-Regular, FilsonPro-Medium',
       },
       h2: {
         fontSize: '20px',
         fontWeight: 600,
         color: '#4A4C4F',
+        fontFamily: 'Circular Std Medium',
       },
       h3: {
         fontSize: '18px',
-        fontWeight: 600,
+        fontWeight: 500,
         color: '#4A4C4F',
+        fontFamily: 'Circular Std Medium',
       },
       placeholder: {
         color: '#061624',
