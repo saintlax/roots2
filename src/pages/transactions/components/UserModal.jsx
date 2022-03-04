@@ -5,6 +5,7 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
+  Button,
   Text,
   Box,
   Flex,
@@ -14,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { BsArrowDownRight, BsArrowUpRight, BsBagCheck, BsEye } from "react-icons/bs";
 
-export const UserModal = ({ name, data }) => {
+export const UserModal = ({ name, dateCreated }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -38,13 +39,13 @@ export const UserModal = ({ name, data }) => {
             >
               <Avatar
                 size="lg"
-                name={data?.name}
-                src={data?.imageUrl}
+                name="Dan Abrahmov"
+                src="https://bit.ly/dan-abramov"
               />
               <Text my="5px" fontWeight={"bold"}>
                 {name}
               </Text>
-              <Text>Account created {data?.dateCreated}</Text>
+              <Text>Account created {dateCreated}</Text>
             </Flex>
             <Flex
               my={"20px"}

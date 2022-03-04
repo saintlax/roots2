@@ -32,15 +32,15 @@ export const MenuLItems = ({ name, dateCreated }) => {
           <MenuItem>
             <CautionAlertDialog
               icon={
-                <Tooltip label="delete merchant" aria-label="A tooltip">
+                <Tooltip label="delete transaction" aria-label="A tooltip">
                   <Text className="red small">
                     <AiOutlineDelete />
                   </Text>
                 </Tooltip>
               }
-              cautionTitle="Are you sure you want to deactivate merchant?"
+              cautionTitle="Are you sure you want to delete transaction?"
               noText={"No, Dont Deactivate"}
-              yesText={"Yes, Deactivate Marchant"}
+              yesText={"Yes, Delete Transaction"}
               mt="5px"
               small={true}
               onContinue={null}

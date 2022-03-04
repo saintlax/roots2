@@ -1,5 +1,5 @@
-import { Box, Flex, HStack, Stack, useBoolean } from '@chakra-ui/react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Box, Flex, HStack, Stack } from '@chakra-ui/react';
+import { Routes, Route } from 'react-router-dom';
 
 import { PROTECTED_PATHS } from './constants';
 
@@ -29,7 +29,7 @@ const AuthenticatedApp = () => {
         </HStack>
 
         {/* main page */}
-        <Box p='9'>
+        <Box p={['10px 10px 40px 10px', '9']}>
           <Routes>
             <Route path={DASHBOARD} element={<Dashboard />} />
             <Route path={USERS} element={<Users />} />

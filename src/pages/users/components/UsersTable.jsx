@@ -1,11 +1,5 @@
 import {
   Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
   Box,
 } from "@chakra-ui/react";
 import { TableBody } from "./TableBody";
@@ -13,8 +7,14 @@ import { TableHead } from "./TableHead";
 
 export const UsersTable = () => {
   return (
-    <Box bg={"#fff"} borderRadius="20px">
-      <Table size="md">
+    <Box
+      bg={"#fff"}
+      borderRadius="20px"
+      Box
+      maxWidth={["100%"]}
+      overflowX={["scroll", "hidden"]}
+    >
+      <Table size="md" variant="striped" colorScheme={"blackAlpha"}>
         <TableHead />
         <TableBody />
       </Table>
