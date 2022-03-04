@@ -12,7 +12,7 @@ export const UsersTable = () => {
       borderRadius="20px"
       Box
       maxWidth={["100%"]}
-      overflowX={["scroll", "hidden"]}
+      overflowX={["scroll", "scroll", "scroll", "hidden"]}
     >
       <Table size="md" variant="striped" colorScheme={"blackAlpha"}>
         <TableHead />

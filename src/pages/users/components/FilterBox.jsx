@@ -5,11 +5,11 @@ import { FiChevronDown } from "react-icons/fi";
 
 export const FilterBox = () => {
 
-  const [isLargerThan600] = useMediaQuery("(max-width: 1280px)");
+  const [isLargerThan600] = useMediaQuery("(max-width: 600px)");
   return (
     <Flex justifyContent={"space-between"}>
       <Flex
-        width={["50px", "150px"]}
+        width={["50px", "100px", "120px", "150px"]}
         justifyContent="center"
         alignItems={"center"}
         bg="#fff"
@@ -40,7 +40,7 @@ export const FilterBox = () => {
         </Box> */}
       </Flex>
       <Flex
-        width={["50px", "150px"]}
+        width={["50px", "100px", "120px", "150px"]}
         justifyContent="center"
         alignItems={"center"}
         bg="#fff"
@@ -63,7 +63,7 @@ export const FilterBox = () => {
         </Select>
       </Flex>
       <Flex
-        width={["50px", "150px"]}
+        width={["50px", "100px", "120px", "150px"]}
         justifyContent="center"
         alignItems={"center"}
         bg="#fff"
