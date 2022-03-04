@@ -5,7 +5,7 @@ import { PROTECTED_PATHS } from './constants';
 
 import Dashboard from '../pages/dashboard';
 import Users from '../pages/users';
-import Marchants from '../pages/marchants';
+import Merchants from '../pages/merchants';
 import Transactions from '../pages/transactions';
 import Settings from '../pages/settings';
 import Roles from '../pages/roles';
@@ -15,7 +15,7 @@ import Menu from '../components/menu';
 import Loans from '../pages/loans';
 
 const AuthenticatedApp = () => {
-  const { DASHBOARD, USERS, MARCHANTS, TRANSACTIONS, LOANS, SETTINGS, ROLES } =
+  const { DASHBOARD, USERS, MERCHANTS, TRANSACTIONS, LOANS, SETTINGS, ROLES } =
     PROTECTED_PATHS;
 
   const isMobileScreen = IsMobile();
@@ -33,7 +33,7 @@ const AuthenticatedApp = () => {
           <Routes>
             <Route path={DASHBOARD} element={<Dashboard />} />
             <Route path={USERS} element={<Users />} />
-            <Route path={MARCHANTS} element={<Marchants />} />
+            <Route path={MERCHANTS} element={<Merchants />} />
             <Route path={TRANSACTIONS} element={<Transactions />} />
             <Route path={LOANS} element={<Loans />} />
             <Route path={SETTINGS} element={<Settings />} />

@@ -8,7 +8,8 @@ export const cardData = [
     title: 'Wallet Balance',
     percentage: 48,
     iconBg: '#eaf1ff',
-    icon: <BiWalletAlt size={30} color='#1459DF' />,
+    icon: <BiWalletAlt size={35} color='#1459DF' />,
+    className: 'card-one',
   },
   {
     id: 2,
@@ -16,7 +17,8 @@ export const cardData = [
     title: 'Comissions Made',
     percentage: 48,
     iconBg: '#fef4e8',
-    icon: <img src={withdraw} alt='withdraw' height='25px' width='25px' />,
+    icon: <img src={withdraw} alt='withdraw' height='35px' width='35px' />,
+    className: 'card-two',
   },
   {
     id: 3,
@@ -24,7 +26,8 @@ export const cardData = [
     title: 'Total Users',
     percentage: 48,
     iconBg: '#e8f9ee',
-    icon: <BiUser size={30} color='#14C25A' />,
+    icon: <BiUser size={35} color='#14C25A' />,
+    className: 'card-three',
   },
   {
     id: 4,
@@ -32,6 +35,7 @@ export const cardData = [
     title: 'Total Merchants',
     percentage: 48,
     iconBg: '#fdeaee',
-    icon: <BiStore size={30} color='#E73152' />,
+    icon: <BiStore size={35} color='#E73152' />,
+    className: 'card-four',
   },
 ];

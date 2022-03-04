@@ -26,8 +26,9 @@ const Sidebar = ({ showMenu }) => {
     <div className={'sidebar'}>
       <Stack
         zIndex={10}
-        w='200px'
-        h='100vh'
+        w='210px'
+        h='100%'
+        minH='100vh'
         bg='primary'
         color='#fff'
         gap='2rem'

@@ -3,20 +3,18 @@ import { BiWalletAlt } from 'react-icons/bi';
 import { MdTrendingUp } from 'react-icons/md';
 
 const Card = (props) => {
-  console.log(props);
-  const { amount, icon, iconBg, percentage, title } = props;
+  const { amount, icon, iconBg, percentage, title, className } = props;
 
   return (
-    <Square bg='white' w='260px' p='5' borderRadius={8} gap='6'>
+    <Square bg='white' className={className} p='5' borderRadius={8} gap='6'>
       <Circle bg={iconBg} p='3'>
-        {/* <BiWalletAlt size={30} color='#1459DF' /> */}
         {icon}
       </Circle>
       <Stack>
-        <Text fontSize='18px' fontWeight='600'>
+        <Text fontSize={'24px'} as='h3'>
           {amount}
         </Text>
-        <Text>{title}</Text>
+        <Text m='0 !important'>{title}</Text>
         <HStack color='green'>
           <MdTrendingUp />
           <Text>
