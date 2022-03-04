@@ -1,8 +1,16 @@
+@font-face {
+  font-family: FilsonPro-Medium;
+  src: url('./assets/fonts/FilsonPro-Medium/FilsonPro-Medium.woff');
+}
+
+@font-face {
+  font-family: FilsonPro-Regular;
+  src: url('./assets//fonts//FilsonPro-Regular/FilsonPro-Regular.woff');
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'FilsonPro-Regular, FilsonPro-Medium';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -4,8 +4,8 @@ export const getComponentTitle = (pathname) => {
       return 'Dashboard';
     case '/users':
       return 'Users';
-    case '/marchants':
-      return 'Marchants';
+    case '/merchants':
+      return 'Merchants';
     case '/transactions':
       return 'Transactions';
     case '/loans':

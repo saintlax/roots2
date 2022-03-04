@@ -9,7 +9,7 @@ import { GiReceiveMoney } from 'react-icons/gi';
 export const navLinks = [
   { title: 'Dashboard', icon: RiDashboardLine, to: 'dashboard' },
   { title: 'Users', icon: BiUser, to: 'users' },
-  { title: 'Merchants', icon: BsWalletFill, to: 'marchant' },
+  { title: 'Merchants', icon: BsWalletFill, to: 'merchants' },
   { title: 'Transactions', icon: ImArrowUpRight2, to: 'transactions' },
   { title: 'Loans', icon: GiReceiveMoney, to: 'loans' },
   { title: 'Settings', icon: FiSettings, to: 'settings' },
