@@ -1,5 +1,5 @@
-import { Box, Flex, HStack, Stack, useBoolean } from '@chakra-ui/react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Box, Flex, HStack, Stack } from '@chakra-ui/react';
+import { Routes, Route } from 'react-router-dom';
 
 import { PROTECTED_PATHS } from './constants';
 

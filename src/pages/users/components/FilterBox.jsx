@@ -1,4 +1,4 @@
-import { Box, Flex, Select, useMediaQuery } from "@chakra-ui/react";
+import { Flex, Select, useMediaQuery } from "@chakra-ui/react";
 import { TiUpload } from "react-icons/ti"
 import { BiCube, BiFilter } from "react-icons/bi"
 import { FiChevronDown } from "react-icons/fi";

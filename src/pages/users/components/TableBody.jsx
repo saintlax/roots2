@@ -1,7 +1,7 @@
 import { Tr, Tbody, Td, Avatar, Flex, Text, Checkbox } from "@chakra-ui/react";
 import { tableBodyData } from "./tableBodyData";
 
-import { BsThreeDots } from "react-icons/bs";
+// import { BsThreeDots } from "react-icons/bs";
 import { MenuLItems } from "./MenuList";
 
 export const TableBody = () => {

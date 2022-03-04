@@ -1,11 +1,5 @@
 import {
   Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
   Box,
 } from "@chakra-ui/react";
 import { TableBody } from "./TableBody";
