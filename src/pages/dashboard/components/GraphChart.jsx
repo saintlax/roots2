@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { Line } from 'react-chartjs-2';
+import ChartFilter from './ChartFilter';
 
 import {
   Chart as ChartJS,
@@ -13,6 +14,7 @@ import {
   Filler,
 } from 'chart.js';
 import { labels, options } from './graphChartData';
+import IsMobile from '../../../components/common/IsMobile';
 
 ChartJS.register(
   CategoryScale,
@@ -26,6 +28,7 @@ ChartJS.register(
 );
 
 const GraphChart = () => {
+  const isMobile = IsMobile();
   const data = {
     labels,
     datasets: [
@@ -55,7 +58,19 @@ const GraphChart = () => {
   };
 
   return (
-    <Box bg='#fff' p='5' borderRadius='10'>
+    <Box
+      bg='#fff'
+      p={['8']}
+      px={['2']}
+      borderRadius='10'
+      h='100%'
+      pos='relative'
+    >
+      {!isMobile && (
+        <Box pos='absolute' right={'42px'} top='20px'>
+          <ChartFilter />
+        </Box>
+      )}
       <Line data={data} options={options} redraw={true} />
     </Box>
   );

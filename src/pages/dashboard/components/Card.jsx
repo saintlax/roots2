@@ -6,7 +6,13 @@ const Card = (props) => {
   const { amount, icon, iconBg, percentage, title, className } = props;
 
   return (
-    <Square bg='white' className={className} p='5' borderRadius={8} gap='6'>
+    <Square
+      bg='white'
+      className={className}
+      py={['5']}
+      borderRadius={8}
+      gap='6'
+    >
       <Circle bg={iconBg} p='3'>
         {icon}
       </Circle>

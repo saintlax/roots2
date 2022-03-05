@@ -1,0 +1,56 @@
+.dashboard-grid {
+  /* background-color: red; */
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(12, 1fr);
+  /* grid-template-rows: repeat(12 1fr); */
+}
+
+.card-one,
+.card-two,
+.card-three,
+.card-four,
+.graph-chart,
+.recent-activities {
+  grid-column: 1/13;
+}
+
+.graph-chart {
+  height: 500px;
+  /* width: 100%; */
+}
+
+@media (min-width: 600px) {
+  .card-one {
+    grid-column: 1/7;
+  }
+  .card-two {
+    grid-column: 7/13;
+  }
+  .card-three {
+    grid-column: 1/7;
+  }
+  .card-four {
+    grid-column: 7/13;
+  }
+}
+@media (min-width: 1200px) {
+  .card-one {
+    grid-column: 1/4;
+  }
+  .card-two {
+    grid-column: 4/7;
+  }
+  .card-three {
+    grid-column: 7/10;
+  }
+  .card-four {
+    grid-column: 10/13;
+  }
+  .graph-chart {
+    grid-column: 1/10;
+  }
+  .recent-activities {
+    grid-column: 10/13;
+  }
+}

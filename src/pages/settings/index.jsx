@@ -9,18 +9,10 @@ const Settings = () => {
   const [settingType, setSettingType] = useState('change-password');
 
   return (
-    <Stack>
-      <Text as='h2'>Settings</Text>
-      <Flex gap='7'>
-        <Stack
-          borderRadius='10px'
-          gap='2'
-          p='10'
-          h='500px'
-          w='300px'
-          bg='white'
-          fontSize='16px'
-        >
+    <Stack h='100%' overflowY='auto'>
+      <Text as='h3'>Settings</Text>
+      <Flex gap='7' direction={['column']}>
+        <Stack borderRadius='10px' gap='2' p='10' bg='white' fontSize='15px'>
           <HStack
             cursor='pointer'
             onClick={() => setSettingType('change-password')}

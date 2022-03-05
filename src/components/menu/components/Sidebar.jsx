@@ -45,9 +45,8 @@ const Sidebar = ({ showMenu }) => {
 
         <UnorderedList w='100%' styleType='none' spacing='1rem'>
           {navLinks.map((link, i) => (
-            <ListItem className='list-item'>
+            <ListItem key={i} className='list-item'>
               <NavLink
-                key={i}
                 to={link?.to ? link.to : '/'}
                 // style={activeStyles}
                 className='nav-link'
