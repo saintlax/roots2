@@ -14,7 +14,7 @@ import { UserModal } from "./UserModal";
 import CautionAlertDialog from "../../../components/CautionAlertDialog";
 
 
-export const MenuLItems = ({ name, dateCreated }) => {
+export const MenuLItems = ({ name, data }) => {
   return (
     <>
       <Menu>
@@ -23,7 +23,7 @@ export const MenuLItems = ({ name, dateCreated }) => {
         </MenuButton>
         <MenuList>
           <MenuItem>
-            <UserModal name={name} dateCreated={dateCreated} />
+            <UserModal name={name} data={data} />
           </MenuItem>
           <MenuItem>
             <FiEdit />
@@ -32,22 +32,22 @@ export const MenuLItems = ({ name, dateCreated }) => {
           <MenuItem>
             <CautionAlertDialog
               icon={
-                <Tooltip label="delete merchant" aria-label="A tooltip">
+                <Tooltip label="delete user" aria-label="A tooltip">
                   <Text className="red small">
                     <AiOutlineDelete />
                   </Text>
                 </Tooltip>
               }
-              cautionTitle="Are you sure you want to deactivate merchant?"
-              noText={"No, Dont Deactivate"}
-              yesText={"Yes, Deactivate Marchant"}
+              noText="No, Dont Delete"
+              yesText={"Yes, Delete User"}
+              cautionTitle="Are you sure you want to delete user?"
               mt="5px"
               small={true}
               onContinue={null}
             />
-            <span style={{ marginLeft: "10px" }}>Deactivate</span>
+            <span style={{ marginLeft: "10px" }}>Delete</span>
             {/* <AiOutlineDelete />
-            <span style={{ marginLeft: "10px" }}>Deactivate</span> */}
+            <span style={{ marginLeft: "10px" }}>Delete</span> */}
           </MenuItem>
         </MenuList>
       </Menu>

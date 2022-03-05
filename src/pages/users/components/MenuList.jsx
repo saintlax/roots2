@@ -7,14 +7,14 @@ import {
   Text,
 
 } from "@chakra-ui/react";
-import { BsEye, BsThreeDots } from "react-icons/bs";
+import { BsThreeDots } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi"
 import { AiOutlineDelete } from "react-icons/ai"
 import { UserModal } from "./UserModal";
 import CautionAlertDialog from "../../../components/CautionAlertDialog";
 
 
-export const MenuLItems = ({ name, dateCreated }) => {
+export const MenuLItems = ({ name, data }) => {
   return (
     <>
       <Menu>
@@ -23,7 +23,7 @@ export const MenuLItems = ({ name, dateCreated }) => {
         </MenuButton>
         <MenuList>
           <MenuItem>
-            <UserModal name={name} dateCreated={dateCreated} />
+            <UserModal name={name} data={data} />
           </MenuItem>
           <MenuItem>
             <FiEdit />
@@ -32,7 +32,7 @@ export const MenuLItems = ({ name, dateCreated }) => {
           <MenuItem>
             <CautionAlertDialog
               icon={
-                <Tooltip label="delete house" aria-label="A tooltip">
+                <Tooltip label="delete user" aria-label="A tooltip">
                   <Text className="red small">
                     <AiOutlineDelete />
                   </Text>

@@ -1,7 +1,7 @@
 import { Tr, Tbody, Td, Avatar, Flex, Text, Checkbox } from "@chakra-ui/react";
 import { tableBodyData } from "./tableBodyData";
 
-// import { BsThreeDots } from "react-icons/bs";
+import { BsThreeDots } from "react-icons/bs";
 import { MenuLItems } from "./MenuList";
 
 export const TableBody = () => {
@@ -21,7 +21,7 @@ export const TableBody = () => {
               </Td>
               <Td>{data?.email}</Td>
               <Td>{data?.phone}</Td>
-              <Td>{data?.loanAmount}</Td>
+              <Td>{data?.dateCreated}</Td>
               <Td>
                 <Text
                   color={"#009A49"}
@@ -32,9 +32,7 @@ export const TableBody = () => {
                   {data?.status}
                 </Text>
               </Td>
-              <Td 
-                // position={["sticky", "unset"]} right={["-3%", 0]} marginTop={["-30px", 0]}
-              >
+              <Td>
                <MenuLItems name={data?.name} data={data} />
               </Td>
             </Tr>

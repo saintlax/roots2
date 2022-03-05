@@ -7,7 +7,7 @@ import { UsersTable } from "./components/UsersTable"
 const Users = () => {
   return (
     <Box>
-      <Flex my="20px" justifyContent={["space-between"]}>
+      <Flex my={["20px"]} direction={["row"]} justifyContent={["space-between"]}>
         <Box>
           <Text color={"#4A4C4F"} fontSize={["20px"]} fontWeight={["bold"]}>
             Users
