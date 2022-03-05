@@ -12,8 +12,12 @@ import {
   Avatar,
   Select,
   Circle,
+  Image,
 } from "@chakra-ui/react";
 import { BsArrowDownRight, BsArrowUpRight, BsBagCheck, BsEye } from "react-icons/bs";
+
+import topImage from "../images/background.png"
+import { MerchantTab } from "./MerchantTab";
 
 export const UserModal = ({ name, dateCreated }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -25,37 +29,42 @@ export const UserModal = ({ name, dateCreated }) => {
         <span style={{ marginLeft: "10px" }}>View</span>
       </Flex>
 
-      <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+      <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose} size="2xl">
         <ModalOverlay />
         <ModalContent>
           {/* <ModalHeader>Modal Title</ModalHeader> */}
-          <ModalCloseButton />
-          <ModalBody p="50px">
+          <ModalCloseButton bg={"#1459df"} color="#fff" />
+          <Image src={topImage} alt="Background" />
+          <ModalBody>
             <Flex
               width={"100%"}
               direction="column"
               justifyContent="center"
               alignItems={"center"}
+              mt="-8%"
             >
               <Avatar
-                size="lg"
+                size="xl"
                 name="Dan Abrahmov"
                 src="https://bit.ly/dan-abramov"
               />
-              <Text my="5px" fontWeight={"bold"}>
-                {name}
+              <Text mt="5px">
+                Merchant
               </Text>
+              <Text fontWeight={"bold"}>Anayo Obiajulu</Text>
               <Text>Account created {dateCreated}</Text>
             </Flex>
             <Flex
+            width={"100%"}
+            direction="column"
               my={"20px"}
               justifyContent={"space-between"}
               alignItems="center"
               fontWeight={"semibold"}
               borderBottom="5px solid #f4f4f4"
             >
-              <Text>Transaction History</Text>
-              <Flex
+              <MerchantTab />
+              {/* <Flex
                 width={"160px"}
                 justifyContent="center"
                 alignItems={"center"}
@@ -73,50 +82,9 @@ export const UserModal = ({ name, dateCreated }) => {
                   <option value="option2">Option 2</option>
                   <option value="option3">Option 3</option>
                 </Select>
-              </Flex>
+              </Flex> */}
             </Flex>
-            <Flex
-              my={"20px"}
-              justifyContent={"space-between"}
-              alignItems="center"
-              fontWeight={"normal"}
-            >
-              <Flex
-                width={"65%"}
-                justifyContent={"space-between"}
-                alignItems="center"
-              >
-                <Circle size={"30px"} bg="#1459DF">
-                  <BsArrowDownRight color="#fff" />
-                </Circle>
-                <Box>
-                  <Text>Loan Paid</Text>
-                  <Text>September 24, 2021 10:28pm</Text>
-                </Box>
-              </Flex>
-              <Text color={"red"}>-#10,000</Text>
-            </Flex>
-            <Flex
-              my={"20px"}
-              justifyContent={"space-between"}
-              alignItems="center"
-              fontWeight={"normal"}
-            >
-              <Flex
-                width={"65%"}
-                justifyContent={"space-between"}
-                alignItems="center"
-              >
-                <Circle size={"30px"} bg="#1459DF">
-                  <BsArrowUpRight color="#fff" />
-                </Circle>
-                <Box>
-                  <Text>Loan Credited</Text>
-                  <Text>September 24, 2021 10:28pm</Text>
-                </Box>
-              </Flex>
-              <Text color={"green"}>#43,000</Text>
-            </Flex>
+          
           </ModalBody>
         </ModalContent>
       </Modal>

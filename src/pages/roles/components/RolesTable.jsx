@@ -7,8 +7,14 @@ import { TableHead } from "./TableHead";
 
 export const RolesTable = () => {
   return (
-    <Box bg={"#fff"} borderRadius="20px">
-      <Table size="md">
+    <Box
+      bg={"#fff"}
+      borderRadius="20px"
+      Box
+      maxWidth={["100%"]}
+      overflowX={["scroll", "scroll", "scroll", "hidden"]}
+    >
+      <Table size="md" variant="striped" colorScheme={"blackAlpha"}>
         <TableHead />
         <TableBody />
       </Table>
