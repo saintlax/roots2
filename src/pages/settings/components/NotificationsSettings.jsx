@@ -11,7 +11,7 @@ import React from 'react';
 
 const NotificationsSettings = () => {
   return (
-    <FormControl borderRadius='10px' p='10' h='500px' w='500px' bg='#fff'>
+    <FormControl borderRadius='10px' p='10' bg='#fff'>
       <Text as='h3' mb='5' fontSize='16px' color='primary'>
         Notifications
       </Text>

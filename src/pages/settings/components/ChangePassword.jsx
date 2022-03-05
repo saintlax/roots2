@@ -11,7 +11,7 @@ import React from 'react';
 
 const ChangePassword = () => {
   return (
-    <FormControl borderRadius='10px' p='10' h='500px' w='500px' bg='#fff'>
+    <FormControl borderRadius='10px' p='10' bg='#fff'>
       <Text as='h3' mb='5' fontSize='16px' color='primary'>
         Change Password
       </Text>
@@ -35,7 +35,7 @@ const ChangePassword = () => {
         name='confirm-password'
         placeholder='*******'
       />
-      <HStack mt='8' justify='flex-end'>
+      <HStack mt='8' justify={['space-between', 'flex-end']}>
         <Button px='30px'>Cancel</Button>
         <Button bg='primary' px='30px' color='#fff'>
           Save
