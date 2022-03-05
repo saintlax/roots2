@@ -5,7 +5,6 @@ import MobileMenu from '../../menu/components/MobileMenu';
 import { HiOutlineMenuAlt1 } from 'react-icons/hi';
 import { BiSearch } from 'react-icons/bi';
 import { AiOutlineBell } from 'react-icons/ai';
-
 import { useLocation } from 'react-router-dom';
 import { getComponentTitle } from './getComponentTitle';
 
