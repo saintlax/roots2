@@ -5,9 +5,6 @@
   grid-template-columns: repeat(12, 1fr);
   /* grid-template-rows: repeat(12 1fr); */
 }
-/* .cards-container {
-  grid-column: 1/13;
-} */
 
 .card-one,
 .card-two,
