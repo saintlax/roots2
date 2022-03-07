@@ -36,11 +36,6 @@ const theme = extendTheme({
         color: '#4A4C4F',
         fontFamily: 'Circular Std Medium',
       },
-      placeholder: {
-        color: '#061624',
-        fontSize: '12px',
-        // fontWeight: 400,
-      },
     },
   },
 });
