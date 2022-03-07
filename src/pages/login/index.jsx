@@ -21,9 +21,9 @@ const Login = () => {
   // };
 
   const handleLogin = () => {
-    // if (email && password) {
-    //   navigate('/dashboard');
-    // }
+    if (email && password) {
+      navigate('/dashboard');
+    }
   };
 
   useEffect(() => {

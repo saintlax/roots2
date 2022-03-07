@@ -14,5 +14,5 @@ export const navLinks = [
   { title: 'Loans', icon: GiReceiveMoney, to: 'loans' },
   { title: 'Settings', icon: FiSettings, to: 'settings' },
   { title: 'Roles', icon: BiUserPin, to: 'roles' },
-  { title: 'Logout', icon: FiLogOut, to: 'logout' },
+  { title: 'Logout', icon: FiLogOut, to: '/' },
 ];
