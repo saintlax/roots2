@@ -3,16 +3,16 @@ import { Routes, Route } from 'react-router-dom';
 
 import { PROTECTED_PATHS } from './constants';
 
-import Dashboard from '../pages/dashboard';
-import Users from '../pages/users';
-import Merchants from '../pages/merchants';
-import Transactions from '../pages/transactions';
-import Settings from '../pages/settings';
-import Roles from '../pages/roles';
-import IsMobile from '../components/common/IsMobile';
+import Dashboard from "../pages/Admin/dashboard";
+import Users from "../pages/Admin/users";
+import Merchants from "../pages/Admin/merchants";
+import Transactions from "../pages/Admin/transactions";
+import Settings from "../pages/Admin/settings";
+import Roles from "../pages/Admin/roles";
+import IsMobile from "../components/common/IsMobile";
 import Headerbar from '../components/headerbar';
 import Menu from '../components/menu';
-import Loans from '../pages/loans';
+import Loans from '../pages/Admin/loans';
 
 const AuthenticatedApp = () => {
   const { DASHBOARD, USERS, MERCHANTS, TRANSACTIONS, LOANS, SETTINGS, ROLES } =

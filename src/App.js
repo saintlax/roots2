@@ -2,7 +2,10 @@ import { useState } from 'react';
 import './App.css';
 import AuthenticatedApp from './app/AuthenticatedApp';
 import UnAuthenticatedApp from './app/UnAuthenticatedApp';
+
 import { useLocation } from 'react-router-dom';
+import UnAuthenticatedMerchantApp from './app/UnAuthenticatedMerchantApp';
+import AuthenticatedMerchantApp from './app/AuthenticatedMerchantApp';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -14,9 +17,9 @@ function App() {
   // }
 
   if (isLoggedIn) {
-    return <AuthenticatedApp />;
+    return <AuthenticatedMerchantApp />;
   }
-  return <UnAuthenticatedApp />;
+  return <UnAuthenticatedMerchantApp />;
 }
 
 export default App;

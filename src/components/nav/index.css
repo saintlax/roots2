@@ -1,0 +1,13 @@
+.nav-links {
+  background: #fff;
+  box-shadow: 0px 4px 25px rgba(183, 183, 184, 0.37)
+
+}
+
+.active {
+  /* background: #f1f6ff; */
+  color: #0168da;
+  font-weight: 700;
+  border-bottom: 2px solid grey;
+  position: relative;
+}
