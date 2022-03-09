@@ -1,4 +1,17 @@
-import { Flex, Heading, HStack, Text } from '@chakra-ui/react';
+import {
+  Badge,
+  Box,
+  Button,
+  Flex,
+  Heading,
+  HStack,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Portal,
+  Text,
+} from '@chakra-ui/react';
 import React from 'react';
 import CustomDrawer from '../../common/CustomDrawer';
 import MobileMenu from '../../menu/components/MobileMenu';
@@ -35,10 +48,32 @@ const HeaderbarMobile = () => {
       </Text>
       <Flex align={'center'} gap='3' pr='3'>
         <BiSearch size={25} />
-        <AiOutlineBell size={25} />
+        <Menu>
+          <MenuButton pos='relative' cursor='pointer'>
+            <Badge {...badgeSTyles}>3</Badge>
+            <AiOutlineBell size={25} />
+          </MenuButton>
+          <Portal>
+            <MenuList>
+              <MenuItem>All notifications</MenuItem>
+              <MenuItem>Read Notifications</MenuItem>
+              <MenuItem>Unread Notifications</MenuItem>
+            </MenuList>
+          </Portal>
+        </Menu>
       </Flex>
     </HStack>
   );
 };
 
 export default HeaderbarMobile;
+
+const badgeSTyles = {
+  fontSize: '10px',
+  pos: 'absolute',
+  borderRadius: '50%',
+  h: '15px',
+  w: '15px',
+  top: '0',
+  right: 0,
+};

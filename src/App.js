@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import AuthenticatedApp from './app/AuthenticatedApp';
 import UnAuthenticatedApp from './app/UnAuthenticatedApp';
@@ -6,6 +6,7 @@ import UnAuthenticatedApp from './app/UnAuthenticatedApp';
 import { useLocation } from 'react-router-dom';
 import UnAuthenticatedMerchantApp from './app/UnAuthenticatedMerchantApp';
 import AuthenticatedMerchantApp from './app/AuthenticatedMerchantApp';
+import { setSelectionRange } from '@testing-library/user-event/dist/utils';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -15,6 +16,10 @@ function App() {
   // if (pathname === '/dashboard') {
   //   setIsLoggedIn(true);
   // }
+
+  useEffect(() => {
+    pathname !== '/' ? setIsLoggedIn(true) : setIsLoggedIn(false);
+  }, [pathname]);
 
   if (isLoggedIn) {
     return <AuthenticatedMerchantApp />;

@@ -13,12 +13,24 @@ import {
   UnorderedList,
 } from '@chakra-ui/react';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { IoMdClose } from 'react-icons/io';
 import logo from '../../../assets/icons/logo.svg';
 import { navLinks } from './sidebarData';
 
 const MobileMenu = ({ onClose }) => {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const [link] = navLinks;
+
+  const handleClick = () => {
+    onClose();
+    console.log({ link, pathname });
+    // if (pathname === 'logout') {
+    //   window.location.href = '/';
+    // }
+  };
+
   return (
     <Stack gap='1rem' bg='primary' w='100%' className='mobile-menu'>
       <HStack align='center' justify={'space-between'} pr='60px'>
@@ -52,7 +64,7 @@ const MobileMenu = ({ onClose }) => {
 
       <UnorderedList w='100%' styleType='none' spacing='12px'>
         {navLinks.map((link, i) => (
-          <ListItem className='list-item' key={i}>
+          <ListItem className='list-item' key={i} onClick={handleClick}>
             <NavLink to={link?.to ? link.to : '/'} className='nav-link'>
               <ListIcon fontSize='20px' mr='15px' as={link.icon} />
               {link.title}

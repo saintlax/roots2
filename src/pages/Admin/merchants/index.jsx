@@ -10,7 +10,7 @@ const Merchants = () => {
       <Flex my='20px' justifyContent={['space-between']}>
         <Box>
           <Text color={'#4A4C4F'} fontSize={['20px']} fontWeight={['bold']}>
-            Marchants
+            Merchants
           </Text>
         </Box>
         <Box>
