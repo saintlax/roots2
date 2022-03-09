@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { setSelectionRange } from '@testing-library/user-event/dist/utils';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const { pathname } = useLocation();
 
   console.log('appjs ', pathname);
