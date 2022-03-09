@@ -81,7 +81,7 @@ export const UserModal = ({ name, data }) => {
               fontWeight={"normal"}
             >
               <Flex
-                width={"65%"}
+                width={"70%"}
                 justifyContent={"space-between"}
                 alignItems="center"
               >
@@ -102,7 +102,7 @@ export const UserModal = ({ name, data }) => {
               fontWeight={"normal"}
             >
               <Flex
-                width={"65%"}
+                width={"70%"}
                 justifyContent={"space-between"}
                 alignItems="center"
               >

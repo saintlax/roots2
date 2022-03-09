@@ -5,7 +5,7 @@ import UnAuthenticatedApp from './app/UnAuthenticatedApp';
 import { useLocation } from 'react-router-dom';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const { pathname } = useLocation();
 
   console.log('appjs ', pathname);
