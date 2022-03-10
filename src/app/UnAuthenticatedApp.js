@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { PUBLIC_PATHS } from './constants';
-import Login from '../pages/Admin/login';
+import Login from '../pages/login';
 import ForgotPassword from '../pages/Admin/forgotPassword';
 // import { CheckEmail } from './../pages/forgotPassword/checkYourEmail/index';
 

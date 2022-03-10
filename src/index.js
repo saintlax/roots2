@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { BrowserRouter } from 'react-router-dom';
+import UserTypeContextProvider from './context/userAuthContext/userTypeContext';
 
 const theme = extendTheme({
   colors: {
@@ -44,7 +45,9 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <ChakraProvider theme={theme}>
-        <App />
+        <UserTypeContextProvider>
+          <App />
+        </UserTypeContextProvider>
       </ChakraProvider>
     </BrowserRouter>
   </React.StrictMode>,
