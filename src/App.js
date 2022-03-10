@@ -1,30 +1,42 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './App.css';
 import AuthenticatedApp from './app/AuthenticatedApp';
 import UnAuthenticatedApp from './app/UnAuthenticatedApp';
 
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import UnAuthenticatedMerchantApp from './app/UnAuthenticatedMerchantApp';
 import AuthenticatedMerchantApp from './app/AuthenticatedMerchantApp';
-import { setSelectionRange } from '@testing-library/user-event/dist/utils';
+import { Context } from './context/userAuthContext/userTypeContext';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [userType, setUserType] = useState('merchant');
   const { pathname } = useLocation();
-
+  const navigate = useNavigate();
+  const { userType } = useContext(Context);
   console.log('appjs ', pathname);
+
   // if (pathname === '/dashboard') {
   //   setIsLoggedIn(true);
   // }
 
+  console.log({ userType }, 'vdavda', { isLoggedIn });
+
   useEffect(() => {
-    pathname !== '/' ? setIsLoggedIn(true) : setIsLoggedIn(false);
+    pathname !== '/' && pathname !== 'forgot-password'
+      ? setIsLoggedIn(true)
+      : setIsLoggedIn(false);
   }, [pathname]);
 
   if (isLoggedIn) {
-    return <AuthenticatedMerchantApp />;
+    if (userType?.toLowerCase() === 'admin') {
+      return <AuthenticatedApp />;
+    } else if (userType?.toLowerCase() === 'merchant') {
+      return <AuthenticatedMerchantApp />;
+    }
+  } else {
+    return <UnAuthenticatedApp />;
   }
-  return <UnAuthenticatedMerchantApp />;
 }
 
 export default App;
