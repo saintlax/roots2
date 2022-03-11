@@ -28,27 +28,27 @@ const AuthenticatedMerchantApp = () => {
     }
   }, [isMobileScreen]);
   return (
-    <ChakraProvider>
+    <Box w='100%' h='100%'>
       <Nav />
-      <Box className='App' display='flex' pl={['9%']} pr={['7%']}>
-        <Box w='100%' h='100%'>
-          <Box
-            width='100%'
-            maxWidth='100%'
-            mt='40px'
-            padding={['5px', '10px', '20px']}
-          >
-            <Routes>
-              <Route path={BRANCHES} element={<Branches />} />
-              <Route path={DASHBOARD} element={<Dashboard />} />
-              <Route path={ORDERS} element={<Orders />} />
-              <Route path={PRODUCTS} element={<Products />} />
-              <Route path={NOTIFICATIONS} element={<Notifications />} />
-            </Routes>
-          </Box>
+      <Box bg='#fafafa' minW='100%' minH='100%'>
+        <Box
+          bg='#fafafa'
+          display='flex'
+          w='100%'
+          h='100%'
+          pl={['3%', '9%']}
+          pr={['3%', '7%']}
+        >
+          <Routes>
+            <Route path={BRANCHES} element={<Branches />} />
+            <Route path={DASHBOARD} element={<Dashboard />} />
+            <Route path={ORDERS} element={<Orders />} />
+            <Route path={PRODUCTS} element={<Products />} />
+            <Route path={NOTIFICATIONS} element={<Notifications />} />
+          </Routes>
         </Box>
       </Box>
-    </ChakraProvider>
+    </Box>
   );
 };
 

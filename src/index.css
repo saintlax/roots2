@@ -8,6 +8,10 @@
   src: url('./assets//fonts//FilsonPro-Regular/FilsonPro-Regular.woff');
 }
 
+/* html {
+  width: 100vw;
+} */
+
 body {
   margin: 0;
   font-family: 'FilsonPro-Regular, FilsonPro-Medium';

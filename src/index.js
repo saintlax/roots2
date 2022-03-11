@@ -23,7 +23,12 @@ const theme = extendTheme({
         fontSize: '14px',
         fontWeight: 400,
         color: '#4A4C4F',
-        fontFamily: 'FilsonPro-Regular, FilsonPro-Medium',
+        fontFamily: 'FilsonPro-Regular, FilsonPro-Medium !important',
+      },
+      h1: {
+        fontSize: '25px',
+        fontWeight: 600,
+        color: '#35373A',
       },
       h2: {
         fontSize: '20px',
@@ -36,6 +41,23 @@ const theme = extendTheme({
         fontWeight: 500,
         color: '#4A4C4F',
         fontFamily: 'Circular Std Medium',
+      },
+      h4: {
+        // dark small header
+        fontSize: '16px',
+        fontWeight: 500,
+        // color: '#4A4C4F' dark gray
+      },
+      h5: {
+        // light small title
+        fontSize: '16px',
+        fontWeight: 400,
+        // color:'#4A4C4F'
+      },
+      small: {
+        color: ' #C4C4C4',
+        fontSize: '12px',
+        // fontWeight: 400,
       },
     },
   },

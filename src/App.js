@@ -2,9 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import './App.css';
 import AuthenticatedApp from './app/AuthenticatedApp';
 import UnAuthenticatedApp from './app/UnAuthenticatedApp';
-
 import { useLocation, useNavigate } from 'react-router-dom';
-import UnAuthenticatedMerchantApp from './app/UnAuthenticatedMerchantApp';
 import AuthenticatedMerchantApp from './app/AuthenticatedMerchantApp';
 import { Context } from './context/userAuthContext/userTypeContext';
 
@@ -20,7 +18,7 @@ function App() {
   //   setIsLoggedIn(true);
   // }
 
-  console.log({ userType }, 'vdavda', { isLoggedIn });
+  console.log({ userType }, 'appjs', { isLoggedIn });
 
   useEffect(() => {
     pathname !== '/' && pathname !== 'forgot-password'
