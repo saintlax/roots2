@@ -1,5 +1,4 @@
 .merchant-dashboard-grid {
-  background-color: red;
   display: grid;
   gap: 30px;
   grid-template-columns: repeat(12, 1fr);
