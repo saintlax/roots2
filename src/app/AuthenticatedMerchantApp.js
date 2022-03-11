@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { ChakraProvider, Box } from '@chakra-ui/react';
 import { useMediaQuery } from '@chakra-ui/media-query';
@@ -46,6 +47,7 @@ const AuthenticatedMerchantApp = () => {
             <Route path={PRODUCTS} element={<Products />} />
             <Route path={NOTIFICATIONS} element={<Notifications />} />
           </Routes>
+
         </Box>
       </Box>
     </Box>

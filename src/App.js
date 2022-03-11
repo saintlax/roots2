@@ -4,7 +4,10 @@ import AuthenticatedApp from './app/AuthenticatedApp';
 import UnAuthenticatedApp from './app/UnAuthenticatedApp';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AuthenticatedMerchantApp from './app/AuthenticatedMerchantApp';
+
+
 import { Context } from './context/userAuthContext/userTypeContext';
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
