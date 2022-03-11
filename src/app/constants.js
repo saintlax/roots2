@@ -1,7 +1,8 @@
 export const PUBLIC_PATHS = {
-  LOGIN: '/',
-  FORGOTPASSWORD: '/forgot-password',
-  CHECKEMAIL: '/check-email',
+  LOGIN: "/",
+  SIGNUP: "/signup",
+  FORGOTPASSWORD: "/forgot-password",
+  CHECKEMAIL: "/check-email",
 };
 
 /**

@@ -24,7 +24,7 @@ function App() {
   console.log({ userType }, 'appjs', { isLoggedIn });
 
   useEffect(() => {
-    pathname !== '/' && pathname !== 'forgot-password'
+    pathname !== '/' && pathname !== 'forgot-password' && pathname !== '/signup'
       ? setIsLoggedIn(true)
       : setIsLoggedIn(false);
   }, [pathname]);

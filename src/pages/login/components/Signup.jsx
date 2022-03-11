@@ -10,14 +10,13 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { FiEye, FiEyeOff } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
-import { Context } from "../../context/userAuthContext/userTypeContext";
+import { Context } from "../../../context/userAuthContext/userTypeContext";
 
-import bgImage from "./assets/background.png";
-import { Login } from "./components/Login";
+import bgImage from "../assets/background.png";
+import { SignupForm } from "./SignupForm";
 
-const Index = () => {
+const Signup = () => {
   const [show, setShow] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,10 +47,17 @@ const Index = () => {
         <Image src={bgImage} alt="background image" />
       </Box>
       <Box width={["100%", "100%", "50%"]}>
-        <Login show={show} setShow={setShow} setPassword={setPassword} setEmail={setEmail} disable={disable} handleLogin={handleLogin} />
+        <SignupForm
+          show={show}
+          setShow={setShow}
+          setPassword={setPassword}
+          setEmail={setEmail}
+          disable={disable}
+          handleLogin={handleLogin}
+        />
       </Box>
     </Flex>
   );
 };
 
-export default Index;
+export default Signup;
