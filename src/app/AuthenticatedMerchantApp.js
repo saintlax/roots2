@@ -8,7 +8,7 @@ import { Dashboard } from "../pages/Merchant/dashboard";
 import { Orders } from "../pages/Merchant/orders";
 import { Products } from "../pages/Merchant/products";
 import { Branches } from "../pages/Merchant/branches";
-import Notifications from "../pages/Merchant/notifications";
+import { Notifications}  from "../pages/Merchant/notifications";
 import { Nav } from "../components/nav";
 // import Review from "../pages/review"
 // import { Index } from "../pages/settings/"
@@ -44,7 +44,7 @@ const AuthenticatedMerchantApp = () => {
     // <Router>
       <ChakraProvider>
         <Nav />
-        <Box className="App" display="flex" pl={["9%"]} pr={["7%"]}>
+        <Box className="App" justifyContent={"center"} display="flex">
           <Box className={"app-container"}>
             {/* <Box
             className="app-sidebar"

@@ -10,19 +10,21 @@ export const TableBody = () => {
         {tableBodyData.map((data, i) => {
           return (
             <Tr key={i}>
-              <Td>
-                <Checkbox size="lg" colorScheme="orange" defaultChecked />
+              <Td fontSize={["13px"]}>
+                {data?.orderId}
+                {/* <Checkbox size="lg" colorScheme="orange" defaultChecked /> */}
               </Td>
-              <Td>
+              <Td fontSize={["13px"]}>
                 <Flex alignItems={"center"}>
                   {/* <Avatar size={"sm"} name={data?.name} src={""} mr="5px" /> */}
                   <Text>{data?.date}</Text>
                 </Flex>
               </Td>
-              <Td>{data?.description}</Td>
-              <Td>{data?.name}</Td>
-              <Td>{data?.amount}</Td>
-              <Td>
+              <Td fontSize={["13px"]}>{data?.name}</Td>
+              <Td fontSize={["13px"]}>{data?.address}</Td>
+              <Td fontSize={["13px"]}>{data?.phone}</Td>
+              <Td fontSize={["13px"]}>{data?.amount}</Td>
+              <Td fontSize={["13px"]}>
                 <Text
                   color={
                     data?.status === "Completed"
@@ -38,7 +40,7 @@ export const TableBody = () => {
                   {data?.status}
                 </Text>
               </Td>
-              <Td>
+              <Td fontSize={["13px"]}>
                 <MenuLItems name={data?.name} dateCreated={data?.dateCreated} />
               </Td>
             </Tr>
