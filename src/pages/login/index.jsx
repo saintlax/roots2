@@ -1,6 +1,6 @@
 import { Button } from '@chakra-ui/button';
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/input';
-import { Box, Flex, Text, VStack, Center, FormLabel } from '@chakra-ui/react';
+import { Box, Text, VStack, Center, FormLabel } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { Link, useNavigate } from 'react-router-dom';
@@ -12,7 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [disable, setIsDisable] = useState(true);
   const navigate = useNavigate();
-  const { setUserType, userType } = useContext(Context);
+  const { setUserType } = useContext(Context);
 
   const handleLogin = () => {
     if (email && password) {
