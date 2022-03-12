@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { ChakraProvider, Box } from '@chakra-ui/react';
 import { useMediaQuery } from '@chakra-ui/media-query';
@@ -10,13 +9,14 @@ import { Products } from '../pages/Merchant/products';
 import { Branches } from '../pages/Merchant/branches';
 import Notifications from '../pages/Merchant/notifications';
 import { Nav } from '../components/nav';
+import ViewProfile from '../pages/Merchant/dashboard/components/ViewProfile';
 
 const AuthenticatedMerchantApp = () => {
   const [toggleSide, setToggleSide] = useState(false);
   const [showSidebar] = useState(true);
   const [isMobileScreen] = useMediaQuery('(max-width: 600px)');
 
-  const { DASHBOARD, ORDERS, PRODUCTS, BRANCHES, NOTIFICATIONS } =
+  const { DASHBOARD, ORDERS, PRODUCTS, BRANCHES, NOTIFICATIONS, VIEWPROFILE } =
     PROTECTED_PATHS;
 
   const handleToggle = () => {
@@ -43,11 +43,11 @@ const AuthenticatedMerchantApp = () => {
           <Routes>
             <Route path={BRANCHES} element={<Branches />} />
             <Route path={DASHBOARD} element={<Dashboard />} />
+            {/* <Route path={VIEWPROFILE} element={<ViewProfile />} /> */}
             <Route path={ORDERS} element={<Orders />} />
             <Route path={PRODUCTS} element={<Products />} />
             <Route path={NOTIFICATIONS} element={<Notifications />} />
           </Routes>
-
         </Box>
       </Box>
     </Box>
