@@ -11,6 +11,8 @@ export const TableBody = () => {
           return (
             <Tr key={i}>
               <Td
+              isTruncated
+              maxWidth={"120px"}
                 px={["20px !important", "40px !important"]}
                 fontSize={["14px"]}
               >
@@ -18,6 +20,8 @@ export const TableBody = () => {
                 {/* <Checkbox size="lg" colorScheme="orange" defaultChecked /> */}
               </Td>
               <Td
+              isTruncated
+              maxWidth={"120px"}
                 px={["20px !important", "40px !important"]}
                 fontSize={["14px"]}
               >
@@ -47,6 +51,7 @@ export const TableBody = () => {
               <Td
                 px={["20px !important", "40px !important"]}
                 fontSize={["14px"]}
+                maxWidth="100px"
               >
                 <MenuLItems name={data?.name} dateCreated={data?.dateCreated} />
               </Td>
