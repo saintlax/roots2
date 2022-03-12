@@ -7,7 +7,7 @@ import { tableBodyData } from "./tableBodyData";
 export const TopBranchTableBody = () => {
   return (
     <Tbody>
-        {tableBodyData.map((data, i) => {
+        {tableBodyData?.slice(0, 5).map((data, i) => {
           return (
             <Tr key={i}>
               <Td
