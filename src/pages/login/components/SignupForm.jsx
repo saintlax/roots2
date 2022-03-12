@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
-export const SignupForm = ({ show, setShow, setPassword, setEmail, disable, handleLogin }) => {
+export const SignupForm = ({ show, setShow, setPassword, setEmail, disable, setVerifyEmail }) => {
   const NO_SHADOW = { _focus: { boxShadow: "none" } };
   const BTN_STYLE = {
     _hover: { bg: "rgba(20, 89, 223, 0.7)" },
@@ -17,16 +17,9 @@ export const SignupForm = ({ show, setShow, setPassword, setEmail, disable, hand
   };
 
 
+
   return (
     <Box width={"100%"} px={["3%", "5%", "15%"]}>
-      {/* <VStack
-        spacing="30px"
-        alignItems="center"
-        bg="#fff"
-        p={["10"]}
-        borderRadius="10px"
-        width={["100%", "100%", "100%"]}
-      > */}
       <Heading textAlign={["center"]} as={"h2"} fontSize={"30px"} mb="50px">
         Create your roots account
       </Heading>
@@ -99,25 +92,13 @@ export const SignupForm = ({ show, setShow, setPassword, setEmail, disable, hand
           </InputRightElement>
         </InputGroup>
       </Box>
-      {/* <Flex justifyContent={"space-between"} mt="20px">
-        <Checkbox colorScheme="#C05621" defaultChecked>
-          Remember me
-        </Checkbox>
-        <Text
-          textAlign={"right"}
-          _hover={{ textDecoration: "underline" }}
-          fontSize="1rem"
-        >
-          <Link to="/forgot-password">forgot password?</Link>
-        </Text>
-      </Flex> */}
       <Button
         width={"100%"}
         my="30px"
         isDisabled={disable}
         {...NO_SHADOW}
         {...BTN_STYLE}
-        onClick={handleLogin}
+        onClick={()=>setVerifyEmail(true)}
       >
         Create my account
       </Button>
@@ -130,6 +111,7 @@ export const SignupForm = ({ show, setShow, setPassword, setEmail, disable, hand
         <Link to="/login"> Sign in</Link>
       </Text>
       {/* </VStack> */}
+   
     </Box>
   );
 }

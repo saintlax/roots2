@@ -15,6 +15,7 @@ import { Context } from "../../../context/userAuthContext/userTypeContext";
 
 import bgImage from "../assets/background.png";
 import { SignupForm } from "./SignupForm";
+import { VerifyEmail } from "./VerifyEmail";
 
 const Signup = () => {
   const [show, setShow] = useState(false);
@@ -23,6 +24,9 @@ const Signup = () => {
   const [disable, setIsDisable] = useState(true);
   const navigate = useNavigate();
   const { setUserType } = useContext(Context);
+  
+  const [verifyEmail, setVerifyEmail] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleLogin = () => {
     if (email && password) {
@@ -46,15 +50,23 @@ const Signup = () => {
       <Box width={["100%", "100%", "50%"]}>
         <Image src={bgImage} alt="background image" />
       </Box>
+
       <Box width={["100%", "100%", "50%"]}>
-        <SignupForm
-          show={show}
-          setShow={setShow}
-          setPassword={setPassword}
-          setEmail={setEmail}
-          disable={disable}
-          handleLogin={handleLogin}
-        />
+        {verifyEmail ? (
+          <>
+            <VerifyEmail setSuccess={setSuccess} success={success} />
+          </>
+        ) : (
+          <SignupForm
+            show={show}
+            setShow={setShow}
+            setPassword={setPassword}
+            setEmail={setEmail}
+            disable={disable}
+            handleLogin={handleLogin}
+            setVerifyEmail={setVerifyEmail}
+          />
+        )}
       </Box>
     </Flex>
   );
