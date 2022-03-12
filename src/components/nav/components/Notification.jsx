@@ -18,7 +18,7 @@ const Notifications = () => {
             <Text>New</Text>
             <BiDotsHorizontalRounded size={30} />
           </HStack>
-          {[...Array(4)].map(() => (
+          {[...Array(3)].map(() => (
             <HStack py='1'>
               <Circle h='25px' w='25px' bg='rgba(196, 196, 196, 0.15)' />
               <Text>
