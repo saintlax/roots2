@@ -13,6 +13,7 @@ export const TableBody = () => {
             <Tr key={i}>
               <Tooltip label={data?.prodName}>
                 <Td
+                isTruncated
                   px={["20px !important", "40px !important"]}
                   fontSize={["14px"]}
                 >
@@ -26,6 +27,8 @@ export const TableBody = () => {
               </Tooltip>
               <Tooltip label={data?.description}>
                 <Td
+                isTruncated
+                maxWidth={"150px"}
                   px={["20px !important", "40px !important"]}
                   fontSize={["14px"]}
                 >
@@ -44,6 +47,8 @@ export const TableBody = () => {
               </Tooltip>
               <Tooltip label={data?.address}>
                 <Td
+                isTruncated
+                maxWidth={"150px"}
                   px={["20px !important", "40px !important"]}
                   fontSize={["14px"]}
                 >

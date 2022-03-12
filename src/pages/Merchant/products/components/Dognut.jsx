@@ -6,7 +6,7 @@ import { Box, Text } from '@chakra-ui/react';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const data = {
-  labels: ['Total Sales', 'Total Order', 'Order Cancel'],
+  labels: ['20,000', '10,000', '15,000'],
   datasets: [
     {
       label: 'ffffffff',
@@ -46,12 +46,13 @@ const options = {
   maintainAspectRatio: false,
   plugins: {
     legend: {
-      position: 'bottom',
+      position: "bottom",
       labels: {
         boxWidth: 3,
         boxHeight: 3,
         usePointStyle: true,
-        pointStyle: 'circle',
+        pointStyle: "circle",
+       
       },
     },
   },
@@ -59,6 +60,8 @@ const options = {
 
 export default function Doghnut() {
   return (
+    <Box px="0 !important" position={"relative"} left="-15%">
       <Doughnut data={data} options={options} />
+      </Box>
   );
 }

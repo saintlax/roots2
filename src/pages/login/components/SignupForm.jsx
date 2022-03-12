@@ -17,7 +17,6 @@ export const SignupForm = ({ show, setShow, setPassword, setEmail, disable, setV
   };
 
 
-
   return (
     <Box width={"100%"} px={["3%", "5%", "15%"]}>
       <Heading textAlign={["center"]} as={"h2"} fontSize={"30px"} mb="50px">

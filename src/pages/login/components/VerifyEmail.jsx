@@ -14,7 +14,10 @@ export const VerifyEmail = ({ success,setSuccess }) => {
   return (
     <Box width={"100%"} px={["3%", "5%", "15%"]}>
       {success ? (
-        <Success />
+        <Success
+          title="Email Veified"
+          text={"Your account has been created successfully"}
+        />
       ) : (
         <>
           <Heading textAlign={["center"]} as={"h2"} fontSize={"30px"} my="10px">
