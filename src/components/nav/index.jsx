@@ -27,6 +27,7 @@ import logo from './images/Vector.svg';
 import CustomModal from '../../components/common/CustomModal';
 import ViewProfile from '../../pages/Merchant/dashboard/components/ViewProfile';
 import Settings from '../../pages/Merchant/dashboard/components/Settings';
+import Notifications from './components/Notification';
 
 export const Nav = () => {
   return (
@@ -109,16 +110,13 @@ export const Nav = () => {
               <Box display={['block', 'block', 'none']}>
                 <BsSearch size='20px' />
               </Box>
-              <Box>
-                <AiOutlineBell cursor={'pointer'} color='#fff' size={'26px'} />
-              </Box>
-              {/* <Flex display={["none", "none", "block"]}>
-              <Avatar
-                size="md"
-                name="Dan Abrahmov"
-                src="https://bit.ly/dan-abramov"
-              />
-            </Flex> */}
+              <CustomModal
+                buttonProps={{}}
+                btnIcon={<AiOutlineBell size={'26px'} />}
+              >
+                <Notifications />
+              </CustomModal>
+
               <Box display={['none', 'none', 'block']}>
                 <Menu>
                   <MenuButton
@@ -139,18 +137,12 @@ export const Nav = () => {
                       <Text>Carter Kenter</Text>
                     </HStack>
                   </MenuButton>
-                  <MenuList color={'#000'}>
+                  <MenuList color='darkGray'>
                     <MenuItem>
                       <CustomModal
                         title={'Profile'}
                         btnIcon={
-                          <Image
-                            boxSize='1.8rem'
-                            borderRadius='full'
-                            src='https://bit.ly/kent-c-dodds'
-                            alt='Fluffybuns the destroyer'
-                            mr='12px'
-                          />
+                          <Avatar size='sm' src='https://bit.ly/kent-c-dodds' />
                         }
                         btnTitle='Profile'
                       >

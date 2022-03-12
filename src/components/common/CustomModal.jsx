@@ -34,7 +34,7 @@ export default function CustomModal({
   return (
     <>
       <Button
-        _focus={{ border: 'none' }}
+        _focus={{ border: 'none', bg: 'transparent' }}
         leftIcon={btnIcon}
         onClick={onOpen}
         w='100%'

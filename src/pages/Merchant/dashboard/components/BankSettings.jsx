@@ -1,12 +1,4 @@
-import {
-  Button,
-  Flex,
-  HStack,
-  Img,
-  Square,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
+import { Button, Flex, HStack, Img, Stack, Text } from '@chakra-ui/react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import firstBank from '../../../../assets/icons/firstbank.png';
 
