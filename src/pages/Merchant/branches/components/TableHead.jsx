@@ -10,7 +10,7 @@ export const TableHead = () => {
           return (
             <Th
               key={i}
-              fontSize={["16px"]}
+              fontSize={["15px"]}
               fontWeight="bold"
               textTransform="capitalize"
               py="25px !important"
