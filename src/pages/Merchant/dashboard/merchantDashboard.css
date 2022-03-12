@@ -1,5 +1,4 @@
 .merchant-dashboard-grid {
-  background-color: red;
   display: grid;
   gap: 30px;
   grid-template-columns: repeat(12, 1fr);
@@ -46,5 +45,29 @@ li::marker {
   }
   .product-analytics {
     grid-column: 5/13;
+  }
+}
+
+.profile-pic {
+  height: 70px;
+  width: 70px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -220%);
+  cursor: pointer;
+}
+@media (min-width: 540px) {
+  .profile-pic {
+    height: 80px;
+    width: 80px;
+    transform: translate(-50%, -140%);
+  }
+}
+
+@media (min-width: 760px) {
+  .profile-pic {
+    height: 90px;
+    width: 90px;
+    transform: translate(-50%, -100%);
   }
 }

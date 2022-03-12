@@ -3,8 +3,8 @@
  * @constant
  */
 export const PUBLIC_PATHS = {
-  LANDING: "/",
-  LOGIN: "/login",
+  LANDING: '/',
+  LOGIN: '/login',
 };
 
 /**
@@ -12,11 +12,12 @@ export const PUBLIC_PATHS = {
  * @constant
  */
 export const PROTECTED_PATHS = {
-  DASHBOARD: "/dashboard",
-  BRANCHES: "/branches",
-  ORDERS: "/orders",
-  PRODUCTS: "/products",
-  NOTIFICATIONS: "/notifications",
+  DASHBOARD: '/dashboard',
+  BRANCHES: '/branches',
+  ORDERS: '/orders',
+  PRODUCTS: '/products',
+  NOTIFICATIONS: '/notifications',
+  // VIEWPROFILE: 'view-profile',
 };
 
 export const DATA_ROWS = {
