@@ -1,5 +1,6 @@
-import { HStack, Select, Stack, Text } from '@chakra-ui/react';
+import { Flex, HStack, Select, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
+import { AiOutlineCalendar } from 'react-icons/ai';
 
 const FilterParameter = () => {
   return (
@@ -10,24 +11,24 @@ const FilterParameter = () => {
           Welcome to your Dashboard
         </Text>
       </Stack>
-
-      <Select
-        size='sm'
-        w='100px'
+      <Flex
+        pl='3'
+        bg='#fff'
+        align={'center'}
+        border='2px solid #eee '
         borderRadius={'5'}
-        fontWeight={'700'}
-        bg='#DEF3F4'
-        color='blue'
-        // ml='auto'
       >
-        {filterParameter.map((parameter, i) => {
-          return <option key={i}>{parameter}</option>;
-        })}
-      </Select>
+        <AiOutlineCalendar size={26} />
+        <Select border='none'>
+          {filterParameter.map((parameter, i) => {
+            return <option key={i}>{parameter}</option>;
+          })}
+        </Select>
+      </Flex>
     </HStack>
   );
 };
 
 export default FilterParameter;
 
-const filterParameter = ['Today', 'Yesterday', 'Last 7 days'];
+const filterParameter = ['Last 7 days', 'Today', 'Yesterday'];

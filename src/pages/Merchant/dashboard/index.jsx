@@ -7,6 +7,7 @@ import './merchantDashboard.css';
 import BranchPerRevenue from './components/BranchPerRevenue';
 import ProductAnalytics from './components/ProductAnalytics';
 
+
 export const Dashboard = () => {
   return (
     <Stack py='5' w='100%' h='100%' spacing='30px !important'>
@@ -24,6 +25,7 @@ export const Dashboard = () => {
           <ProductAnalytics />
         </Box>
       </Box>
+ 
     </Stack>
   );
 };

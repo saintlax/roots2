@@ -8,43 +8,34 @@
 // import notificationsIcon from "../../../../assets/icons/Group 115.svg"
 // import staffIcon from "../../../../assets/icons/staff-user.svg"
 // import settingsIcon from "../../../../assets/icons/settings.svg"
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import { MdOutlineDashboard } from "react-icons/md"
-import { GiHandBag } from "react-icons/gi"
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { MdOutlineDashboard } from 'react-icons/md';
+import { GiHandBag } from 'react-icons/gi';
 
-import { PROTECTED_PATHS } from "../../../app/merchantConstants"
+import { PROTECTED_PATHS } from '../../../app/merchantConstants';
 
-const {
-  DASHBOARD,
-  ORDERS,
-  BRANCHES,
-  PRODUCTS,
-  NOTIFICATIONS,
-} = PROTECTED_PATHS
+const { DASHBOARD, ORDERS, BRANCHES, PRODUCTS, NOTIFICATIONS } =
+  PROTECTED_PATHS;
 
 export const MERCHANT_NAV_ITEMS = [
   {
-    title: "Dashboard",
+    title: 'Dashboard',
     to: DASHBOARD,
     icon: <MdOutlineDashboard />,
   },
   {
-    title: "Orders",
+    title: 'Orders',
     to: ORDERS,
   },
 
   {
-    title: "Products",
+    title: 'Products',
     to: PRODUCTS,
     icon: <AiOutlineShoppingCart />,
   },
-  // {
-  //   title: "Notifications",
-  //   to: NOTIFICATIONS,
-  //   icon: notificationsIcon,
-  // },
+
   {
-    title: "Branches",
+    title: 'Branches',
     to: BRANCHES,
     icon: <GiHandBag />,
   },
