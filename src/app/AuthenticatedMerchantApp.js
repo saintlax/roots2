@@ -29,16 +29,17 @@ const AuthenticatedMerchantApp = () => {
     }
   }, [isMobileScreen]);
   return (
-    <Box w='100%' h='100%'>
+    <Box w="100%" h="100%">
+      
       <Nav />
-      <Box bg='#fafafa' minW='100%' minH='100%'>
+      <Box bg="#fafafa" minW="100%" minH="100%">
         <Box
-          bg='#fafafa'
-          display='flex'
-          w='100%'
-          h='100%'
-          pl={['3%', '9%']}
-          pr={['3%', '7%']}
+          bg="#fafafa"
+          display="flex"
+          w="100%"
+          h="100%"
+          pl={["3%", "9%"]}
+          pr={["3%", "7%"]}
         >
           <Routes>
             <Route path={BRANCHES} element={<Branches />} />
