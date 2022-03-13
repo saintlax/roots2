@@ -58,7 +58,5 @@ const options = {
 };
 
 export default function Doghnut() {
-  return (
-      <Doughnut data={data} options={options} />
-  );
+  return <Doughnut data={data} options={options} />;
 }

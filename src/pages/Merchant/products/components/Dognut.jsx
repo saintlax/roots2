@@ -46,13 +46,12 @@ const options = {
   maintainAspectRatio: false,
   plugins: {
     legend: {
-      position: "bottom",
+      position: 'bottom',
       labels: {
         boxWidth: 3,
         boxHeight: 3,
         usePointStyle: true,
-        pointStyle: "circle",
-       
+        pointStyle: 'circle',
       },
     },
   },
@@ -60,8 +59,8 @@ const options = {
 
 export default function Doghnut() {
   return (
-    <Box px="0 !important" position={"relative"} left="-15%">
+    <Box px='0 !important' position={'relativ'} left='%' w='100%'>
       <Doughnut data={data} options={options} />
-      </Box>
+    </Box>
   );
 }
