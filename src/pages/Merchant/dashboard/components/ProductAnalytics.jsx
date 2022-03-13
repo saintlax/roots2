@@ -19,7 +19,6 @@ const ProductAnalytics = () => {
       w='100%'
       justify={'space-between'}
       p='8'
-      // px={['6', null]}
       borderRadius={'10'}
       gap='2'
     >

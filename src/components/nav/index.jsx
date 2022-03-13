@@ -28,8 +28,12 @@ import CustomModal from '../../components/common/CustomModal';
 import ViewProfile from '../../pages/Merchant/dashboard/components/ViewProfile';
 import Settings from '../../pages/Merchant/dashboard/components/Settings';
 import Notifications from './components/Notification';
+import { ComponentTitle } from './components/ComponentTitile';
+import { useLocation } from 'react-router-dom';
 
 export const Nav = () => {
+  const { pathname } = useLocation();
+
   return (
     <>
       <Box width={'100%'} height={['100%']} bg='#fff'>
@@ -81,7 +85,7 @@ export const Nav = () => {
                 textAlign='center'
                 display={['block', 'block', 'none']}
               >
-                Dashboard
+                {ComponentTitle(pathname)}
               </Text>
               <InputGroup display={['none', 'none', 'block']}>
                 <InputRightElement

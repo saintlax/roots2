@@ -34,13 +34,13 @@ const theme = extendTheme({
         fontSize: '20px',
         fontWeight: 600,
         color: '#4A4C4F',
-        fontFamily: 'Circular Std Medium',
+        // fontFamily: 'Circular Std Medium',
       },
       h3: {
         fontSize: '18px',
         fontWeight: 500,
         color: '#4A4C4F',
-        fontFamily: 'Circular Std Medium',
+        // fontFamily: 'Circular Std Medium',
       },
       h4: {
         // dark small header
