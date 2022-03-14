@@ -8,7 +8,6 @@ import {
   ModalBody,
   useDisclosure,
   Button,
-  Divider,
 } from '@chakra-ui/react';
 
 export default function CustomModal({

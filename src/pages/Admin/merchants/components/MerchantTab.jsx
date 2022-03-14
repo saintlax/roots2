@@ -5,36 +5,31 @@ import {
   Tab,
   TabPanel,
   Box,
-  FormControl,
-  Input,
-  FormLabel,
-  FormHelperText,
-  FormErrorMessage,
   Flex,
-} from "@chakra-ui/react";
-import "../index.css";
+} from '@chakra-ui/react';
+import '../index.css';
 
 export const MerchantTab = () => {
   return (
-    <Tabs width={["100%", "100%", "90%"]} isFitted>
+    <Tabs width={['100%', '100%', '90%']} isFitted>
       <TabList>
-        <Tab fontSize={["12px", "14px"]} _focus={{ boxShadow: "none" }}>
+        <Tab fontSize={['12px', '14px']} _focus={{ boxShadow: 'none' }}>
           Profile
         </Tab>
-        <Tab fontSize={["12px", "14px"]} _focus={{ boxShadow: "none" }}>
+        <Tab fontSize={['12px', '14px']} _focus={{ boxShadow: 'none' }}>
           Branches
         </Tab>
-        <Tab fontSize={["12px", "14px"]} _focus={{ boxShadow: "none" }}>
+        <Tab fontSize={['12px', '14px']} _focus={{ boxShadow: 'none' }}>
           Products
         </Tab>
-        <Tab fontSize={["12px", "14px"]} _focus={{ boxShadow: "none" }}>
+        <Tab fontSize={['12px', '14px']} _focus={{ boxShadow: 'none' }}>
           Transaction History
         </Tab>
       </TabList>
 
       <TabPanels>
         <TabPanel>
-          <Box width={"100%"}>
+          <Box width={'100%'}>
             {/* <FormControl
               variant="floating"
               id="first-name"
@@ -42,34 +37,34 @@ export const MerchantTab = () => {
               isInvalid
             > */}
             <Flex
-              direction={["column", "column", "row"]}
-              justifyContent={"space-between"}
-              width="100%"
+              direction={['column', 'column', 'row']}
+              justifyContent={'space-between'}
+              width='100%'
             >
-              <div class="inputContainer business-email">
-                <input type="text" class="input" placeholder="" />
-                <label for="" class="label">
+              <div class='inputContainer business-email'>
+                <input type='text' class='input' placeholder='' />
+                <label for='' class='label'>
                   Business Name
                 </label>
               </div>
 
-              <div class="inputContainer">
-                <input type="email" class="input" placeholder="" />
-                <label for="" class="label">
+              <div class='inputContainer'>
+                <input type='email' class='input' placeholder='' />
+                <label for='' class='label'>
                   Email
                 </label>
               </div>
             </Flex>
-            <div class="inputContainer">
-              <input type="text" class="input" placeholder="" />
-              <label for="" class="label">
+            <div class='inputContainer'>
+              <input type='text' class='input' placeholder='' />
+              <label for='' class='label'>
                 Headquarter Address
               </label>
             </div>
 
-            <div class="inputContainer inputContainer__cac">
-              <input type="text" class="input" placeholder="" />
-              <label for="" class="label">
+            <div class='inputContainer inputContainer__cac'>
+              <input type='text' class='input' placeholder='' />
+              <label for='' class='label'>
                 CAC Documents
               </label>
             </div>

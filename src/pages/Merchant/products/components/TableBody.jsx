@@ -1,7 +1,5 @@
-import { Tr, Tbody, Td, Avatar, Flex, Text, Checkbox, Tooltip, Circle } from "@chakra-ui/react";
+import { Tr, Tbody, Td,  Flex, Text,Tooltip, Circle } from "@chakra-ui/react";
 import { tableBodyData } from "./tableBodyData";
-
-import { BsThreeDots } from "react-icons/bs";
 import { MdHeadset } from "react-icons/md";
 import { MenuLItems } from "./MenuList";
 

@@ -1,6 +1,5 @@
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import IsMobile from '../../../../components/common/IsMobile';
 import { AiOutlineUnorderedList } from 'react-icons/ai';
 import { MdOutlineDashboard } from 'react-icons/md';
 import { OrdersTable } from './OrdersTable';
@@ -10,7 +9,7 @@ import { Dropdown } from './Dropdown';
 const ProductCatalogue = () => {
   const [views, setViews] = useState(true);
   const view = views ? 'List View' : 'Grid View';
-  const isMobile = IsMobile();
+
   return (
     <Box>
       <Flex

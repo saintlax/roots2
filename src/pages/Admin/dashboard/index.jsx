@@ -1,4 +1,4 @@
-import { Box, Flex, Stack, Text } from '@chakra-ui/react';
+import { Box, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
 import Card from './components/Card';
 import { cardData } from './components/cardData';

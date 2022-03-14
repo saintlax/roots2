@@ -1,5 +1,4 @@
 import { Circle, Square, Stack, Text, HStack } from '@chakra-ui/react';
-import { BiWalletAlt } from 'react-icons/bi';
 import { MdTrendingUp } from 'react-icons/md';
 
 const Card = (props) => {

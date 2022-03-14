@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const ForgotPassword = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const [email, setEmail] = useState('');
   const [disable, setIsDisable] = useState(true);
 

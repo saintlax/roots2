@@ -7,7 +7,7 @@ import {
   Text,
 
 } from "@chakra-ui/react";
-import { BsEye, BsThreeDots } from "react-icons/bs";
+import {  BsThreeDots } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi"
 import { AiOutlineDelete } from "react-icons/ai"
 import { UserModal } from "./UserModal";
