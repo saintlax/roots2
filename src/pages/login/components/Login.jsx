@@ -18,7 +18,7 @@ export const Login = ({
 
   return (
     <Box width={'100%'} px={['3%', '5%', '15%']}>
-      <Heading textAlign={['center']} as={'h2'} fontSize={'30px'} mb='50px'>
+      <Heading textAlign={['center']} as={'h2'} fontSize={'30px'} my='50px'>
         Login to your Tap account
       </Heading>
       <div class='inputContainer'>
