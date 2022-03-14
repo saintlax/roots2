@@ -5,7 +5,6 @@ import {
   HStack,
   Input,
   Text,
-  Slide,
 } from '@chakra-ui/react';
 import React from 'react';
 

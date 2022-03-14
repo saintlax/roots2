@@ -13,7 +13,7 @@ import {
   UnorderedList,
 } from '@chakra-ui/react';
 import React from 'react';
-import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { IoMdClose } from 'react-icons/io';
 import logo from '../../../assets/icons/logo.svg';
 import { navLinks } from './sidebarData';
