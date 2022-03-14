@@ -11,12 +11,12 @@ import Doghnut from '../../dashboard/components/Doghnut';
 
 const ProductSalesAnalytics = () => {
   return (
-    <Stack>
+    <Stack borderRadius={'10px'} p='5' border='1px solid #eee' h='100%'>
       <Text as='h3'>Product Sales Analytics</Text>
       <Flex className='doughnut-stat-wrapper' direction={['column', 'row']}>
         <Box
           w={['100%', '300px', '100%']}
-          h={['100%', '', '220px', '230px']}
+          h={['100%', '', '220px', '228px']}
           mx={['auto']}
         >
           <Doghnut />
@@ -27,7 +27,7 @@ const ProductSalesAnalytics = () => {
           styleType='disc'
           display='flex'
           flexDirection={['row', 'column', '', 'row']}
-          justifyContent={['space-between', 'center', '', 'space-evenly']}
+          justifyContent={['space-evenly', 'center', '', 'space-evenly']}
           alignItems={['center', '', 'start']}
           flexWrap='wrap'
         >
