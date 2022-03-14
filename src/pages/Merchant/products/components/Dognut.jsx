@@ -58,9 +58,5 @@ const options = {
 };
 
 export default function Doghnut() {
-  return (
-    <Box px='0 !important' position={'relativ'} left='%' w='100%'>
-      <Doughnut data={data} options={options} />
-    </Box>
-  );
+  return <Doughnut data={data} options={options} />;
 }

@@ -1,5 +1,5 @@
-import { Thead, Tr, Th } from "@chakra-ui/react";
-import { topBranchTableHeadData } from "./tableHeadData";
+import { Thead, Tr, Th } from '@chakra-ui/react';
+import { topBranchTableHeadData } from './tableHeadData';
 
 export const TopBranchTableHead = () => {
   return (
@@ -10,11 +10,9 @@ export const TopBranchTableHead = () => {
           return (
             <Th
               key={i}
-              fontSize={["13px"]}
-              fontWeight="bold"
-              textTransform="capitalize"
-              // py="25px !important"
-              // px={["20px !important", "40px !important"]}
+              fontSize={['13px']}
+              fontWeight='bold'
+              textTransform='capitalize'
             >
               {data}
             </Th>
