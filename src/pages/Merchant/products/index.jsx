@@ -37,5 +37,3 @@ export const Products = () => {
     </Stack>
   );
 };
-
-// export default Orders;

@@ -2,95 +2,91 @@ import {
   Box,
   Button,
   Flex,
+  HStack,
   ListItem,
+  Stack,
   Text,
   UnorderedList,
 } from '@chakra-ui/react';
 import React from 'react';
+import IsMobile from '../../../components/common/IsMobile';
 import Doghnut from '../products/components/Dognut';
 import { BranchSummary } from './components/BranchSummary';
 import { Dropdown } from './components/Dropdown';
 import { OrdersTable } from './components/OrdersTable';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 export const Branches = () => {
+  const isMobile = IsMobile();
+
   return (
-    <Box pb={['50px']}>
-      <Flex my='20px' justifyContent={['space-between']}>
-        <Box>
-          <Text color={'#4A4C4F'} fontSize={['20px']} fontWeight={['bold']}>
-            Branches Summary
-          </Text>
-        </Box>
-        <Box>
-          <Button bg={'#1459DF'} color='#fff'>
+    <Stack w='100%' h='100%'>
+      <HStack justify='space-between' py='5'>
+        <Text as='h2'>Products Summary</Text>
+
+        {isMobile ? (
+          <Button size='sm' bg='primary'>
+            <AiOutlinePlus color='#fff' />
+          </Button>
+        ) : (
+          <Button size='sm' bg={'#1459DF'} color='#fff'>
             Create New
           </Button>
-        </Box>
-      </Flex>
+        )}
+      </HStack>
       <Flex
-        direction={['column', 'column', 'row']}
-        justifyContent='space-between'
+        gap='5'
+        maxW='100%'
+        direction={['column', 'column', 'column', 'row']}
+        justify='space-between'
       >
-        <Box width={['100%', '100%', '65%']}>
-          <BranchSummary />
-        </Box>
-        <Box
-          p='20px'
-          width={['100%', '100%', '33%']}
-          border='1px solid #c4c4c4'
-          borderRadius={'10px'}
-        >
-          <Text as='h3'>Branch Sales Analytics</Text>
-          {/* <BranchSummary /> */}
-          <Flex
-            direction={['column', 'row']}
-            justifyContent='flex-start'
-            width='100%'
-            my={['', '50px']}
-          >
-            {/* <Stack width={"100%"}> */}
+        <BranchSummary />
 
-            <Flex
-              justifyContent={'flex-start'}
-              w={['100%', '300px', '70%']}
-              h={['100%', '', '220px']}
-              // mx={["auto"]}
-            >
-              <Doghnut />
-            </Flex>
-            <Box width={'30%'}>
-              <UnorderedList
-                fontSize={'12px'}
-                // w="20%"
-                styleType='disc'
-                // display="flex"
-                // flexDirection={["row", "column"]}
-                // justifyContent={["space-between", "center"]}
-                // alignItems={["center", "", "start"]}
-                flexWrap='wrap'
-              >
-                <ListItem>
-                  <Text as='span' pos='relative' left='-10px' top='-4px'>
-                    Total Order
-                  </Text>
-                </ListItem>
-                <ListItem>
-                  <Text as='span' pos='relative' left='-10px' top='-4px'>
-                    Total Revenue
-                  </Text>
-                </ListItem>
-              </UnorderedList>
-            </Box>
-          </Flex>
-        </Box>
+        <Flex
+          maxW={['', '', '', '30%']}
+          bg='#fff'
+          borderRadius={'10px'}
+          p='5'
+          direction={['column', 'row', 'row', 'column']}
+          align={['center']}
+        >
+          <Box
+            w={['100%', '300px', '50%', '100%']}
+            h={['100%', '', '200px', '220px']}
+            mx={['auto']}
+          >
+            <Doghnut />
+          </Box>
+          <UnorderedList
+            w='100%'
+            styleType='disc'
+            display='flex'
+            flexDirection={['row', 'column', '', 'row']}
+            justifyContent={[
+              'space-evenly',
+              'center',
+              'canter',
+              'space-evenly',
+            ]}
+            alignItems={['center', '', 'start']}
+            flexWrap='wrap'
+          >
+            <ListItem>
+              <Text as='span' pos='relative' left='-10px' top='-4px'>
+                Total Order
+              </Text>
+            </ListItem>
+            <ListItem>
+              <Text as='span' pos='relative' left='-10px' top='-4px'>
+                Total Revenue
+              </Text>
+            </ListItem>
+          </UnorderedList>
+        </Flex>
       </Flex>
 
-      <Flex my='20px' justifyContent={['space-between']}>
-        <Box>
-          <Text color={'#4A4C4F'} fontSize={['20px']} fontWeight={['bold']}>
-            Branches
-          </Text>
-        </Box>
+      <Flex pt='5' pb='3' align='center' justify='space-between'>
+        <Text as='h2'>Branches</Text>
         <Box>
           <Dropdown />
         </Box>
@@ -98,8 +94,6 @@ export const Branches = () => {
       <Box>
         <OrdersTable />
       </Box>
-    </Box>
+    </Stack>
   );
 };
-
-// export default Orders;

@@ -24,7 +24,7 @@ export const ProductSummary = () => {
         </Select>
       </Flex>
       <Box w='100%' overflowX='auto'>
-        <Table size='lg' variant='striped' colorScheme={'blackAlpha'}>
+        <Table variant='striped' colorScheme={'blackAlpha'}>
           <TopProductTableHead />
           <TopProductTableBody />
         </Table>
