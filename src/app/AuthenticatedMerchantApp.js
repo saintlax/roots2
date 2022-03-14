@@ -5,12 +5,11 @@ import { Dashboard } from '../pages/Merchant/dashboard';
 import { Orders } from '../pages/Merchant/orders';
 import { Products } from '../pages/Merchant/products';
 import { Branches } from '../pages/Merchant/branches';
-import Notifications from '../pages/Merchant/notifications';
+// import Notifications from '../pages/Merchant/notifications';
 import { Nav } from '../components/nav';
 
 const AuthenticatedMerchantApp = () => {
-  const { DASHBOARD, ORDERS, PRODUCTS, BRANCHES, NOTIFICATIONS } =
-    PROTECTED_PATHS;
+  const { DASHBOARD, ORDERS, PRODUCTS, BRANCHES } = PROTECTED_PATHS;
 
   return (
     <Box w='100%' h='100%'>
@@ -29,7 +28,6 @@ const AuthenticatedMerchantApp = () => {
             <Route path={DASHBOARD} element={<Dashboard />} />
             <Route path={ORDERS} element={<Orders />} />
             <Route path={PRODUCTS} element={<Products />} />
-            <Route path={NOTIFICATIONS} element={<Notifications />} />
           </Routes>
         </Box>
       </Box>
