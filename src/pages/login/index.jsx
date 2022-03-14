@@ -8,6 +8,7 @@ import {
   FormLabel,
   Flex,
   Image,
+  Heading,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
@@ -39,16 +40,41 @@ const Index = () => {
   return (
     <Flex
       w="100%"
-      h="100vh"
+      h={["100%"]}
       // bg="primary"
       alignItems={"center"}
       direction={["column", "column", "row"]}
     >
-      <Box width={["100%", "100%", "50%"]}>
-        <Image src={bgImage} alt="background image" />
+      <Box
+        width={["100%", "100%", "50%"]}
+        h={["50vh", "50vh", "100vh"]}
+        backgroundImage={bgImage}
+        backgroundPosition="center"
+        backgroundRepeat="no-repeat"
+        padding={["20px", "50px"]}
+      >
+        <Box position={"relative"} height="100%">
+          <Box position={"absolute"} bottom="0%">
+            <Heading fontSize={["22px", "24px", "36px"]} as="h3" color={"#fff"} mb="10px">
+              Register your store on Roots
+            </Heading>
+            <Text color={"#fff"}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+              condimentum risus, eget in at rhoncus vitae. Enim in ullamcorper
+              ut pulvinar. Interdum cursus nibh quam elit nunc donec neque.{" "}
+            </Text>
+          </Box>
+        </Box>
       </Box>
       <Box width={["100%", "100%", "50%"]}>
-        <Login show={show} setShow={setShow} setPassword={setPassword} setEmail={setEmail} disable={disable} handleLogin={handleLogin} />
+        <Login
+          show={show}
+          setShow={setShow}
+          setPassword={setPassword}
+          setEmail={setEmail}
+          disable={disable}
+          handleLogin={handleLogin}
+        />
       </Box>
     </Flex>
   );

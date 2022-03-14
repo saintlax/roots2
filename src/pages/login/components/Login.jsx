@@ -19,59 +19,31 @@ export const Login = ({ show, setShow, setPassword, setEmail, disable, handleLog
 
   return (
     <Box width={"100%"} px={["3%", "5%", "15%"]}>
-      {/* <VStack
-        spacing="30px"
-        alignItems="center"
-        bg="#fff"
-        p={["10"]}
-        borderRadius="10px"
-        width={["100%", "100%", "100%"]}
-      > */}
       <Heading textAlign={["center"]} as={"h2"} fontSize={"30px"} mb="50px">
         Login to your Tap account
       </Heading>
-      <Box>
-        <FormLabel {...SM_SIZE} margin="10px 0">
-          Email Address
-        </FormLabel>
-
-        <Input
-          width={"100%"}
+      <div class="inputContainer">
+        <input
           type="email"
-          {...OUTLINE_COLOR}
+          class="input"
+          placeholder=""
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter email address"
         />
-      </Box>
-
-      <Box>
-        <FormLabel {...SM_SIZE} margin="10px 0">
+        <label for="email" class="label">
+          Email Address
+        </label>
+      </div>
+      <div class="inputContainer">
+        <input
+          type="text"
+          class="input"
+          placeholder=""
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <label for="password" class="label">
           Password
-        </FormLabel>
-
-        <InputGroup size="md">
-          <Input
-            // pr="4.5rem"
-            width={"100%"}
-            type={show ? "text" : "password"}
-            placeholder="Enter password"
-            onChange={(e) => setPassword(e.target.value)}
-            {...OUTLINE_COLOR}
-          />
-          <InputRightElement width="4.5rem">
-            <Button
-              {...NO_SHADOW}
-              _hover={{ bg: "transparent" }}
-              bg="transparent"
-              h="1.75rem"
-              // size="sm"
-              onClick={() => setShow(!show)}
-            >
-              {show ? <FiEyeOff /> : <FiEye />}
-            </Button>
-          </InputRightElement>
-        </InputGroup>
-      </Box>
+        </label>
+      </div>
       <Flex justifyContent={"space-between"} mt="20px">
         <Checkbox colorScheme="#C05621" defaultChecked>
           Remember me
@@ -98,8 +70,10 @@ export const Login = ({ show, setShow, setPassword, setEmail, disable, handleLog
         textAlign={"center"}
         _hover={{ textDecoration: "underline" }}
         fontSize="1rem"
-      >Dont have an account?
-        <Link to="/signup">Sign up</Link>
+        mb="30px"
+      >
+        Dont have an account?
+        <Link to="/signup"> Sign up</Link>
       </Text>
       {/* </VStack> */}
     </Box>
