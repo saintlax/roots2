@@ -11,10 +11,10 @@ export const SignupForm = ({ show, setShow, setPassword, setEmail, disable, setV
     bg: "primary",
     color: "#fff",
   };
-  const SM_SIZE = { fontSize: ".9rem" };
-  const OUTLINE_COLOR = {
-    _focus: { outline: "1px solid #614285" },
-  };
+  // const SM_SIZE = { fontSize: ".9rem" };
+  // const OUTLINE_COLOR = {
+  //   _focus: { outline: "1px solid #614285" },
+  // };
 
 
   return (
@@ -22,82 +22,51 @@ export const SignupForm = ({ show, setShow, setPassword, setEmail, disable, setV
       <Heading textAlign={["center"]} as={"h2"} fontSize={"30px"} mb="50px">
         Create your roots account
       </Heading>
-      <Box>
-        <FormLabel {...SM_SIZE} margin="10px 0">
-          Business name
-        </FormLabel>
-
-        <Input
-          width={"100%"}
-          type="email"
-          {...OUTLINE_COLOR}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter Business name"
-        />
-      </Box>
-      <Box>
-        <FormLabel {...SM_SIZE} margin="10px 0">
-          Email Address
-        </FormLabel>
-
-        <Input
-          width={"100%"}
-          type="email"
-          {...OUTLINE_COLOR}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter email address"
-        />
-      </Box>
 
       <Box>
-        <FormLabel {...SM_SIZE} margin="10px 0">
-          Phone
-        </FormLabel>
-
-        <Input
-          width={"100%"}
-          type="email"
-          {...OUTLINE_COLOR}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter phone number"
-        />
-      </Box>
-
-      <Box>
-        <FormLabel {...SM_SIZE} margin="10px 0">
-          Password
-        </FormLabel>
-
-        <InputGroup size="md">
-          <Input
-            // pr="4.5rem"
-            width={"100%"}
-            type={show ? "text" : "password"}
-            placeholder="Enter password"
-            onChange={(e) => setPassword(e.target.value)}
-            {...OUTLINE_COLOR}
+        <div class="inputContainer">
+          <input type="text" class="input" placeholder="" />
+          <label for="business-name" class="label">
+            Business Name
+          </label>
+        </div>
+        <div class="inputContainer">
+          <input
+            type="email"
+            class="input"
+            placeholder=""
+            onChange={(e) => setEmail(e.target.value)}
           />
-          <InputRightElement width="4.5rem">
-            <Button
-              {...NO_SHADOW}
-              _hover={{ bg: "transparent" }}
-              bg="transparent"
-              h="1.75rem"
-              // size="sm"
-              onClick={() => setShow(!show)}
-            >
-              {show ? <FiEyeOff /> : <FiEye />}
-            </Button>
-          </InputRightElement>
-        </InputGroup>
+          <label for="email" class="label">
+            Email
+          </label>
+        </div>
+        <div class="inputContainer">
+          <input type="phone" class="input" placeholder="" step={1} />
+          <label for="phone" class="label">
+            Phone
+          </label>
+        </div>
+        <div class="inputContainer">
+          <input
+            type="password"
+            class="input"
+            placeholder=""
+            step={1}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <label for="password" class="label">
+            Password
+          </label>
+        </div>
       </Box>
       <Button
         width={"100%"}
-        my="30px"
+        my={["10px", "10px", "30px"]}
         isDisabled={disable}
         {...NO_SHADOW}
         {...BTN_STYLE}
-        onClick={()=>setVerifyEmail(true)}
+        onClick={() => setVerifyEmail(true)}
       >
         Create my account
       </Button>
@@ -105,12 +74,12 @@ export const SignupForm = ({ show, setShow, setPassword, setEmail, disable, setV
         textAlign={"center"}
         _hover={{ textDecoration: "underline" }}
         fontSize="1rem"
+        mb="30px"
       >
         Have an account?
-        <Link to="/login"> Sign in</Link>
+        <Link to="/"> Sign in</Link>
       </Text>
       {/* </VStack> */}
-   
     </Box>
   );
 }
