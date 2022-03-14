@@ -5,63 +5,62 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  Button,
   Text,
-  Box,
   Flex,
   Avatar,
-  Select,
-  Circle,
   Image,
-} from "@chakra-ui/react";
-import { BsArrowDownRight, BsArrowUpRight, BsBagCheck, BsEye } from "react-icons/bs";
+} from '@chakra-ui/react';
+import { BsEye } from 'react-icons/bs';
 
-import topImage from "../images/background.png"
-import { MerchantTab } from "./MerchantTab";
+import topImage from '../images/background.png';
+import { MerchantTab } from './MerchantTab';
 
 export const UserModal = ({ name, dateCreated }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
-      <Flex onClick={onOpen} alignItems="center" width={"100%"}>
+      <Flex onClick={onOpen} alignItems='center' width={'100%'}>
         <BsEye />
-        <span style={{ marginLeft: "10px" }}>View</span>
+        <span style={{ marginLeft: '10px' }}>View</span>
       </Flex>
 
-      <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose} size="2xl">
+      <Modal
+        blockScrollOnMount={false}
+        isOpen={isOpen}
+        onClose={onClose}
+        size='2xl'
+      >
         <ModalOverlay />
         <ModalContent>
           {/* <ModalHeader>Modal Title</ModalHeader> */}
-          <ModalCloseButton bg={"#1459df"} color="#fff" />
-          <Image src={topImage} alt="Background" />
+          <ModalCloseButton bg={'#1459df'} color='#fff' />
+          <Image src={topImage} alt='Background' />
           <ModalBody>
             <Flex
-              width={"100%"}
-              direction="column"
-              justifyContent="center"
-              alignItems={"center"}
-              mt="-8%"
+              width={'100%'}
+              direction='column'
+              justifyContent='center'
+              alignItems={'center'}
+              mt='-8%'
             >
               <Avatar
-                size="xl"
-                name="Dan Abrahmov"
-                src="https://bit.ly/dan-abramov"
+                size='xl'
+                name='Dan Abrahmov'
+                src='https://bit.ly/dan-abramov'
               />
-              <Text mt="5px">
-                Merchant
-              </Text>
-              <Text fontWeight={"bold"}>Anayo Obiajulu</Text>
+              <Text mt='5px'>Merchant</Text>
+              <Text fontWeight={'bold'}>Anayo Obiajulu</Text>
               <Text>Account created {dateCreated}</Text>
             </Flex>
             <Flex
-            width={"100%"}
-            direction="column"
-              my={"20px"}
-              justifyContent={"space-between"}
-              alignItems="center"
-              fontWeight={"semibold"}
-              borderBottom="5px solid #f4f4f4"
+              width={'100%'}
+              direction='column'
+              my={'20px'}
+              justifyContent={'space-between'}
+              alignItems='center'
+              fontWeight={'semibold'}
+              borderBottom='5px solid #f4f4f4'
             >
               <MerchantTab />
               {/* <Flex
@@ -84,10 +83,9 @@ export const UserModal = ({ name, dateCreated }) => {
                 </Select>
               </Flex> */}
             </Flex>
-          
           </ModalBody>
         </ModalContent>
       </Modal>
     </>
   );
-}
+};

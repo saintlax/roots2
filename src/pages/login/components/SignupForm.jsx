@@ -1,68 +1,68 @@
-import { Box, Button, Checkbox, Flex, FormLabel, Heading, Input, InputGroup, InputRightElement, Text, VStack } from "@chakra-ui/react"
-import { useState } from "react";
+import { Box, Button, Heading, Text } from '@chakra-ui/react';
 
-import { FiEye, FiEyeOff } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-export const SignupForm = ({ show, setShow, setPassword, setEmail, disable, setVerifyEmail }) => {
-  const NO_SHADOW = { _focus: { boxShadow: "none" } };
+export const SignupForm = ({
+  show,
+  setShow,
+  setPassword,
+  setEmail,
+  disable,
+  setVerifyEmail,
+}) => {
+  const NO_SHADOW = { _focus: { boxShadow: 'none' } };
   const BTN_STYLE = {
-    _hover: { bg: "rgba(20, 89, 223, 0.7)" },
-    bg: "primary",
-    color: "#fff",
+    _hover: { bg: 'rgba(20, 89, 223, 0.7)' },
+    bg: 'primary',
+    color: '#fff',
   };
-  // const SM_SIZE = { fontSize: ".9rem" };
-  // const OUTLINE_COLOR = {
-  //   _focus: { outline: "1px solid #614285" },
-  // };
-
 
   return (
-    <Box width={"100%"} px={["3%", "5%", "15%"]}>
-      <Heading textAlign={["center"]} as={"h2"} fontSize={"30px"} mb="50px">
+    <Box width={'100%'} px={['3%', '5%', '15%']}>
+      <Heading textAlign={['center']} as={'h2'} fontSize={'30px'} mb='50px'>
         Create your roots account
       </Heading>
 
       <Box>
-        <div class="inputContainer">
-          <input type="text" class="input" placeholder="" />
-          <label for="business-name" class="label">
+        <div class='inputContainer'>
+          <input type='text' class='input' placeholder='' />
+          <label for='business-name' class='label'>
             Business Name
           </label>
         </div>
-        <div class="inputContainer">
+        <div class='inputContainer'>
           <input
-            type="email"
-            class="input"
-            placeholder=""
+            type='email'
+            class='input'
+            placeholder=''
             onChange={(e) => setEmail(e.target.value)}
           />
-          <label for="email" class="label">
+          <label for='email' class='label'>
             Email
           </label>
         </div>
-        <div class="inputContainer">
-          <input type="phone" class="input" placeholder="" step={1} />
-          <label for="phone" class="label">
+        <div class='inputContainer'>
+          <input type='phone' class='input' placeholder='' step={1} />
+          <label for='phone' class='label'>
             Phone
           </label>
         </div>
-        <div class="inputContainer">
+        <div class='inputContainer'>
           <input
-            type="password"
-            class="input"
-            placeholder=""
+            type='password'
+            class='input'
+            placeholder=''
             step={1}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <label for="password" class="label">
+          <label for='password' class='label'>
             Password
           </label>
         </div>
       </Box>
       <Button
-        width={"100%"}
-        my={["10px", "10px", "30px"]}
+        width={'100%'}
+        my={['10px', '10px', '30px']}
         isDisabled={disable}
         {...NO_SHADOW}
         {...BTN_STYLE}
@@ -71,15 +71,15 @@ export const SignupForm = ({ show, setShow, setPassword, setEmail, disable, setV
         Create my account
       </Button>
       <Text
-        textAlign={"center"}
-        _hover={{ textDecoration: "underline" }}
-        fontSize="1rem"
-        mb="30px"
+        textAlign={'center'}
+        _hover={{ textDecoration: 'underline' }}
+        fontSize='1rem'
+        mb='30px'
       >
         Have an account?
-        <Link to="/"> Sign in</Link>
+        <Link to='/'> Sign in</Link>
       </Text>
       {/* </VStack> */}
     </Box>
   );
-}
+};

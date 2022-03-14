@@ -3,7 +3,6 @@
   display: grid;
   gap: 30px;
   grid-template-columns: repeat(12, 1fr);
-  /* grid-template-rows: repeat(12 1fr); */
 }
 
 .card-one,
@@ -17,7 +16,6 @@
 
 .graph-chart {
   height: 500px;
-  /* width: 100%; */
 }
 
 @media (min-width: 600px) {

@@ -17,8 +17,6 @@ export const PROTECTED_PATHS = {
   ORDERS: '/orders',
   PRODUCTS: '/products',
   NOTIFICATIONS: '/notifications',
-
-  // VIEWPROFILE: 'view-profile',
 };
 
 export const DATA_ROWS = {

@@ -1,8 +1,8 @@
-import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { FaEnvelopeOpenText } from "react-icons/fa";
+import { Box, Button, Flex, Heading,  Text } from "@chakra-ui/react";
+import {  useNavigate } from "react-router-dom";
+
 import { Success } from "./Success";
-import { HiUpload } from "react-icons/hi"
+
 
 import bgImage from "../assets/background.png";
 import { useState } from "react";

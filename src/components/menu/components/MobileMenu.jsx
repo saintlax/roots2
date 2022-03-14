@@ -19,16 +19,12 @@ import logo from '../../../assets/icons/logo.svg';
 import { navLinks } from './sidebarData';
 
 const MobileMenu = ({ onClose }) => {
-  const navigate = useNavigate();
   const { pathname } = useLocation();
   const [link] = navLinks;
 
   const handleClick = () => {
     onClose();
     console.log({ link, pathname });
-    // if (pathname === 'logout') {
-    //   window.location.href = '/';
-    // }
   };
 
   return (

@@ -9,15 +9,13 @@ import {
   Text,
   Box,
   Flex,
-  Avatar,
-  Select,
-  Circle,
+
   FormControl,
   FormLabel,
   Input,
 } from "@chakra-ui/react";
 import { AiOutlinePlus } from "react-icons/ai";
-import { BsArrowDownRight, BsArrowUpRight, BsBagCheck } from "react-icons/bs";
+
 
 export const AddRolesModal = ({ name, data }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();

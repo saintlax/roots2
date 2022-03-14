@@ -16,11 +16,6 @@ import { navLinks } from './sidebarData';
 import logo from '../../../assets/icons/logo.svg';
 
 const Sidebar = ({ showMenu }) => {
-  //   const activeStyles = ({ isActive }) => {
-  //     return {
-  //       color: isActive ? 'red' : '',
-  //     };
-  //   };
 
   return (
     <div className={'sidebar'}>

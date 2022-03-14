@@ -11,7 +11,7 @@ const MyInput = (props) => {
   const { hasRightIcon, placeholder, hasLeftIcon, LeftIcon, RightIcon } = props;
 
   const [value, setValue] = useState('');
-  const [show, setShow] = useState(false);
+  const [show] = useState(false);
 
   return (
     <Box pl='1rem'>

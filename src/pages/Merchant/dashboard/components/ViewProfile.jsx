@@ -9,7 +9,6 @@ import {
 } from '@chakra-ui/react';
 import profileBg from '../../../../assets/images/profile background.svg';
 import profilePic from '../../../../assets/images/profile-pic.svg';
-import { AiOutlineClose } from 'react-icons/ai';
 import FormInput from '../../../../components/common/FormInput';
 import { BiLock, BiPencil } from 'react-icons/bi';
 

@@ -1,7 +1,6 @@
-import { Tr, Tbody, Td, Avatar, Flex, Text, Checkbox } from '@chakra-ui/react';
+import { Tr, Tbody, Td, Flex, Text } from '@chakra-ui/react';
 import { tableBodyData } from './tableBodyData';
 
-import { BsThreeDots } from 'react-icons/bs';
 import { MenuLItems } from './MenuList';
 
 export const TableBody = () => {
@@ -12,7 +11,6 @@ export const TableBody = () => {
           <Tr key={i}>
             <Td isTruncated maxWidth={'120px'}>
               {data?.address}
-              {/* <Checkbox size="lg" colorScheme="orange" defaultChecked /> */}
             </Td>
             <Td isTruncated maxWidth={'120px'}>
               <Flex alignItems={'center'}>
