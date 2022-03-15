@@ -1,56 +1,53 @@
 .dashboard-grid {
-  background-color: royalblue;
   display: grid;
   gap: 30px;
   grid-template-columns: repeat(12, 1fr);
-  /* grid-template-rows: repeat(12 1fr); */
 }
 
-.card-one,
-.card-two,
-.card-three,
-.card-four,
-.graph-chart,
-.recent-activities {
+.dashboard-grid .card-one,
+.dashboard-grid .card-two,
+.dashboard-grid .card-three,
+.dashboard-grid .card-four,
+.dashboard-grid .graph-chart,
+.dashboard-grid .recent-activities {
   grid-column: 1/13;
 }
 
-.graph-chart {
+.dashboard-grid .graph-chart {
   height: 500px;
-  /* width: 100%; */
 }
 
 @media (min-width: 600px) {
-  .card-one {
+  .dashboard-grid .card-one {
     grid-column: 1/7;
   }
-  .card-two {
+  .dashboard-grid .card-two {
     grid-column: 7/13;
   }
-  .card-three {
+  .dashboard-grid .card-three {
     grid-column: 1/7;
   }
-  .card-four {
+  .dashboard-grid .card-four {
     grid-column: 7/13;
   }
 }
 @media (min-width: 1200px) {
-  .card-one {
+  .dashboard-grid .card-one {
     grid-column: 1/4;
   }
-  .card-two {
+  .dashboard-grid .card-two {
     grid-column: 4/7;
   }
-  .card-three {
+  .dashboard-grid .card-three {
     grid-column: 7/10;
   }
-  .card-four {
+  .dashboard-grid .card-four {
     grid-column: 10/13;
   }
-  .graph-chart {
+  .dashboard-grid .graph-chart {
     grid-column: 1/10;
   }
-  .recent-activities {
+  .dashboard-grid .recent-activities {
     grid-column: 10/13;
   }
 }

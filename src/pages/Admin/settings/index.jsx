@@ -11,7 +11,7 @@ const Settings = () => {
   return (
     <Stack h='100%' overflowY='auto'>
       <Text as='h3'>Settings</Text>
-      <Flex gap='7' direction={['column']}>
+      <Flex gap='7' direction={['column', 'column', 'row']}>
         <Stack borderRadius='10px' gap='2' p='10' bg='white' fontSize='15px'>
           <HStack
             cursor='pointer'

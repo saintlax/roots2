@@ -16,9 +16,6 @@ export const PROTECTED_PATHS = {
   BRANCHES: '/branches',
   ORDERS: '/orders',
   PRODUCTS: '/products',
-  NOTIFICATIONS: '/notifications',
-
-  // VIEWPROFILE: 'view-profile',
 };
 
 export const DATA_ROWS = {

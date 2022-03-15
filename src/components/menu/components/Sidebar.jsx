@@ -1,5 +1,4 @@
 import {
-  Box,
   Circle,
   Heading,
   HStack,
@@ -15,13 +14,7 @@ import { navLinks } from './sidebarData';
 
 import logo from '../../../assets/icons/logo.svg';
 
-const Sidebar = ({ showMenu }) => {
-  //   const activeStyles = ({ isActive }) => {
-  //     return {
-  //       color: isActive ? 'red' : '',
-  //     };
-  //   };
-
+const Sidebar = () => {
   return (
     <div className={'sidebar'}>
       <Stack

@@ -31,10 +31,10 @@ export const Success = ({ title, btnDisplay, text }) => {
             width={"100%"}
             my="10px"
             fontWeight="normal"
-            // isDisabled={disable}
+           
             {...NO_SHADOW}
             {...BTN_STYLE}
-            // onClick={() => navigate("/account-setup")}
+        
           >
             Complete Account Setup
           </Button>
@@ -46,7 +46,6 @@ export const Success = ({ title, btnDisplay, text }) => {
           my="10px"
           colorScheme={"grey"}
           fontWeight="normal"
-          // isDisabled={disable}
 
           onClick={() => navigate("/dashboard")}
         >

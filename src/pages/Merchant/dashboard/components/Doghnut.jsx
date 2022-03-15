@@ -1,7 +1,6 @@
 import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
-import { Box, Text } from '@chakra-ui/react';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -58,7 +57,5 @@ const options = {
 };
 
 export default function Doghnut() {
-  return (
-      <Doughnut data={data} options={options} />
-  );
+  return <Doughnut data={data} options={options} />;
 }

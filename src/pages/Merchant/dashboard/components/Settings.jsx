@@ -1,4 +1,4 @@
-import { Button, Flex, HStack, Stack, Text } from '@chakra-ui/react';
+import { HStack, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
 import { BsArrowRight } from 'react-icons/bs';
 import CustomModal from '../../../../components/common/CustomModal';

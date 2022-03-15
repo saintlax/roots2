@@ -1,7 +1,6 @@
 import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
-import { Box, Text } from '@chakra-ui/react';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -46,22 +45,17 @@ const options = {
   maintainAspectRatio: false,
   plugins: {
     legend: {
-      position: "bottom",
+      position: 'bottom',
       labels: {
         boxWidth: 3,
         boxHeight: 3,
         usePointStyle: true,
-        pointStyle: "circle",
-       
+        pointStyle: 'circle',
       },
     },
   },
 };
 
 export default function Doghnut() {
-  return (
-    <Box px="0 !important" position={"relative"} left="-15%">
-      <Doughnut data={data} options={options} />
-      </Box>
-  );
+  return <Doughnut data={data} options={options} />;
 }
