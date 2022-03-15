@@ -58,11 +58,7 @@ const Index = () => {
           </Box>
         </Box>
       </Box>
-<<<<<<< HEAD
-      <Box width={["100%", "100%", "50%"]} my="30px">
-=======
       <Box width={['100%', '100%', '50%']}>
->>>>>>> 5622918b8ffe7e316ff3cb98e8bbdc6a97ea6832
         <Login
           show={show}
           setShow={setShow}
