@@ -58,12 +58,7 @@ const Signup = () => {
       >
         <Box position={"relative"} height="100%">
           <Box position={"absolute"} bottom="0%">
-            <Heading
-              as="h3"
-              color={"#fff"}
-              fontSize={["22px", "24px", "36px"]}
-              mb="10px"
-            >
+            <Heading as="h3" color={"#fff"} mb="10px">
               Register your store on Roots
             </Heading>
             <Text color={"#fff"}>

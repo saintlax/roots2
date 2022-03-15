@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ChakraProvider, Box } from '@chakra-ui/react';
+import { ChakraProvider, Box, Menu } from '@chakra-ui/react';
 import { useMediaQuery } from '@chakra-ui/media-query';
 import { Route, Routes } from 'react-router-dom';
 import { PROTECTED_PATHS } from './merchantConstants';
@@ -30,7 +30,7 @@ const AuthenticatedMerchantApp = () => {
   }, [isMobileScreen]);
   return (
     <Box w="100%" h="100%">
-      
+      {/* {!isMobileScreen && <Menu />} */}
       <Nav />
       <Box bg="#fafafa" minW="100%" minH="100%">
         <Box

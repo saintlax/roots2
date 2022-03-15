@@ -66,7 +66,7 @@ const Index = () => {
           </Box>
         </Box>
       </Box>
-      <Box width={["100%", "100%", "50%"]}>
+      <Box width={["100%", "100%", "50%"]} my="30px">
         <Login
           show={show}
           setShow={setShow}
