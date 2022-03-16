@@ -50,9 +50,11 @@ li::marker {
 
 .profile-pic {
   height: 70px;
+  background-color: red;
   width: 70px;
   top: 50%;
   left: 50%;
+  border-radius: 50%;
   transform: translate(-50%, -220%);
   cursor: pointer;
 }
