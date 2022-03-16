@@ -5,7 +5,6 @@ import {
   MenuItem,
   Tooltip,
   Text,
-
 } from "@chakra-ui/react";
 import { BsThreeDots } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi"
