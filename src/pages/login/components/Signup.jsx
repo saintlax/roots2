@@ -6,6 +6,8 @@ import { Context } from '../../../context/userAuthContext/userTypeContext';
 import bgImage from '../assets/background.png';
 import { SignupForm } from './SignupForm';
 import { VerifyEmail } from './VerifyEmail';
+import { SignupType } from './signupType';
+import { SignupUserForm } from './SignupUserForm';
 
 const Signup = () => {
   const [show, setShow] = useState(false);
@@ -17,6 +19,8 @@ const Signup = () => {
 
   const [verifyEmail, setVerifyEmail] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [asUser, setAsUser] = useState(false);
+  const [asMerchant, setAsMerchant] = useState(false);
 
   const handleLogin = () => {
     if (email && password) {
@@ -29,6 +33,32 @@ const Signup = () => {
     email && password ? setIsDisable(false) : setIsDisable(true);
   }, [email, password]);
 
+  const proceedMerchant = (action) => {
+    setAsMerchant(action);
+    setAsUser(!action);
+  };
+  const proceedUser = (action) => {
+    setAsUser(action);
+    setAsMerchant(!action);
+  };
+  function Proceed() {
+    if (asMerchant)
+      return (
+        <SignupForm
+          show={show}
+          setShow={setShow}
+          setPassword={setPassword}
+          setEmail={setEmail}
+          disable={disable}
+          handleLogin={handleLogin}
+          setVerifyEmail={setVerifyEmail}
+        />
+      );
+    if (asUser)
+      return <SignupUserForm disable='true' setVerifyPhone={setVerifyPhone} />;
+  }
+
+  const setVerifyPhone = (action) => {};
   return (
     <Flex
       w='100%'
@@ -65,7 +95,7 @@ const Signup = () => {
       </Box>
 
       <Box width={['100%', '100%', '50%']}>
-        {verifyEmail ? (
+        {/* {verifyEmail ? (
           <>
             <VerifyEmail setSuccess={setSuccess} success={success} />
           </>
@@ -79,6 +109,11 @@ const Signup = () => {
             handleLogin={handleLogin}
             setVerifyEmail={setVerifyEmail}
           />
+        )} */}
+        {!asMerchant && !asUser ? (
+          <SignupType asMerchant={proceedMerchant} asUser={proceedUser} />
+        ) : (
+          <Proceed />
         )}
       </Box>
     </Flex>
