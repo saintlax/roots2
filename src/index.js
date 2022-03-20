@@ -5,6 +5,40 @@ import App from './App';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { BrowserRouter } from 'react-router-dom';
 import UserTypeContextProvider from './context/userAuthContext/userTypeContext';
+import {Provider} from "react-redux";
+import store from "./redux/store";
+
+/** 
+import {createStore} from 'redux';
+const increment = () =>{
+  return {
+    type: 'INCREMENT'
+  }
+}
+const decrement = () =>{
+  return {
+    type: 'DECREMENT'
+  }
+}
+
+const counter = (state = 0, action) =>{
+  switch(action.type){
+    case 'INCREMENT':
+    return state +1;
+    case 'DECREMENT':
+    return state -1;
+    default:
+      return 'INCREMENT';
+  }
+}
+
+let storee = createStore(counter)
+ storee.subscribe(() =>console.log(storee.getState()))
+
+ storee.dispatch(increment())
+
+// storee.dispatch(decrement())
+**/
 
 const theme = extendTheme({
   colors: {
@@ -67,9 +101,11 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <ChakraProvider theme={theme}>
-        <UserTypeContextProvider>
-          <App />
+      <Provider store={store}>
+        <UserTypeContextProvider>          
+          <App />                    
         </UserTypeContextProvider>
+        </Provider>
       </ChakraProvider>
     </BrowserRouter>
   </React.StrictMode>,
