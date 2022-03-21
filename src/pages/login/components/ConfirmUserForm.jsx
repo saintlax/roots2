@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react';
 
 import { Link } from 'react-router-dom';
+import { CreatePasswordModal } from './CreatePasswordModal';
 
 export const ConfirmUserForm = ({ onButtonClick, userData }) => {
   const NO_SHADOW = { _focus: { boxShadow: 'none' } };
@@ -30,7 +31,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
               <input
                 type='text'
                 className='input'
-                placeholder=''
+                disabled={true}
                 value={userData?.gender}
               />
               <label for='business-name' className='label'>
@@ -43,7 +44,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
               <input
                 type='text'
                 className='input'
-                placeholder=''
+                disabled={true}
                 value={userData?.marital_status}
               />
               <label for='business-name' className='label'>
@@ -59,7 +60,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
               <input
                 type='text'
                 className='input'
-                placeholder=''
+                disabled={true}
                 value={userData?.first_name}
               />
               <label for='business-name' className='label'>
@@ -72,7 +73,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
               <input
                 type='text'
                 className='input'
-                placeholder=''
+                disabled={true}
                 value={userData?.middle_name}
               />
               <label for='business-name' className='label'>
@@ -86,7 +87,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
               <input
                 type='text'
                 className='input'
-                placeholder=''
+                disabled={true}
                 value={userData?.last_name}
               />
               <label for='business-name' className='label'>
@@ -102,7 +103,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
               <input
                 type='text'
                 className='input'
-                placeholder=''
+                disabled={true}
                 value={userData?.phone_number}
               />
               <label for='business-name' className='label'>
@@ -115,7 +116,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
               <input
                 type='text'
                 className='input'
-                placeholder=''
+                disabled={true}
                 value={userData?.email}
               />
               <label for='business-name' className='label'>
@@ -131,7 +132,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
               <input
                 type='text'
                 className='input'
-                placeholder=''
+                disabled={true}
                 value={userData?.date_of_birth}
               />
               <label for='business-name' className='label'>
@@ -144,7 +145,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
               <input
                 type='text'
                 className='input'
-                placeholder=''
+                disabled={true}
                 value={userData?.address}
               />
               <label for='business-name' className='label'>
@@ -160,7 +161,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
               <input
                 type='text'
                 className='input'
-                placeholder=''
+                disabled={true}
                 value={userData?.lga_of_residence}
               />
               <label for='business-name' className='label'>
@@ -173,7 +174,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
               <input
                 type='text'
                 className='input'
-                placeholder=''
+                disabled={true}
                 value={userData?.state_of_residence}
               />
               <label for='business-name' className='label'>
@@ -187,7 +188,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
               <input
                 type='text'
                 className='input'
-                placeholder=''
+                disabled={true}
                 value={userData?.nationality}
               />
               <label for='business-name' className='label'>
@@ -196,29 +197,14 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
             </div>
           </GridItem>
         </SimpleGrid>
-
-        {/* <div className='inputContainer'>
-          <input
-            type='password'
-            className='input'
-            placeholder=''
-            step={1}
-            // onChange={(e) => setPassword(e.target.value)}
-          />
-          <label for='password' className='label'>
-            Password
-          </label>
-        </div> */}
       </Box>
       <Button
-        width={'100%'}
+        px='30px'
         my={['10px', '10px', '30px']}
-        // isDisabled={disable}
         {...NO_SHADOW}
         {...BTN_STYLE}
-        // onClick={() => setVerifyEmail(true)}
       >
-        Create my account
+        <CreatePasswordModal onButtonClick={onButtonClick} />
       </Button>
       <Text
         textAlign={'center'}
