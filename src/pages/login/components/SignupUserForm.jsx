@@ -1,49 +1,130 @@
-import { Box, Button, Heading, Text } from '@chakra-ui/react';
+import { useState } from 'react';
+import { PhoneForm } from './phoneForm';
+import { OTPForm } from './OTPForm';
+import { BVNForm } from './BVNForm';
+import Axios from 'axios';
+import { useToast } from '@chakra-ui/toast';
+import { ConfirmUserForm } from './ConfirmUserForm';
+const { REACT_APP_API_URL } = process.env;
 
-import { Link } from 'react-router-dom';
+export const SignupUserForm = ({ onVerifyPhone }) => {
+  const [hasPhone, setHasPhone] = useState(false);
+  const [hasOTP, setHasOTP] = useState(false);
+  const [hasBVN, setHasBVN] = useState(false);
+  const [otpId, setOtpId] = useState(0);
+  const toast = useToast();
+  const [userphone, setUserphone] = useState('');
+  const [userData, setUserData] = useState({});
 
-export const SignupUserForm = ({ disable, setVerifyPhone }) => {
-  const NO_SHADOW = { _focus: { boxShadow: 'none' } };
-  const BTN_STYLE = {
-    _hover: { bg: 'rgba(20, 89, 223, 0.7)' },
-    bg: 'primary',
-    color: '#fff',
+  const onPhoneButtonClick = (data) => {
+    setUserphone(data.phone);
+    getOTP(data.phone);
   };
 
-  return (
-    <Box width={'100%'} px={['3%', '5%', '15%']}>
-      <Heading textAlign={['center']} as={'h2'} fontSize={'30px'} mb='50px'>
-        Verify your phone number
-      </Heading>
+  const getOTP = async (phone) => {
+    await Axios.post(`${REACT_APP_API_URL}/otp`, {
+      phoneNumber: phone,
+    })
+      .then((response) => {
+        if (response.status == 200 && response.data.payload.otp) {
+          getToast(
+            'Confirm Phone',
+            'An OTP has been sent to your phone',
+            'success'
+          );
+          setHasPhone(true);
+          setOtpId(response.data.payload.id);
+          onVerifyPhone(response);
+        }
+      })
+      .catch((err) => {
+        console.log('AXIOs error', err);
+      });
+  };
 
-      <Box>
-        <div class='inputContainer'>
-          <input type='phone' class='input' placeholder='' step={1} />
-          <label for='phone' class='label'>
-            Phone
-          </label>
-        </div>
-      </Box>
-      <Button
-        width={'100%'}
-        my={['10px', '10px', '30px']}
-        isDisabled={disable}
-        {...NO_SHADOW}
-        {...BTN_STYLE}
-        onClick={() => setVerifyPhone(true)}
-      >
-        Verify
-      </Button>
-      <Text
-        textAlign={'center'}
-        _hover={{ textDecoration: 'underline' }}
-        fontSize='1rem'
-        mb='30px'
-      >
-        Have an account?
-        <Link to='/'> Sign in</Link>
-      </Text>
-      {/* </VStack> */}
-    </Box>
-  );
+  const verifyOTP = async (id, payload) => {
+    await Axios.put(`${REACT_APP_API_URL}/otp/${id}`, payload)
+      .then((response) => {
+        if (response.status == 200 && response.data.payload) {
+          setHasOTP(true);
+          getToast(
+            'Successful',
+            'Your phone number has been confirmed',
+            'success'
+          );
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const onOTPButtonClick = (data) => {
+    const payload = {
+      otp: data.otp,
+      isUsed: true,
+      phoneNumber: userphone,
+    };
+    verifyOTP(otpId, payload);
+  };
+
+  const getToast = (title, description, status) => {
+    toast({
+      title: title,
+      description: description,
+      status: status,
+      duration: 5000,
+      isClosable: true,
+      variant: 'left-accent',
+      position: 'top-right',
+      containerStyle: {
+        // border: '10px solid blue',
+        // backgroundColor: 'blue',
+      },
+    });
+  };
+
+  const onBVNButtonClick = (data) => {
+    const payload = {
+      BVN: data.bvn,
+    };
+    verifyBVN(payload);
+  };
+
+  const verifyBVN = async (payload) => {
+    await Axios.post(`${REACT_APP_API_URL}/flutterwave`, payload)
+      .then((response) => {
+        if (response.status == 200 && response.data.payload) {
+          setHasBVN(true);
+          console.log('User Data', response.data.payload);
+          setUserData(response.data.payload);
+          getToast('Successful', 'Your BVN has been confirmed', 'success');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        getToast('Error', 'Something went wrong', 'error');
+      });
+  };
+  const onRegisterButtonClick = (data) => {
+    console.log('Completed: ', data);
+  };
+
+  const UserReg = () => {
+    if (!hasPhone && !hasOTP) {
+      return <PhoneForm onButtonClick={onPhoneButtonClick} />;
+    } else if (hasPhone && !hasOTP) {
+      return <OTPForm onButtonClick={onOTPButtonClick} />;
+    } else if (hasPhone && hasOTP && !hasBVN) {
+      return <BVNForm onButtonClick={onBVNButtonClick} />;
+    } else if (hasPhone && hasOTP && hasBVN) {
+      return (
+        <ConfirmUserForm
+          onButtonClick={onRegisterButtonClick}
+          userData={userData}
+        />
+      );
+    }
+  };
+  return <UserReg />;
 };

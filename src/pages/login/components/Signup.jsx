@@ -55,8 +55,12 @@ const Signup = () => {
         />
       );
     if (asUser)
-      return <SignupUserForm disable='true' setVerifyPhone={setVerifyPhone} />;
+      return <SignupUserForm disable='true' onVerifyPhone={onVerifyPhone} />;
   }
+
+  const onVerifyPhone = (data) => {
+    console.log('onVerifyPhone', data);
+  };
 
   const setVerifyPhone = (action) => {};
   return (
