@@ -11,7 +11,7 @@ import { SignupUserForm } from './SignupUserForm';
 import Axios from 'axios';
 import { useToast } from '@chakra-ui/toast';
 import { ConfirmUserForm } from './ConfirmUserForm';
-const { REACT_APP_API_URL } = process.env;
+const { REACT_APP_API_URL, REACT_APP_USER, REACT_APP_MERCHANT } = process.env;
 
 const Signup = () => {
   const [merchantFirst, setMerchantFirst] = useState(false);
@@ -159,6 +159,8 @@ const Signup = () => {
     })
       .then((response) => {
         console.log('MERCHANT SUCCESS', response);
+        const newMerchant = response.data.payload;
+        localStorage.setItem(REACT_APP_MERCHANT, JSON.stringify(newMerchant));
         getToast('Successful', 'Your Merchant created successfully', 'success');
         navigate('/dashboard');
       })
@@ -171,6 +173,8 @@ const Signup = () => {
     await Axios.post(`${REACT_APP_API_URL}/users`, payload)
       .then((response) => {
         if (response.status === 200 && response.data.payload) {
+          const newUser = response.data.payload;
+          localStorage.setItem(REACT_APP_USER, JSON.stringify(newUser));
           registerMerchant(response.data.payload);
           getToast(
             'Successful',
