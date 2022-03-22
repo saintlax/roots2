@@ -148,15 +148,11 @@ const Signup = () => {
   const registerMerchant = async (user) => {
     const userId = user.id;
     const payload = { ...merchant, userId };
-    console.log('MERCHANT TO POST', payload);
     var form_data = new FormData();
-
     for (var key in payload) {
-      console.log(key, payload[key]);
       form_data.append(key, payload[key]);
     }
-
-    await Axios.post(`${REACT_APP_API_URL}/merchant`, payload, {
+    await Axios.post(`${REACT_APP_API_URL}/merchant`, form_data, {
       header: {
         'Content-Type': 'multipart/form-data',
       },
@@ -164,6 +160,7 @@ const Signup = () => {
       .then((response) => {
         console.log('MERCHANT SUCCESS', response);
         getToast('Successful', 'Your Merchant created successfully', 'success');
+        navigate('/dashboard');
       })
       .catch((error) => {
         console.log('merchat API ERROR', error);

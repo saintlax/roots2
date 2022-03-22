@@ -64,7 +64,7 @@ export const SignupForm = ({ onMerchantFirstForm }) => {
       BVN,
       businessName,
       businessAcountNumber,
-      companyLogo,
+      file: companyLogo,
     };
     if (
       companyAddress === '' ||
