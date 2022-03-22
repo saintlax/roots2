@@ -34,7 +34,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
                 disabled={true}
                 value={userData?.gender}
               />
-              <label for='business-name' className='label'>
+              <label htmlFor='business-name' className='label'>
                 Gender
               </label>
             </div>
@@ -47,7 +47,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
                 disabled={true}
                 value={userData?.marital_status}
               />
-              <label for='business-name' className='label'>
+              <label htmlFor='business-name' className='label'>
                 Marital Status
               </label>
             </div>
@@ -63,7 +63,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
                 disabled={true}
                 value={userData?.first_name}
               />
-              <label for='business-name' className='label'>
+              <label htmlFor='business-name' className='label'>
                 First Name
               </label>
             </div>
@@ -76,7 +76,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
                 disabled={true}
                 value={userData?.middle_name}
               />
-              <label for='business-name' className='label'>
+              <label htmlFor='business-name' className='label'>
                 Middle Name
               </label>
             </div>
@@ -90,7 +90,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
                 disabled={true}
                 value={userData?.last_name}
               />
-              <label for='business-name' className='label'>
+              <label htmlFor='business-name' className='label'>
                 Last Name
               </label>
             </div>
@@ -106,7 +106,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
                 disabled={true}
                 value={userData?.phone_number}
               />
-              <label for='business-name' className='label'>
+              <label htmlFor='business-name' className='label'>
                 Phone
               </label>
             </div>
@@ -119,7 +119,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
                 disabled={true}
                 value={userData?.email}
               />
-              <label for='business-name' className='label'>
+              <label htmlFor='business-name' className='label'>
                 Email
               </label>
             </div>
@@ -135,7 +135,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
                 disabled={true}
                 value={userData?.date_of_birth}
               />
-              <label for='business-name' className='label'>
+              <label htmlFor='business-name' className='label'>
                 Date of Birth
               </label>
             </div>
@@ -148,7 +148,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
                 disabled={true}
                 value={userData?.address}
               />
-              <label for='business-name' className='label'>
+              <label htmlFor='business-name' className='label'>
                 Address
               </label>
             </div>
@@ -164,7 +164,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
                 disabled={true}
                 value={userData?.lga_of_residence}
               />
-              <label for='business-name' className='label'>
+              <label htmlFor='business-name' className='label'>
                 LGA
               </label>
             </div>
@@ -177,7 +177,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
                 disabled={true}
                 value={userData?.state_of_residence}
               />
-              <label for='business-name' className='label'>
+              <label htmlFor='business-name' className='label'>
                 State of Residence
               </label>
             </div>
@@ -191,7 +191,7 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
                 disabled={true}
                 value={userData?.nationality}
               />
-              <label for='business-name' className='label'>
+              <label htmlFor='business-name' className='label'>
                 Nationality
               </label>
             </div>

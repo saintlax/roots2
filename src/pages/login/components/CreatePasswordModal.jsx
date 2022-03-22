@@ -32,9 +32,13 @@ export const CreatePasswordModal = ({ onButtonClick }) => {
       alert('Password Mismatch. Try Again');
       return;
     }
+    if (password.length < 7) {
+      alert('Password must be more than 7 characters');
+      return;
+    }
     const data = {
-      password: password,
-      confirmPassword: confirmPassword,
+      password,
+      confirmPassword,
     };
     setPassword('');
     setConfirmPassword('');
@@ -71,7 +75,7 @@ export const CreatePasswordModal = ({ onButtonClick }) => {
                 <Input
                   id='password'
                   name='password'
-                  placeholder='Password'
+                  type='password'
                   value={password}
                   onChange={handlePassword}
                 />
@@ -92,7 +96,7 @@ export const CreatePasswordModal = ({ onButtonClick }) => {
                 <Input
                   id='confirmPassword'
                   name='confirmPassword'
-                  placeholder='Confirm Password'
+                  type='password'
                   value={confirmPassword}
                   onChange={handleConfirmPassword}
                 />
