@@ -19,7 +19,7 @@ import {
   BsEye,
 } from 'react-icons/bs';
 
-export const UserModal = ({ name, dateCreated }) => {
+export const UserModal = ({ name, dateCreated, branch }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -47,9 +47,9 @@ export const UserModal = ({ name, dateCreated }) => {
                 src='https://bit.ly/dan-abramov'
               />
               <Text my='5px' fontWeight={'bold'}>
-                {name}
+                {branch?.name}
               </Text>
-              <Text>Account created {dateCreated}</Text>
+              <Text>Address {branch?.address}</Text>
             </Flex>
             <Flex
               my={'20px'}

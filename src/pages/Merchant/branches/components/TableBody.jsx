@@ -2,15 +2,18 @@ import { Tr, Tbody, Td, Flex, Text } from '@chakra-ui/react';
 import { tableBodyData } from './tableBodyData';
 
 import { MenuLItems } from './MenuList';
+import { useSelector, useDispatch } from 'react-redux';
 
 export const TableBody = () => {
+  const branches = useSelector((state) => state.branches);
+
   return (
     <Tbody>
-      {tableBodyData.map((data, i) => {
+      {branches.map((data, i) => {
         return (
           <Tr key={i}>
             <Td isTruncated maxWidth={'120px'}>
-              {data?.address}
+              {data?.name}
             </Td>
             <Td isTruncated maxWidth={'120px'}>
               <Flex alignItems={'center'}>
@@ -22,7 +25,11 @@ export const TableBody = () => {
             <Td>{data?.totalOrders}</Td>
 
             <Td maxWidth='100px'>
-              <MenuLItems name={data?.name} dateCreated={data?.dateCreated} />
+              <MenuLItems
+                name={data?.name}
+                dateCreated={data?.dateCreated}
+                branch={data}
+              />
             </Td>
           </Tr>
         );

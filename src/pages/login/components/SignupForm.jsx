@@ -9,8 +9,12 @@ import {
 
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-
-export const SignupForm = ({ onMerchantFirstForm }) => {
+import { useToast } from '@chakra-ui/toast';
+export const SignupForm = ({
+  onMerchantFirstForm,
+  isLoading,
+  handleMerchantFirstFormLoading,
+}) => {
   const NO_SHADOW = { _focus: { boxShadow: 'none' } };
   const BTN_STYLE = {
     _hover: { bg: 'rgba(20, 89, 223, 0.7)' },
@@ -26,6 +30,24 @@ export const SignupForm = ({ onMerchantFirstForm }) => {
   const [businessAcountNumber, setBusinessAcountNumber] = useState('');
   const [nameOfBank, setNameOfBank] = useState('');
   const [companyLogo, setCompanyLogo] = useState(null);
+  const toast = useToast();
+
+  const getToast = (title, description, status) => {
+    const color = status === 'success' ? 'blue' : 'red';
+    toast({
+      title: title,
+      description: description,
+      status: status,
+      duration: 5000,
+      isClosable: true,
+      // variant: 'left-accent',
+      position: 'top-right',
+      containerStyle: {
+        border: '10px solid ' + color,
+        backgroundColor: color,
+      },
+    });
+  };
 
   const handleBusinessName = (e) => {
     setBusinessName(e.target.value);
@@ -66,15 +88,11 @@ export const SignupForm = ({ onMerchantFirstForm }) => {
       businessAcountNumber,
       file: companyLogo,
     };
-    if (
-      companyAddress === '' ||
-      email === '' ||
-      companyPhoneNumber === '' ||
-      BVN === ''
-    ) {
-      alert('All fields are required');
+    if (!companyAddress || !email || !companyPhoneNumber || !BVN) {
+      getToast('Validation', 'All fields are required', 'error');
       return;
     }
+    handleMerchantFirstFormLoading(true);
     onMerchantFirstForm(data);
   };
 
@@ -204,6 +222,8 @@ export const SignupForm = ({ onMerchantFirstForm }) => {
         {...NO_SHADOW}
         {...BTN_STYLE}
         onClick={(e) => handleForm(e)}
+        isLoading={isLoading}
+        loadingText='Please wait'
       >
         Create my account
       </Button>

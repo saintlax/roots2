@@ -10,7 +10,12 @@ import {
 import { Link } from 'react-router-dom';
 import { CreatePasswordModal } from './CreatePasswordModal';
 
-export const ConfirmUserForm = ({ onButtonClick, userData }) => {
+export const ConfirmUserForm = ({
+  onButtonClick,
+  userData,
+  isLoading,
+  handleMerchantRegisterFormLoading,
+}) => {
   const NO_SHADOW = { _focus: { boxShadow: 'none' } };
   const BTN_STYLE = {
     _hover: { bg: 'rgba(20, 89, 223, 0.7)' },
@@ -203,8 +208,14 @@ export const ConfirmUserForm = ({ onButtonClick, userData }) => {
         my={['10px', '10px', '30px']}
         {...NO_SHADOW}
         {...BTN_STYLE}
+        isLoading={isLoading}
+        loadingText='Please wait..'
       >
-        <CreatePasswordModal onButtonClick={onButtonClick} />
+        <CreatePasswordModal
+          onButtonClick={onButtonClick}
+          isLoading={isLoading}
+          handleMerchantRegisterFormLoading={handleMerchantRegisterFormLoading}
+        />
       </Button>
       <Text
         textAlign={'center'}

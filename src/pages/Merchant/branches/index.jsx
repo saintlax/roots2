@@ -15,7 +15,7 @@ import { BranchSummary } from './components/BranchSummary';
 import { Dropdown } from './components/Dropdown';
 import { OrdersTable } from './components/OrdersTable';
 import { AiOutlinePlus } from 'react-icons/ai';
-
+import { AddBranchModal } from './components/AddBranchModal';
 export const Branches = () => {
   const isMobile = IsMobile();
 
@@ -26,11 +26,11 @@ export const Branches = () => {
 
         {isMobile ? (
           <Button size='sm' bg='primary'>
-            <AiOutlinePlus color='#fff' />
+            <AddBranchModal isMobile={isMobile} />
           </Button>
         ) : (
           <Button size='sm' bg={'#1459DF'} color='#fff'>
-            Create New
+            <AddBranchModal isMobile={isMobile} />
           </Button>
         )}
       </HStack>

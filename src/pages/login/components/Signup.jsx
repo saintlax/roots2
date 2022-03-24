@@ -5,12 +5,13 @@ import { Context } from '../../../context/userAuthContext/userTypeContext';
 
 import bgImage from '../assets/background.png';
 import { SignupForm } from './SignupForm';
-import { VerifyEmail } from './VerifyEmail';
-import { SignupType } from './signupType';
+// import { VerifyEmail } from './VerifyEmail';
+// import { SignupType } from './signupType';
 import { SignupUserForm } from './SignupUserForm';
 import Axios from 'axios';
 import { useToast } from '@chakra-ui/toast';
 import { ConfirmUserForm } from './ConfirmUserForm';
+
 const { REACT_APP_API_URL, REACT_APP_USER, REACT_APP_MERCHANT } = process.env;
 
 const Signup = () => {
@@ -23,13 +24,20 @@ const Signup = () => {
   const navigate = useNavigate();
   const { setUserType } = useContext(Context);
 
-  const [verifyEmail, setVerifyEmail] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [asUser, setAsUser] = useState(false);
   const [asMerchant, setAsMerchant] = useState(false);
   const [userData, setUserData] = useState({});
   const [bvn, setBvn] = useState('');
   const [merchant, setMerchant] = useState({});
+  const [merchantFirstFormLoading, setMerchantFirstFormLoading] =
+    useState(false);
+
+  const [merchantRegisterFormLoading, setMerchantRegisterFormLoading] =
+    useState(false);
+
+  const handleMerchantFirstFormLoading = (state) => {
+    setMerchantFirstFormLoading(state);
+  };
 
   const handleLogin = () => {
     if (email && password) {
@@ -68,15 +76,18 @@ const Signup = () => {
           console.log('User Data', response.data.payload);
           setUserData(response.data.payload);
           getToast('Successful', 'Your BVN has been confirmed', 'success');
+          setMerchantFirstFormLoading(false);
         }
       })
       .catch((err) => {
         console.log(err);
         getToast('Error', 'Something went wrong', 'error');
+        setMerchantFirstFormLoading(false);
       });
   };
 
   const getToast = (title, description, status) => {
+    const color = status === 'success' ? 'blue' : 'red';
     toast({
       title: title,
       description: description,
@@ -86,12 +97,37 @@ const Signup = () => {
       // variant: 'left-accent',
       position: 'top-right',
       containerStyle: {
-        border: '10px solid blue',
-        backgroundColor: 'blue',
+        border: '10px solid ' + color,
+        backgroundColor: color,
       },
     });
   };
 
+  const handleMerchantRegisterFormLoading = (state) => {
+    setMerchantRegisterFormLoading(state);
+  };
+
+  function MerchantSignup() {
+    if (merchantFirst) {
+      return (
+        <ConfirmUserForm
+          onButtonClick={onRegisterButtonClick}
+          userData={userData}
+          isLoading={merchantRegisterFormLoading}
+          handleMerchantRegisterFormLoading={handleMerchantRegisterFormLoading}
+        />
+      );
+    } else {
+      return (
+        <SignupForm
+          onMerchantFirstForm={handleMerchantFirstForm}
+          isLoading={merchantFirstFormLoading}
+          handleMerchantFirstFormLoading={handleMerchantFirstFormLoading}
+        />
+      );
+    }
+  }
+  //I am leaving this if there is need to have user dashboard
   function Proceed() {
     if (asMerchant) {
       if (merchantFirst) {
@@ -166,6 +202,8 @@ const Signup = () => {
       })
       .catch((error) => {
         console.log('merchat API ERROR', error);
+        getToast('Error', 'Merchant account could not be created', 'error');
+        setMerchantRegisterFormLoading(false);
       });
   };
 
@@ -185,7 +223,8 @@ const Signup = () => {
       })
       .catch((err) => {
         console.log('REG ERROR', err);
-        getToast('Error', err.message, 'success');
+        getToast('Error', err.message, 'error');
+        setMerchantRegisterFormLoading(false);
       });
   };
   return (
@@ -224,6 +263,7 @@ const Signup = () => {
       </Box>
 
       <Box width={['100%', '100%', '50%']}>
+        <MerchantSignup />
         {/* {verifyEmail ? (
           <>
             <VerifyEmail setSuccess={setSuccess} success={success} />
@@ -239,11 +279,11 @@ const Signup = () => {
             setVerifyEmail={setVerifyEmail}
           />
         )} */}
-        {!asMerchant && !asUser ? (
+        {/* {!asMerchant && !asUser ? (
           <SignupType asMerchant={proceedMerchant} asUser={proceedUser} />
         ) : (
           <Proceed />
-        )}
+        )} */}
       </Box>
     </Flex>
   );

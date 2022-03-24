@@ -15,11 +15,17 @@ import {
   HStack,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import { useToast } from '@chakra-ui/toast';
 
-export const CreatePasswordModal = ({ onButtonClick }) => {
+export const CreatePasswordModal = ({
+  onButtonClick,
+  isLoading,
+  handleMerchantRegisterFormLoading,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const toast = useToast();
 
   const handlePassword = (event) => {
     setPassword(event.target.value);
@@ -29,11 +35,15 @@ export const CreatePasswordModal = ({ onButtonClick }) => {
   };
   const register = (event) => {
     if (password !== confirmPassword) {
-      alert('Password Mismatch. Try Again');
+      getToast('Validation Error', 'Password Mismatch. Try Again', 'error');
       return;
     }
     if (password.length < 7) {
-      alert('Password must be more than 7 characters');
+      getToast(
+        'Validation Error',
+        'Password must be more than 7 characters',
+        'error'
+      );
       return;
     }
     const data = {
@@ -43,10 +53,28 @@ export const CreatePasswordModal = ({ onButtonClick }) => {
     setPassword('');
     setConfirmPassword('');
     onClose();
+    handleMerchantRegisterFormLoading(true);
     onButtonClick(data);
   };
   const isFirstNameError = password === '';
   const isLastNameError = confirmPassword === '';
+
+  const getToast = (title, description, status) => {
+    const color = status === 'success' ? 'blue' : 'red';
+    toast({
+      title: title,
+      description: description,
+      status: status,
+      duration: 5000,
+      isClosable: true,
+      // variant: 'left-accent',
+      position: 'top-right',
+      containerStyle: {
+        border: '10px solid ' + color,
+        backgroundColor: color,
+      },
+    });
+  };
 
   return (
     <>
@@ -112,7 +140,14 @@ export const CreatePasswordModal = ({ onButtonClick }) => {
             </Flex>
 
             <HStack mt='8' justify={['space-between', 'flex-end']}>
-              <Button bg='primary' px='30px' color='#fff' onClick={register}>
+              <Button
+                bg='primary'
+                px='30px'
+                color='#fff'
+                onClick={register}
+                isLoading={isLoading}
+                loadingText='Please wait..'
+              >
                 Register
               </Button>
             </HStack>

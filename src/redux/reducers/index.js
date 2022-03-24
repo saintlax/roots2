@@ -1,10 +1,11 @@
-import {combineReducers} from "redux";
- import {userReducer} from "./userReducer";
-import {productReducer} from "./productReducer"
-
+import { combineReducers } from 'redux';
+import { userReducer } from './userReducer';
+import { productReducer } from './productReducer';
+import { branchReducer } from './branchReducer';
 const reducers = combineReducers({
-    allUsers: userReducer,
-    allproducts: productReducer
+  users: userReducer,
+  products: productReducer,
+  branches: branchReducer,
 });
 
 export default reducers;

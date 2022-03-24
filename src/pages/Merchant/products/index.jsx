@@ -5,6 +5,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import ProductSalesAnalytics from './components/ProductSalesAnalytics';
 import ProductCatalogue from './components/ProductCatalogue';
 import './product.css';
+import { AddProductModal } from './components/AddProductModal';
 
 export const Products = () => {
   const isMobile = IsMobile();
@@ -15,11 +16,11 @@ export const Products = () => {
 
         {isMobile ? (
           <Button size='sm' bg='primary'>
-            <AiOutlinePlus color='#fff' />
+            <AddProductModal isMobile={isMobile} />
           </Button>
         ) : (
           <Button size='sm' bg={'#1459DF'} color='#fff'>
-            Create New
+            <AddProductModal isMobile={isMobile} />
           </Button>
         )}
       </HStack>
