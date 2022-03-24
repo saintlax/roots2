@@ -3,6 +3,7 @@ import { tableBodyData } from './tableBodyData';
 
 import { MenuLItems } from './MenuList';
 import { useSelector, useDispatch } from 'react-redux';
+import { AddStaffModal } from './AddStaffModal';
 
 export const TableBody = () => {
   const branches = useSelector((state) => state.branches);
@@ -20,7 +21,9 @@ export const TableBody = () => {
                 <Text>{data?.address}</Text>
               </Flex>
             </Td>
-            <Td>{data?.name}</Td>
+            <Td>
+              <AddStaffModal branch={data} />
+            </Td>
             <Td>{data?.amount}</Td>
             <Td>{data?.totalOrders}</Td>
 

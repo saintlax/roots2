@@ -19,53 +19,93 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 //import { addBranch } from '../../../../redux/actions/branchActions';
 import { ActionTypes } from '../../../../redux/constants/action-types';
+import Axios from 'axios';
+import { useToast } from '@chakra-ui/toast';
+
+const { REACT_APP_API_URL, REACT_APP_USER, REACT_APP_MERCHANT } = process.env;
 
 export const AddBranchModal = ({ isMobile }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
-  const branches = useSelector((state) => state.branches);
+  const merchant = useSelector((state) => state.merchant);
+  console.log('merchant ===>', merchant);
   const dispatch = useDispatch();
+  const toast = useToast();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleName = (event) => {
-    setName(event.target.value);
-  };
-
-  const handleAddress = (event) => {
-    setAddress(event.target.value);
+  const getToast = (title, description, status) => {
+    const color = status === 'success' ? 'blue' : 'red';
+    toast({
+      title: title,
+      description: description,
+      status: status,
+      duration: 5000,
+      isClosable: true,
+      // variant: 'left-accent',
+      position: 'top-right',
+      containerStyle: {
+        border: '10px solid ' + color,
+        backgroundColor: color,
+      },
+    });
   };
 
   const isNameError = name === '';
 
   const isAddressError = name === '';
 
+  const postBranch = async (payload) => {
+    await Axios.post(`${REACT_APP_API_URL}/branches`, payload)
+      .then((response) => {
+        if (response.status === 200 && response.data.payload) {
+          console.log('Branch Data', response.data.payload);
+          getToast('Successful', 'New branch created', 'success');
+          const branch = {
+            ...payload,
+            ...response.data.payload,
+            email: 'anayo@gmail.com',
+            phone: '+23470345678',
+            date: '22-01-2022',
+            amount: '250,000',
+            totalOrders: '1,500',
+            description: 'Loan repayment',
+            branches: '50',
+            status: 'Pending',
+            imageUrl: '',
+            dateCreated: '22-01-2022',
+            orderId: '#546382',
+          };
+          console.log('=====>', branch);
+          dispatch({
+            type: ActionTypes.ADD_BRANCH,
+            payload: branch,
+          });
+          setIsLoading(false);
+          setName('');
+          setAddress('');
+          onClose();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        getToast('Error', 'Something went wrong', 'error');
+        setIsLoading(false);
+      });
+  };
   const addBranch = () => {
     if (!name && !address) {
-      alert('Name and address are required');
+      getToast('Validation', 'Name and address are required', 'error');
       return;
     }
-    dispatch({
-      type: ActionTypes.ADD_BRANCH,
-      payload: {
-        id: branches[branches.length - 1].id + 1,
-        name: name,
-        email: 'anayo@gmail.com',
-        address: address,
-        phone: '+23470345678',
-        date: '22-01-2022',
-        amount: '250,000',
-        totalOrders: '1,500',
-        description: 'Loan repayment',
-        branches: '50',
-        status: 'Pending',
-        imageUrl: '',
-        dateCreated: '22-01-2022',
-        orderId: '#546382',
-      },
-    });
-    setName('');
-    setAddress('');
-    onClose();
+    setIsLoading(true);
+    const payload = {
+      name,
+      address,
+      users: [],
+      merchantId: merchant.id,
+    };
+    postBranch(payload);
   };
 
   return (
@@ -136,7 +176,14 @@ export const AddBranchModal = ({ isMobile }) => {
               </FormControl>
             </Flex>
             <HStack mt='8' justify={['space-between', 'flex-end']}>
-              <Button bg='primary' px='30px' color='#fff' onClick={addBranch}>
+              <Button
+                bg='primary'
+                px='30px'
+                color='#fff'
+                onClick={addBranch}
+                isLoading={isLoading}
+                loadingText='please wait...'
+              >
                 Add
               </Button>
             </HStack>
