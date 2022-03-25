@@ -22,12 +22,11 @@ import { BsThreeDots, BsTrash, BsCheckLg } from 'react-icons/bs';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-//import { addBranch } from '../../../../redux/actions/branchActions';
 import { ActionTypes } from '../../../../redux/constants/action-types';
 import Axios from 'axios';
 import { useToast } from '@chakra-ui/toast';
 
-const { REACT_APP_API_URL, REACT_APP_USER, REACT_APP_MERCHANT } = process.env;
+const { REACT_APP_API_URL } = process.env;
 
 export const AddProductModal = ({ isMobile }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,9 +35,10 @@ export const AddProductModal = ({ isMobile }) => {
   const [qty, setQty] = useState('');
   const [status, setStatus] = useState('');
   const [description, setDescription] = useState('');
-  const [image, setImage] = useState(null);
-  const [imageList, setImageList] = useState([]);
+  const [images, setImages] = useState([]);
   const merchant = useSelector((state) => state.merchant);
+  const products = useSelector((state) => state.products);
+  const branch = useSelector((state) => state.userBranch);
   // console.log('merchant ===>', merchant);
   const dispatch = useDispatch();
   const toast = useToast();
@@ -62,13 +62,78 @@ export const AddProductModal = ({ isMobile }) => {
     });
   };
 
-  const addProduct = () => {};
+  const addProduct = () => {
+    if (!name || !price) {
+      getToast(
+        'Validation Error',
+        'Name and price are required fields',
+        'error'
+      );
+      return;
+    }
+    const product = {
+      name,
+      price,
+      qty,
+      status,
+      images,
+      description,
+      merchant,
+      merchantId: merchant.id,
+      branch,
+      branchId: branch.id,
+    };
+
+    let filter = products.filter(
+      (prod) => prod.name === product.name && prod.price === product.price
+    );
+    if (filter.length == 0) {
+      postProduct(product);
+    } else {
+      getToast('Duplicate', 'This product already exist', 'error');
+    }
+  };
+
+  const clearFields = () => {
+    setName('');
+    setPrice('');
+    setDescription('');
+    setImages([]);
+    setQty('');
+    setStatus('');
+  };
+  const postProduct = async (product) => {
+    setIsLoading(true);
+    setLoadingText('please wait..');
+    await Axios.post(`${REACT_APP_API_URL}/products`, product)
+      .then((response) => {
+        console.log(response);
+        if (response.status == 200) {
+          const payload = response.data.payload;
+          dispatch({ type: ActionTypes.ADD_PRODUCT, payload: payload });
+          getToast('Success', 'Product created successfully', 'success');
+          setIsLoading(false);
+          clearFields();
+          onClose();
+          console.log('REDUX PRODUCTS', products);
+        } else {
+          getToast(
+            'Unknown',
+            'Server replied with: ' + response.status,
+            'error'
+          );
+          setIsLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        getToast('Product error', 'Product could not be created', 'error');
+        setIsLoading(false);
+      });
+  };
 
   const processImage = (e) => {
-    //setImage(e.target.files[0]);
-    //if (image !== null) {
     uploadImage(e.target.files[0]);
-    //}
   };
 
   const uploadImage = (image) => {
@@ -83,11 +148,10 @@ export const AddProductModal = ({ isMobile }) => {
     })
       .then((response) => {
         const payload = response.data.payload;
-        setImageList([...imageList, payload]);
+        setImages([...images, payload]);
         //  setImage(null);
         setIsLoading(false);
         getToast('Success', 'File was uploaded successfully', 'success');
-        console.log('===>image list<=====', imageList);
       })
       .catch((error) => {
         console.log(error);
@@ -97,15 +161,19 @@ export const AddProductModal = ({ isMobile }) => {
   };
 
   const ShowImage = ({ image }) => {
-    console.log('Image Route: ', image);
     const { name, path, extension, id } = image;
     return (
-      <Box border={'none'} bg='#fff' p='20px' borderRadius='10px'>
+      <Box border={'none'} bg='#fff' p='5px' borderRadius='10px'>
         <Flex justifyContent={'flex-end'}>
           <BsThreeDots size={'16px'} cursor='pointer' />
         </Flex>
-        <Box height={'100%'}>
-          <Image src={`${REACT_APP_API_URL}/upload/file/${name}`} alt='' />
+        <Box height={'120px'} w='160px'>
+          <Image
+            height={'100%'}
+            w='100%'
+            src={`${REACT_APP_API_URL}/upload/file/${name}`}
+            alt=''
+          />
         </Box>
         <Box mt='20px'>
           <HStack mt='8' justify={['space-between', 'flex-end']}>
@@ -127,13 +195,17 @@ export const AddProductModal = ({ isMobile }) => {
 
   const makeProfileImage = (image) => {
     image.isProfile = true;
-    const mapped = imageList.map((img) => (img.id === image.id ? image : img));
-    setImageList(mapped);
+    //remove all isProfile
+    const newArr = images.map(({ isProfile, ...rest }) => {
+      return rest;
+    });
+    const mapped = newArr.map((img) => (img.id === image.id ? image : img));
+    setImages(mapped);
   };
 
   const removeImage = (image) => {
-    const filter = imageList.filter((imagee) => image.id !== imagee.id);
-    setImageList(filter);
+    const filter = images.filter((imagee) => image.id !== imagee.id);
+    setImages(filter);
   };
 
   return (
@@ -155,9 +227,11 @@ export const AddProductModal = ({ isMobile }) => {
           {/* <ModalHeader>Modal Title</ModalHeader> */}
           <ModalCloseButton />
           <ModalBody p='50px'>
-            {imageList.map((data, i) => {
-              return <ShowImage key={i} image={data} />;
-            })}
+            <HStack spacing='2px' overflowX='scroll'>
+              {images.map((data, i) => {
+                return <ShowImage key={i} image={data} />;
+              })}
+            </HStack>
             <SimpleGrid columns={2} columnGap={3} rowGap={6} w='full'>
               <GridItem colSpan={1}>
                 <div className='inputContainer'>
