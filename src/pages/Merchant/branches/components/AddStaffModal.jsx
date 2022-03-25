@@ -142,7 +142,14 @@ export const AddStaffModal = ({ branch }) => {
   return (
     <>
       <Flex onClick={onOpen} alignItems='center' width={'100%'}>
-        <span alignItems='center' style={{ marginLeft: '10px' }}>
+        <span
+          alignItems='center'
+          style={{
+            marginLeft: '10px',
+            textDecoration: 'underline',
+            cursor: 'pointer',
+          }}
+        >
           {branch?.users?.length} member(s)
         </span>
       </Flex>
