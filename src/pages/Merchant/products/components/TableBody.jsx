@@ -63,7 +63,11 @@ export const TableBody = () => {
             </Td>
 
             <Td px={['20px !important', '40px !important']} fontSize={['14px']}>
-              <MenuLItems name={data?.name} dateCreated={data?.CreatedOn} />
+              <MenuLItems
+                name={data?.name}
+                dateCreated={data?.CreatedOn}
+                product={data}
+              />
             </Td>
           </Tr>
         );

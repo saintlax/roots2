@@ -11,8 +11,9 @@ import { FiEdit } from 'react-icons/fi';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { UserModal } from './UserModal';
 import CautionAlertDialog from '../../../../components/CautionAlertDialog';
+import { EditProductModal } from './EditProductModal';
 
-export const MenuLItems = ({ name, dateCreated }) => {
+export const MenuLItems = ({ name, dateCreated, product }) => {
   return (
     <>
       <Menu>
@@ -24,8 +25,7 @@ export const MenuLItems = ({ name, dateCreated }) => {
             <UserModal name={name} dateCreated={dateCreated} />
           </MenuItem>
           <MenuItem>
-            <FiEdit />
-            <span style={{ marginLeft: '10px' }}>Edit</span>
+            <EditProductModal product={product} />
           </MenuItem>
           <MenuItem>
             <CautionAlertDialog
