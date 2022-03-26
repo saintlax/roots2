@@ -1,12 +1,12 @@
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Text, HStack } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { AiOutlineUnorderedList } from 'react-icons/ai';
 import { MdOutlineDashboard } from 'react-icons/md';
 import { OrdersTable } from './OrdersTable';
 import { GridView } from './GridView';
 import { Dropdown } from './Dropdown';
-
-const ProductCatalogue = () => {
+import { AddCategoryModal } from './AddCategoryModal';
+const ProductCatalogue = ({ isMobile }) => {
   const [views, setViews] = useState(true);
   const view = views ? 'List View' : 'Grid View';
 
@@ -35,6 +35,16 @@ const ProductCatalogue = () => {
             {view}
           </Button>
           <Dropdown />
+
+          {isMobile ? (
+            <Button size='sm' bg='primary'>
+              <AddCategoryModal isMobile={isMobile} />
+            </Button>
+          ) : (
+            <Button size='sm' bg={'#1459DF'} color='#fff'>
+              <AddCategoryModal isMobile={isMobile} />
+            </Button>
+          )}
         </Flex>
       </Flex>
       <Box>{views ? <OrdersTable /> : <GridView />}</Box>

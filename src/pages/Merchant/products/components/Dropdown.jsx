@@ -1,7 +1,13 @@
 import { Flex, Select } from '@chakra-ui/react';
 import { BsBagCheck } from 'react-icons/bs';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { ActionTypes } from '../../../../redux/constants/action-types';
 
 export const Dropdown = () => {
+  const productCategories = useSelector((state) => state.productCategories);
+  const [category, setCategory] = useState('');
+
   return (
     <Flex
       // width={'160px'}
@@ -18,9 +24,9 @@ export const Dropdown = () => {
         border='none'
         _focus={{ border: 'none' }}
       >
-        <option value='option1'>Option 1</option>
-        <option value='option2'>Option 2</option>
-        <option value='option3'>Option 3</option>
+        {productCategories.map((category, i) => {
+          return <option value={category.name}>{category.name}</option>;
+        })}
       </Select>
     </Flex>
   );

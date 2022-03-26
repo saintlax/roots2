@@ -32,7 +32,7 @@ export const Products = () => {
           <ProductSalesAnalytics />
         </Box>
         <Box className='product-catalogue'>
-          <ProductCatalogue />
+          <ProductCatalogue isMobile={isMobile} />
         </Box>
       </Stack>
     </Stack>

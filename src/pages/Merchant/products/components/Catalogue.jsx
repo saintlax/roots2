@@ -1,25 +1,30 @@
 import { Box, Flex, Image, Progress, Text } from '@chakra-ui/react';
 import { BsThreeDots } from 'react-icons/bs';
 
-export const Catalogue = () => {
+export const Catalogue = ({ product }) => {
   return (
     <Box border={'none'} bg='#fff' p='20px' borderRadius='10px'>
       <Flex justifyContent={'flex-end'}>
         <BsThreeDots size={'16px'} cursor='pointer' />
       </Flex>
       <Box height={'200px'}>
-        <Image src='' alt='' />
+        <Image
+          w='100%'
+          height='100%'
+          src={product?.profileImage}
+          alt={product?.name}
+        />
       </Box>
 
       <Box>
         <Flex justifyContent={'space-between'}>
           <Text fontSize={['18px']} color={'#0068DD'}>
-            Pizza
+            {product?.name}
           </Text>
-          <Text>#20,000</Text>
+          <Text>#{product?.price}</Text>
         </Flex>
         <Box my='10px'>
-          <Text mb='2px'>This is a short description of this item.</Text>
+          <Text mb='2px'>{product?.description}</Text>
           <Text color={'#4A4C4F80'}>
             Available in Lagos, Ikeja and 2 other branch
           </Text>
@@ -32,11 +37,11 @@ export const Catalogue = () => {
           borderRadius={'5px'}
           textAlign='center'
         >
-          <Text>Food</Text>
+          <Text>{product?.category}</Text>
         </Box>
       </Box>
       <Box mt='20px'>
-        <Text>502 item left</Text>
+        <Text>{product?.qty} left</Text>
         <Progress value={80} />
       </Box>
     </Box>

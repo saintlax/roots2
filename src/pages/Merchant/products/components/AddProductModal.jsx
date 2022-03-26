@@ -16,6 +16,7 @@ import {
   Box,
   Image,
   Text,
+  Select,
 } from '@chakra-ui/react';
 import { BsThreeDots, BsTrash, BsCheckLg } from 'react-icons/bs';
 
@@ -34,6 +35,7 @@ export const AddProductModal = ({ isMobile }) => {
   const [price, setPrice] = useState('');
   const [qty, setQty] = useState('');
   const [status, setStatus] = useState('');
+  const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
   const [images, setImages] = useState([]);
   const merchant = useSelector((state) => state.merchant);
@@ -44,6 +46,7 @@ export const AddProductModal = ({ isMobile }) => {
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [loadingText, setLoadingText] = useState('Please wait..');
+  const productCategories = useSelector((state) => state.productCategories);
 
   const getToast = (title, description, status) => {
     const color = status === 'success' ? 'blue' : 'red';
@@ -71,6 +74,10 @@ export const AddProductModal = ({ isMobile }) => {
       );
       return;
     }
+    if (!category) {
+      getToast('Validation Error', 'Category is required field', 'error');
+      return;
+    }
     const product = {
       name,
       price,
@@ -82,6 +89,7 @@ export const AddProductModal = ({ isMobile }) => {
       merchantId: merchant.id,
       branch,
       branchId: branch.id,
+      category,
     };
 
     let filter = products.filter(
@@ -101,6 +109,7 @@ export const AddProductModal = ({ isMobile }) => {
     setImages([]);
     setQty('');
     setStatus('');
+    setCategory('');
   };
   const postProduct = async (product) => {
     setIsLoading(true);
@@ -168,12 +177,7 @@ export const AddProductModal = ({ isMobile }) => {
           <BsThreeDots size={'16px'} cursor='pointer' />
         </Flex>
         <Box height={'120px'} w='160px'>
-          <Image
-            height={'100%'}
-            w='100%'
-            src={`${REACT_APP_API_URL}/upload/file/${name}`}
-            alt=''
-          />
+          <Image height={'100%'} w='100%' src={path} alt='' />
         </Box>
         <Box mt='20px'>
           <HStack mt='8' justify={['space-between', 'flex-end']}>
@@ -290,6 +294,23 @@ export const AddProductModal = ({ isMobile }) => {
                 </div>
               </GridItem>
             </SimpleGrid>
+
+            <FormControl>
+              <Select
+                size='sm'
+                placeholder='Choose Category'
+                border='none'
+                _focus={{ border: 'none' }}
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                {productCategories.map((categoryy, i) => {
+                  return (
+                    <option value={categoryy.name}>{categoryy.name}</option>
+                  );
+                })}
+              </Select>
+            </FormControl>
 
             <FormControl>
               <FormLabel htmlFor='description' {...labelStyles}>
