@@ -1,10 +1,10 @@
-import { Tr, Tbody, Td, Flex, Text } from '@chakra-ui/react';
+import { Tr, Tbody, Td, Flex, Text, HStack } from '@chakra-ui/react';
 import { tableBodyData } from './tableBodyData';
 
 import { MenuLItems } from './MenuList';
 import { useSelector, useDispatch } from 'react-redux';
 import { AddStaffModal } from './AddStaffModal';
-
+import { ViewStaffModal } from './ViewStaffModal';
 export const TableBody = () => {
   const branches = useSelector((state) => state.branches);
 
@@ -22,7 +22,10 @@ export const TableBody = () => {
               </Flex>
             </Td>
             <Td>
-              <AddStaffModal branch={data} />
+              <HStack justify={['space-between']}>
+                <AddStaffModal branch={data} />
+                <ViewStaffModal branch={data} />
+              </HStack>
             </Td>
             <Td>{data?.amount}</Td>
             <Td>{data?.totalOrders}</Td>

@@ -1,7 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import { Catalogue } from './Catalogue';
 import { useSelector } from 'react-redux';
-const { REACT_APP_API_URL } = process.env;
 
 export const GridView = () => {
   const products = useSelector((state) => state.products.products);

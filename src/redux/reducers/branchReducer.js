@@ -15,6 +15,14 @@ const initialState = [
     imageUrl: '',
     dateCreated: '22-01-2022',
     orderId: '#546382',
+    users: [
+      {
+        lastName: 'Chika Anthony',
+        email: 'chika@yahoo.com',
+        position: 'Agent',
+      },
+      { lastName: 'Emeka Okoli', email: 'emeka@yahoo.com', position: 'Admin' },
+    ],
   },
   {
     id: 7,
@@ -31,6 +39,14 @@ const initialState = [
     imageUrl: '',
     dateCreated: '22-01-2022',
     orderId: '#546382',
+    users: [
+      {
+        lastName: 'Uchenna Enemuo',
+        email: 'uche@yahoo.com',
+        position: 'Agent',
+      },
+      { lastName: 'Eberechukwu', email: 'ebere@yahoo.com', position: 'Admin' },
+    ],
   },
   {
     id: 6,
@@ -47,6 +63,14 @@ const initialState = [
     imageUrl: '',
     dateCreated: '22-01-2022',
     orderId: '#546382',
+    users: [
+      {
+        lastName: 'Chidera Alakwe',
+        email: 'dera@yahoo.com',
+        position: 'Agent',
+      },
+      { lastName: 'Ibukun Oluwa', email: 'ibk@yahoo.com', position: 'Admin' },
+    ],
   },
   {
     id: 7,
@@ -63,6 +87,14 @@ const initialState = [
     imageUrl: '',
     dateCreated: '22-01-2022',
     orderId: '#546382',
+    users: [
+      { lastName: 'Jane Doe', email: 'doe@yahoo.com', position: 'Agent' },
+      {
+        lastName: 'Ifeoma Oragwuncha',
+        email: 'ifeoma@yahoo.com',
+        position: 'Admin',
+      },
+    ],
   },
 ];
 export const branchReducer = (state = initialState, action) => {

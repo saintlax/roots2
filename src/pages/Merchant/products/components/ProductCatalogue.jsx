@@ -109,16 +109,8 @@ const ProductCatalogue = ({ isMobile }) => {
           >
             {view}
           </Button>
-          <BranchesDropdown
-            hasTemp={hasTemp}
-            onHasTemp={onHasTemp}
-            onBranchIdSelected={onBranchIdSelected}
-          />
-          <CategoryDropdown
-            hasTemp={hasTemp}
-            onHasTemp={onHasTemp}
-            onCategorySelected={onCategorySelected}
-          />
+          <BranchesDropdown onBranchIdSelected={onBranchIdSelected} />
+          <CategoryDropdown onCategorySelected={onCategorySelected} />
 
           {isMobile ? (
             <Button size='sm' bg='primary'>

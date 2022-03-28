@@ -22,7 +22,7 @@ import { ActionTypes } from '../../../../redux/constants/action-types';
 import Axios from 'axios';
 import { useToast } from '@chakra-ui/toast';
 
-const { REACT_APP_API_URL, REACT_APP_USER, REACT_APP_MERCHANT } = process.env;
+const { REACT_APP_API_URL } = process.env;
 
 export const AddBranchModal = ({ isMobile }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();

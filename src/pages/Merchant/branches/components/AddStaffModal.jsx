@@ -21,6 +21,8 @@ import { useToast } from '@chakra-ui/toast';
 import Axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { ActionTypes } from '../../../../redux/constants/action-types';
+
+import { AiOutlineUsergroupAdd } from 'react-icons/ai';
 const { REACT_APP_API_URL } = process.env;
 
 export const AddStaffModal = ({ branch }) => {
@@ -150,7 +152,8 @@ export const AddStaffModal = ({ branch }) => {
             cursor: 'pointer',
           }}
         >
-          {branch?.users?.length} member(s)
+          {/* {branch?.users?.length} member(s) */}
+          <AiOutlineUsergroupAdd />
         </span>
       </Flex>
 

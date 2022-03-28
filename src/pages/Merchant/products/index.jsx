@@ -1,7 +1,6 @@
 import { Box, Button, Stack, Text, HStack } from '@chakra-ui/react';
 import { ProductSummary } from './components/ProductSummary';
 import IsMobile from '../../../components/common/IsMobile';
-import { AiOutlinePlus } from 'react-icons/ai';
 import ProductSalesAnalytics from './components/ProductSalesAnalytics';
 import ProductCatalogue from './components/ProductCatalogue';
 import './product.css';

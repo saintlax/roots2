@@ -1,11 +1,14 @@
 import { Tr, Tbody, Td, Flex, Text, Tooltip, Circle } from '@chakra-ui/react';
 import { tableBodyData } from './tableBodyData';
 import { MdHeadset } from 'react-icons/md';
+import { useSelector } from 'react-redux';
 
 export const TopProductTableBody = () => {
+  const products = useSelector((state) => state.products.topSelling);
+
   return (
     <Tbody>
-      {tableBodyData.slice(0, 5).map((data, i) => {
+      {products.slice(0, 5).map((data, i) => {
         return (
           <Tr key={i}>
             <Td fontSize={['12px']} py='20px !important'>
@@ -17,7 +20,7 @@ export const TopProductTableBody = () => {
                   <Circle bg={'#fbf5ef'} size='30px' mr='10px'>
                     <MdHeadset size={'16px'} />
                   </Circle>
-                  <Text isTruncated>{data?.prodName}</Text>
+                  <Text isTruncated>{data?.name}</Text>
                 </Flex>
               </Td>
             </Tooltip>
