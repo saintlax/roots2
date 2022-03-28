@@ -19,8 +19,6 @@ import {
   Select,
 } from '@chakra-ui/react';
 import { BsThreeDots, BsTrash, BsCheckLg } from 'react-icons/bs';
-
-import { AiOutlinePlus } from 'react-icons/ai';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ActionTypes } from '../../../../redux/constants/action-types';
@@ -39,9 +37,9 @@ export const EditProductModal = ({ product }) => {
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
   const [images, setImages] = useState([]);
-  const merchant = useSelector((state) => state.merchant);
-  const products = useSelector((state) => state.products);
-  const branch = useSelector((state) => state.userBranch);
+  // const merchant = useSelector((state) => state.merchant);
+  const products = useSelector((state) => state.products.products);
+  // const branch = useSelector((state) => state.userBranch);
   // console.log('merchant ===>', merchant);
   const dispatch = useDispatch();
   const toast = useToast();

@@ -39,7 +39,7 @@ export const AddProductModal = ({ isMobile }) => {
   const [description, setDescription] = useState('');
   const [images, setImages] = useState([]);
   const merchant = useSelector((state) => state.merchant);
-  const products = useSelector((state) => state.products);
+  const products = useSelector((state) => state.products.products);
   const branch = useSelector((state) => state.userBranch);
   // console.log('merchant ===>', merchant);
   const dispatch = useDispatch();

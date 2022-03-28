@@ -5,7 +5,7 @@ import { MenuLItems } from './MenuList';
 import { useSelector } from 'react-redux';
 
 export const TableBody = () => {
-  const products = useSelector((state) => state.products);
+  const products = useSelector((state) => state.products.products);
   return (
     <Tbody>
       {products.map((data, i) => {

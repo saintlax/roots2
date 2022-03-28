@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 const { REACT_APP_API_URL } = process.env;
 
 export const GridView = () => {
-  const products = useSelector((state) => state.products);
+  const products = useSelector((state) => state.products.products);
   const getProfileImage = (product) => {
     if (product.images) {
       const profiles = product.images.filter(
