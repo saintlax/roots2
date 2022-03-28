@@ -4,11 +4,17 @@ import { AiOutlineUnorderedList } from 'react-icons/ai';
 import { MdOutlineDashboard } from 'react-icons/md';
 import { OrdersTable } from './OrdersTable';
 import { GridView } from './GridView';
-import { Dropdown } from './Dropdown';
+import { CategoryDropdown } from './CategoryDropdown';
 import { AddCategoryModal } from './AddCategoryModal';
+import { BranchesDropdown } from './BranchesDropdown';
 const ProductCatalogue = ({ isMobile }) => {
   const [views, setViews] = useState(true);
   const view = views ? 'List View' : 'Grid View';
+  const [hasTemp, setHasTemp] = useState(false);
+  //since i am creating a temporary array in the redux store, i want to reuse this for branch sorting
+  const onHasTemp = (status) => {
+    setHasTemp(status);
+  };
 
   return (
     <Box>
@@ -34,7 +40,8 @@ const ProductCatalogue = ({ isMobile }) => {
           >
             {view}
           </Button>
-          <Dropdown />
+          <BranchesDropdown hasTemp={hasTemp} onHasTemp={onHasTemp} />
+          <CategoryDropdown hasTemp={hasTemp} onHasTemp={onHasTemp} />
 
           {isMobile ? (
             <Button size='sm' bg='primary'>

@@ -1,18 +1,12 @@
 import { Flex, Select } from '@chakra-ui/react';
 import { BsBagCheck } from 'react-icons/bs';
-import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ActionTypes } from '../../../../redux/constants/action-types';
-export const Dropdown = () => {
+export const CategoryDropdown = ({ hasTemp, onHasTemp }) => {
   const productCategories = useSelector((state) => state.productCategories);
-  const sortCategory = useSelector((state) => state.sortCategory);
-  const [selectedCategory, setSelectedCategory] = useState('');
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
-
   const tempProducts = useSelector((state) => state.products.temp);
-
-  const [hasTemp, setHasTemp] = useState(false);
 
   const handleSelection = (e) => {
     const cat = e.target.selectedOptions[0].value;
@@ -22,7 +16,7 @@ export const Dropdown = () => {
         payload: products,
       });
     }
-    setHasTemp(true);
+    onHasTemp(true);
     if (cat) {
       console.log('TEMP', tempProducts);
       const arr = tempProducts.filter((product) => product.category === cat);
