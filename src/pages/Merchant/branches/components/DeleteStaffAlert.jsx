@@ -20,7 +20,7 @@ import { useState } from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
 const { REACT_APP_API_URL } = process.env;
 
-export function DeleteStaffAlert({ staff }) {
+export function DeleteStaffAlert({ staff, branch }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
   const BTN = { _focus: { boxShadow: 'none' } };
@@ -46,19 +46,20 @@ export function DeleteStaffAlert({ staff }) {
     });
   };
 
-  const deleteProduct = async (product) => {
+  const deleteUserFromBranch = async (staff, branch) => {
     setIsLoading(true);
-    // setLoadingText('please wait..');
-    await Axios.delete(`${REACT_APP_API_URL}/products/${product.id}`, {
-      id: product.id,
-    })
+    const newUsers = branch.users.filter((user) => user.email !== staff.email);
+    branch.users = newUsers;
+    let mbranch = branch;
+    delete mbranch.branch;
+    console.log('NEW Branch', mbranch);
+
+    await Axios.put(`${REACT_APP_API_URL}/branches/${mbranch.id}`, mbranch)
       .then((response) => {
         console.log(response);
         if (response.status == 200) {
-          // const payload = response.data.payload;
-          // product = { ...product, payload };
-          dispatch({ type: ActionTypes.DELETE_PRODUCT, payload: product });
-          getToast('Success', 'Product DELETED successfully', 'success');
+          dispatch({ type: ActionTypes.EDIT_BRANCH, payload: branch });
+          getToast('Success', 'User deleted successfully', 'success');
           setIsLoading(false);
 
           onClose();
@@ -73,7 +74,7 @@ export function DeleteStaffAlert({ staff }) {
       })
       .catch((error) => {
         console.log(error);
-        getToast('Product error', 'Product could not be deleted', 'error');
+        getToast('Delete error', 'Staff could not be deleted', 'error');
         setIsLoading(false);
       });
   };
@@ -87,7 +88,7 @@ export function DeleteStaffAlert({ staff }) {
               <AiOutlineDelete />
             </Text>
             <span style={{ marginLeft: '10px' }} onClick={onOpen}>
-              Disable
+              Delete
             </span>
           </HStack>
         </Tooltip>
@@ -126,12 +127,12 @@ export function DeleteStaffAlert({ staff }) {
               width='100%'
               bg='red'
               colorScheme='red'
-              onClick={() => deleteProduct(staff)}
+              onClick={() => deleteUserFromBranch(staff, branch)}
               ml={3}
               fontSize={'14px'}
               isLoading={isLoading}
             >
-              Yes, Disable
+              Yes, Delete
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

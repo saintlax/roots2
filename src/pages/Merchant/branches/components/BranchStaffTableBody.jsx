@@ -21,7 +21,7 @@ export const BranchStaffTableBody = ({ branch }) => {
             </Td>
 
             <Td>
-              <DeleteStaffAlert staff={data} />
+              <DeleteStaffAlert staff={data} branch={branch} />
             </Td>
 
             {/* <Td maxWidth='100px'>
