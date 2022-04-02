@@ -6,6 +6,8 @@ import { merchantReducer } from './merchantReducer';
 import { userBranchReducer } from './userBranch';
 import { productCategoryReducer } from './productCategoriesReducer';
 import { sortCategoryReducer } from './sortCategoryReducer';
+import { loanReducer } from './loanReducer';
+import { ordersReducer } from './ordersReducers';
 const reducers = combineReducers({
   users: userReducer,
   products: productReducer,
@@ -14,6 +16,8 @@ const reducers = combineReducers({
   userBranch: userBranchReducer,
   productCategories: productCategoryReducer,
   sortCategory: sortCategoryReducer,
+  loans: loanReducer,
+  orders: ordersReducer,
 });
 
 export default reducers;

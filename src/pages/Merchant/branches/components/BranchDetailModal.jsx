@@ -8,7 +8,6 @@ import {
   Text,
   Box,
   Flex,
-  Avatar,
   Select,
   Circle,
 } from '@chakra-ui/react';
@@ -18,10 +17,45 @@ import {
   BsBagCheck,
   BsEye,
 } from 'react-icons/bs';
+import { useSelector } from 'react-redux';
 
-export const UserModal = ({ name, dateCreated, branch }) => {
+export const BranchDetailModal = ({ branch }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const loans = useSelector((state) => state.loans.loans);
 
+  const ShowLoans = () => {
+    return loans.map((loan, i) => {
+      return (
+        <Flex
+          my={'20px'}
+          justifyContent={'space-between'}
+          alignItems='center'
+          fontWeight={'normal'}
+        >
+          <Flex
+            width={'65%'}
+            justifyContent={'space-between'}
+            alignItems='center'
+          >
+            <Circle size={'30px'} bg='#1459DF'>
+              {loan.status === 'Completed' ? (
+                <BsArrowDownRight color='#fff' />
+              ) : (
+                <BsArrowUpRight color='#fff' />
+              )}
+            </Circle>
+            <Box>
+              <Text>{loan.status}</Text>
+              <Text>{loan.date}</Text>
+            </Box>
+          </Flex>
+          <Text color={loan.status === 'Completed' ? 'green' : 'red'}>
+            #{loan.amount}
+          </Text>
+        </Flex>
+      );
+    });
+  };
   return (
     <>
       <Flex onClick={onOpen} alignItems='center' width={'100%'}>
@@ -41,11 +75,6 @@ export const UserModal = ({ name, dateCreated, branch }) => {
               justifyContent='center'
               alignItems={'center'}
             >
-              <Avatar
-                size='lg'
-                name='Dan Abrahmov'
-                src='https://bit.ly/dan-abramov'
-              />
               <Text my='5px' fontWeight={'bold'}>
                 {branch?.name}
               </Text>
@@ -79,48 +108,7 @@ export const UserModal = ({ name, dateCreated, branch }) => {
                 </Select>
               </Flex>
             </Flex>
-            <Flex
-              my={'20px'}
-              justifyContent={'space-between'}
-              alignItems='center'
-              fontWeight={'normal'}
-            >
-              <Flex
-                width={'65%'}
-                justifyContent={'space-between'}
-                alignItems='center'
-              >
-                <Circle size={'30px'} bg='#1459DF'>
-                  <BsArrowDownRight color='#fff' />
-                </Circle>
-                <Box>
-                  <Text>Loan Paid</Text>
-                  <Text>September 24, 2021 10:28pm</Text>
-                </Box>
-              </Flex>
-              <Text color={'red'}>-#10,000</Text>
-            </Flex>
-            <Flex
-              my={'20px'}
-              justifyContent={'space-between'}
-              alignItems='center'
-              fontWeight={'normal'}
-            >
-              <Flex
-                width={'65%'}
-                justifyContent={'space-between'}
-                alignItems='center'
-              >
-                <Circle size={'30px'} bg='#1459DF'>
-                  <BsArrowUpRight color='#fff' />
-                </Circle>
-                <Box>
-                  <Text>Loan Credited</Text>
-                  <Text>September 24, 2021 10:28pm</Text>
-                </Box>
-              </Flex>
-              <Text color={'green'}>#43,000</Text>
-            </Flex>
+            <ShowLoans />
           </ModalBody>
         </ModalContent>
       </Modal>

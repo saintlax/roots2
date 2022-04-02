@@ -9,12 +9,12 @@ import {
 import { BsThreeDots } from 'react-icons/bs';
 import { FiEdit, FiTrash } from 'react-icons/fi';
 import { AiOutlineDelete } from 'react-icons/ai';
-import { UserModal } from './UserModal';
 import CautionAlertDialog from '../../../../components/CautionAlertDialog';
 import { useSelector, useDispatch } from 'react-redux';
 //import { addBranch } from '../../../../redux/actions/branchActions';
 import { ActionTypes } from '../../../../redux/constants/action-types';
 import { EditBranchModal } from './EditBranchModal';
+import { BranchDetailModal } from './BranchDetailModal';
 
 export const MenuLItems = ({ name, dateCreated, branch }) => {
   const dispatch = useDispatch();
@@ -33,7 +33,11 @@ export const MenuLItems = ({ name, dateCreated, branch }) => {
         </MenuButton>
         <MenuList>
           <MenuItem>
-            <UserModal name={name} dateCreated={dateCreated} branch={branch} />
+            <BranchDetailModal
+              name={name}
+              dateCreated={dateCreated}
+              branch={branch}
+            />
           </MenuItem>
           <MenuItem>
             {/* <FiEdit />

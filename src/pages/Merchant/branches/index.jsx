@@ -18,6 +18,11 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { AddBranchModal } from './components/AddBranchModal';
 export const Branches = () => {
   const isMobile = IsMobile();
+  const onStatusSelected = (value) => {
+    console.log('====================================');
+    console.log(value);
+    console.log('====================================');
+  };
 
   return (
     <Stack w='100%' h='100%'>
@@ -88,7 +93,7 @@ export const Branches = () => {
       <Flex pt='5' pb='3' align='center' justify='space-between'>
         <Text as='h2'>Branches</Text>
         <Box>
-          <Dropdown />
+          <Dropdown onStatusSelected={onStatusSelected} />
         </Box>
       </Flex>
       <Box>

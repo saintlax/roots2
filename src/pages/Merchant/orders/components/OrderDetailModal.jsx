@@ -12,16 +12,59 @@ import {
   Select,
   Circle,
 } from '@chakra-ui/react';
-import {
-  BsArrowDownRight,
-  BsArrowUpRight,
-  BsBagCheck,
-  BsEye,
-} from 'react-icons/bs';
+import { BsBagCheck, BsEye, BsBriefcase } from 'react-icons/bs';
+import { useToast } from '@chakra-ui/toast';
+import { OrderActionAlert } from './OrderActionAlert';
+import { useState } from 'react';
 
-export const UserModal = ({ name, dateCreated }) => {
+export const OrderDetailModal = ({ order }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
+  const [takeAction, setTakeAction] = useState(false);
+  const [selectedAction, setSelectedAction] = useState(false);
+  const getToast = (title, description, status) => {
+    const color = status === 'success' ? 'blue' : 'red';
+    toast({
+      title: title,
+      description: description,
+      status: status,
+      duration: 5000,
+      isClosable: true,
+      // variant: 'left-accent',
+      position: 'top-right',
+      containerStyle: {
+        border: '10px solid ' + color,
+        backgroundColor: color,
+      },
+    });
+  };
+  const handleSelection = (e) => {
+    const action = e.target.value;
+    if (action) {
+      if (order.status === 'Completed' || order.status === 'Approved') {
+        getToast(
+          'No action Required',
+          `This order has been marked as ${order.status} already`,
+          'error'
+        );
+        return;
+      }
+      setSelectedAction(action);
+      setTakeAction(true);
+      return;
+    } else {
+      getToast('No action', 'No action was taken on this order', 'error');
+      return;
+    }
+  };
 
+  const onCloseAlert = (status) => {
+    setTakeAction(false);
+  };
+
+  const onActionComplete = (status) => {
+    onClose();
+  };
   return (
     <>
       <Flex onClick={onOpen} alignItems='center' width={'100%'}>
@@ -47,9 +90,9 @@ export const UserModal = ({ name, dateCreated }) => {
                 src='https://bit.ly/dan-abramov'
               />
               <Text my='5px' fontWeight={'bold'}>
-                {name}
+                {order?.user?.firstName} {order?.user?.lastName}
               </Text>
-              <Text>Account created {dateCreated}</Text>
+              <Text>Ordered on {order?.createdOn}</Text>
             </Flex>
             <Flex
               my={'20px'}
@@ -58,7 +101,7 @@ export const UserModal = ({ name, dateCreated }) => {
               fontWeight={'semibold'}
               borderBottom='5px solid #f4f4f4'
             >
-              <Text>Transaction History</Text>
+              <Text>Product Detail</Text>
               <Flex
                 width={'160px'}
                 justifyContent='center'
@@ -69,13 +112,13 @@ export const UserModal = ({ name, dateCreated }) => {
               >
                 <BsBagCheck size={26} />
                 <Select
-                  placeholder='Last 7 days'
+                  placeholder='Action'
                   border='none'
                   _focus={{ border: 'none' }}
+                  onChange={(e) => handleSelection(e)}
                 >
-                  <option value='option1'>Option 1</option>
-                  <option value='option2'>Option 2</option>
-                  <option value='option3'>Option 3</option>
+                  <option value='Approved'>Approve</option>
+                  <option value='Declined'>Decline</option>
                 </Select>
               </Flex>
             </Flex>
@@ -91,14 +134,14 @@ export const UserModal = ({ name, dateCreated }) => {
                 alignItems='center'
               >
                 <Circle size={'30px'} bg='#1459DF'>
-                  <BsArrowDownRight color='#fff' />
+                  <BsBriefcase color='#fff' />
                 </Circle>
                 <Box>
-                  <Text>Loan Paid</Text>
-                  <Text>September 24, 2021 10:28pm</Text>
+                  <Text>Product: {order?.product?.name}</Text>
+                  <Text>{order?.product?.status}</Text>
                 </Box>
               </Flex>
-              <Text color={'red'}>-#10,000</Text>
+              <Text color={'red'}>#{order?.product?.price}</Text>
             </Flex>
             <Flex
               my={'20px'}
@@ -111,19 +154,26 @@ export const UserModal = ({ name, dateCreated }) => {
                 justifyContent={'space-between'}
                 alignItems='center'
               >
-                <Circle size={'30px'} bg='#1459DF'>
+                {/* <Circle size={'30px'} bg='#1459DF'>
                   <BsArrowUpRight color='#fff' />
-                </Circle>
+                </Circle> */}
                 <Box>
-                  <Text>Loan Credited</Text>
-                  <Text>September 24, 2021 10:28pm</Text>
+                  <Text>Branch: {order?.product?.branch?.name}</Text>
+                  <Text>Address: {order?.product?.branch?.address}</Text>
                 </Box>
               </Flex>
-              <Text color={'green'}>#43,000</Text>
+              <Text color={'green'}>.</Text>
             </Flex>
           </ModalBody>
         </ModalContent>
       </Modal>
+      <OrderActionAlert
+        order={order}
+        isOpen={takeAction}
+        onCloseAlert={onCloseAlert}
+        onActionComplete={onActionComplete}
+        selectedAction={selectedAction}
+      />
     </>
   );
 };

@@ -10,7 +10,6 @@ import {
   AlertDialogCloseButton,
   Text,
   Tooltip,
-  HStack,
 } from '@chakra-ui/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ActionTypes } from '../../../../redux/constants/action-types';
@@ -20,8 +19,14 @@ import { useState } from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
 const { REACT_APP_API_URL } = process.env;
 
-export function DeleteStaffAlert({ staff, branch }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+export function OrderActionAlert({
+  order,
+  isOpen,
+  onCloseAlert,
+  onActionComplete,
+  selectedAction,
+}) {
+  const { onOpen, onClose } = useDisclosure(); //isOpen,
   const cancelRef = React.useRef();
   const BTN = { _focus: { boxShadow: 'none' } };
   const dispatch = useDispatch();
@@ -46,20 +51,33 @@ export function DeleteStaffAlert({ staff, branch }) {
     });
   };
 
-  const deleteUserFromBranch = async (staff, branch) => {
+  const updateOrder = async (order) => {
     setIsLoading(true);
-    const newUsers = branch.users.filter((user) => user.email !== staff.email);
-    branch.users = newUsers;
-    let mbranch = branch;
-    delete mbranch.branch;
-    await Axios.put(`${REACT_APP_API_URL}/branches/${mbranch.id}`, mbranch)
+    let payload = {
+      ...order,
+      status: selectedAction,
+    };
+    delete payload.createdOn;
+    delete payload.updatedOn;
+    delete payload._id;
+    delete payload.__v;
+    console.log('=====>', payload);
+
+    // setLoadingText('please wait..');
+
+    await Axios.put(`${REACT_APP_API_URL}/loanproducts/${payload.id}`, payload)
       .then((response) => {
         console.log(response);
         if (response.status == 200) {
-          dispatch({ type: ActionTypes.EDIT_BRANCH, payload: branch });
-          getToast('Success', 'User deleted successfully', 'success');
+          // const payload = response.data.payload;
+          // product = { ...product, payload };
+          order.status = selectedAction;
+          dispatch({ type: ActionTypes.EDIT_ORDER, payload: order });
+          handleClose(false);
+          onActionComplete(true);
           setIsLoading(false);
-
+          getToast('Success', 'Order updated successfully', 'success');
+          setIsLoading(false);
           onClose();
         } else {
           getToast(
@@ -72,25 +90,18 @@ export function DeleteStaffAlert({ staff, branch }) {
       })
       .catch((error) => {
         console.log(error);
-        getToast('Delete error', 'Staff could not be deleted', 'error');
+        getToast('Order error', 'Order could not be updated', 'error');
         setIsLoading(false);
       });
   };
 
+  const handleClose = (status) => {
+    onCloseAlert(status);
+    onClose();
+  };
+
   return (
     <>
-      <Text ml='3PX' cursor='pointer' onClick={onOpen}>
-        <Tooltip label='delete transaction' aria-label='A tooltip'>
-          <HStack>
-            <Text className='red small'>
-              <AiOutlineDelete />
-            </Text>
-            <span style={{ marginLeft: '10px' }} onClick={onOpen}>
-              Delete
-            </span>
-          </HStack>
-        </Tooltip>
-      </Text>
       <AlertDialog
         motionPreset='slideInBottom'
         leastDestructiveRef={cancelRef}
@@ -102,35 +113,35 @@ export function DeleteStaffAlert({ staff, branch }) {
 
         <AlertDialogContent>
           <AlertDialogHeader fontSize={'18px'}>
-            Are you sure you want to disable {staff?.lastName} ?
+            Are you sure you want to set this order to {selectedAction} ?
           </AlertDialogHeader>
           <Text px='20px' fontSize={'16px'} textAlign={'center'}>
             This action cannot be undone, if you choose to continue
           </Text>
-          <AlertDialogCloseButton />
+          <AlertDialogCloseButton onClick={handleClose} />
           <AlertDialogFooter>
             <Button
               {...BTN}
               bg='green'
               color={'#fff'}
               ref={cancelRef}
-              onClick={onClose}
+              onClick={handleClose}
               width='100%'
               fontSize={'14px'}
             >
-              No, Don't Delete
+              No
             </Button>
             <Button
               {...BTN}
               width='100%'
               bg='red'
               colorScheme='red'
-              onClick={() => deleteUserFromBranch(staff, branch)}
+              onClick={() => updateOrder(order)}
               ml={3}
               fontSize={'14px'}
               isLoading={isLoading}
             >
-              Yes, Delete
+              Yes
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

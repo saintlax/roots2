@@ -23,6 +23,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ActionTypes } from '../../../../redux/constants/action-types';
 
 import { AiOutlineUsergroupAdd } from 'react-icons/ai';
+
+import { FiPlus, FiEye } from 'react-icons/fi';
 const { REACT_APP_API_URL } = process.env;
 
 export const AddStaffModal = ({ branch }) => {
@@ -153,7 +155,7 @@ export const AddStaffModal = ({ branch }) => {
           }}
         >
           {/* {branch?.users?.length} member(s) */}
-          <AiOutlineUsergroupAdd />
+          <FiPlus />
         </span>
       </Flex>
 

@@ -9,10 +9,10 @@ import {
 import { BsThreeDots } from 'react-icons/bs';
 import { FiEdit } from 'react-icons/fi';
 import { AiOutlineDelete } from 'react-icons/ai';
-import { UserModal } from './UserModal';
+import { OrderDetailModal } from './OrderDetailModal';
 import CautionAlertDialog from '../../../../components/CautionAlertDialog';
 
-export const MenuLItems = ({ name, dateCreated }) => {
+export const MenuLItems = ({ order }) => {
   return (
     <>
       <Menu>
@@ -21,7 +21,7 @@ export const MenuLItems = ({ name, dateCreated }) => {
         </MenuButton>
         <MenuList>
           <MenuItem>
-            <UserModal name={name} dateCreated={dateCreated} />
+            <OrderDetailModal order={order} />
           </MenuItem>
           <MenuItem>
             <FiEdit />
