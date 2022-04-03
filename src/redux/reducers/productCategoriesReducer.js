@@ -20,6 +20,9 @@ export const productCategoryReducer = (state = initialState, action) => {
       );
       state = filtered;
       return state;
+    case ActionTypes.REFRESH_PRODUCT_CATEGORIES:
+      state = action.payload;
+      return state;
     default:
       return state;
   }

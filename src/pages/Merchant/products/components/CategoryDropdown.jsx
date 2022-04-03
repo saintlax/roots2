@@ -1,13 +1,39 @@
 import { Flex, Select } from '@chakra-ui/react';
 import { BsBagCheck } from 'react-icons/bs';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { ActionTypes } from '../../../../redux/constants/action-types';
+import Axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+const { REACT_APP_API_URL } = process.env;
 export const CategoryDropdown = ({ onCategorySelected }) => {
   const productCategories = useSelector((state) => state.productCategories);
-
+  const merchant = useSelector((state) => state.merchant);
+  const dispatch = useDispatch();
   const handleSelection = (e) => {
     onCategorySelected(e.target.selectedOptions[0].value);
   };
 
+  useEffect(() => {
+    console.log('LOADING CATEGORIES......', merchant);
+    getCategories();
+  }, []);
+  const getCategories = async () => {
+    //&branchId=${this.branch.id
+    await Axios.get(
+      `${REACT_APP_API_URL}/productCategories/filter/filter?merchantId=${merchant.id}`
+    )
+      .then((response) => {
+        console.log(response);
+        if (response.status == 200) {
+          const payload = response.data.payload;
+          dispatch({ type: ActionTypes.REFRESH_PRODUCT_CATEGORIES, payload });
+        } else {
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <Flex
       // width={'160px'}

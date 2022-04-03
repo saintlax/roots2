@@ -1,12 +1,14 @@
 import { Flex, HStack, Select, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
 import { AiOutlineCalendar } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
 
 const FilterParameter = () => {
+  const user = useSelector((state) => state.user);
   return (
     <HStack justify='space-between' w='100%'>
       <Stack>
-        <Text as='h2'>Hello Kelvin,</Text>
+        <Text as='h2'>Hello {user?.firstName},</Text>
         <Text as='small' fontSize='14px'>
           Welcome to your Dashboard
         </Text>

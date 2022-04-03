@@ -19,7 +19,11 @@ export const BranchStaffTableBody = ({ branch }) => {
                 <Text>{data?.email}</Text>
               </Flex>
             </Td>
-
+            <Td isTruncated maxWidth={'120px'}>
+              <Flex alignItems={'center'}>
+                <Text>{data?.role?.name}</Text>
+              </Flex>
+            </Td>
             <Td>
               <DeleteStaffAlert staff={data} branch={branch} />
             </Td>

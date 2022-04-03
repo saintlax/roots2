@@ -1,7 +1,6 @@
 import { Table, Box, Flex, Text, Select } from '@chakra-ui/react';
 import { TopProductTableBody } from './TopProductTableBody';
 import { TopProductTableHead } from './TopProductTableHead';
-
 export const ProductSummary = () => {
   return (
     <Box bg={'#fff'} borderRadius='10px' border={'1px solid #E5E5E5'}>

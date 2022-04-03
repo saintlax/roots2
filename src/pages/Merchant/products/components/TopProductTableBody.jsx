@@ -1,10 +1,36 @@
 import { Tr, Tbody, Td, Flex, Text, Tooltip, Circle } from '@chakra-ui/react';
 import { tableBodyData } from './tableBodyData';
 import { MdHeadset } from 'react-icons/md';
-import { useSelector } from 'react-redux';
+import { ActionTypes } from '../../../../redux/constants/action-types';
+import Axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+const { REACT_APP_API_URL } = process.env;
 
 export const TopProductTableBody = () => {
   const products = useSelector((state) => state.products.topSelling);
+  const merchant = useSelector((state) => state.merchant);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    getProducts();
+  }, []);
+  const getProducts = async () => {
+    //&branchId=${this.branch.id
+    await Axios.get(`${REACT_APP_API_URL}/products/topSelling/${merchant.id}`)
+      .then((response) => {
+        console.log(response);
+        if (response.status == 200) {
+          const payload = response.data.payload;
+
+          console.log('LOADING topselling Products......', payload);
+          dispatch({ type: ActionTypes.REFRESH_TOPSELLING_PRODUCTS, payload });
+        } else {
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <Tbody>
@@ -14,7 +40,7 @@ export const TopProductTableBody = () => {
             <Td fontSize={['12px']} py='20px !important'>
               {i + 1}
             </Td>
-            <Tooltip label={data?.prodName}>
+            <Tooltip label={data?.name}>
               <Td fontSize={['12px']} py='20px !important'>
                 <Flex alignItems={'center'}>
                   <Circle bg={'#fbf5ef'} size='30px' mr='10px'>
@@ -24,18 +50,18 @@ export const TopProductTableBody = () => {
                 </Flex>
               </Td>
             </Tooltip>
-            <Tooltip label={data?.amount}>
+            <Tooltip label={data?.price}>
               <Td fontSize={['12px']} py='20px !important'>
-                <Text isTruncated>{data?.amount}</Text>
+                <Text isTruncated>{data?.price}</Text>
               </Td>
             </Tooltip>
-            <Tooltip label={data?.totalOrders}>
+            <Tooltip label={data?.orders}>
               <Td isTruncated fontSize={['12px']} py='20px !important'>
-                {data?.totalOrders}
+                {data?.orders}
               </Td>
             </Tooltip>
             <Td fontSize={['12px']} py='20px !important'>
-              {data?.amount}
+              #{data?.revenue}
             </Td>
           </Tr>
         );

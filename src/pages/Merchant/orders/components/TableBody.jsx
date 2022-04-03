@@ -1,7 +1,7 @@
 import { Tr, Tbody, Td, Flex, Text } from '@chakra-ui/react';
 //import { tableBodyData } from './tableBodyData';
 import { MenuLItems } from './MenuList';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { ActionTypes } from '../../../../redux/constants/action-types';
 import Axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';

@@ -16,4 +16,4 @@ export const topBranchTableHeadData = [
   'Total Orders',
 ];
 
-export const branchStaffTableHeadData = ['Name', 'Email', 'Position'];
+export const branchStaffTableHeadData = ['Name', 'Email', 'Role', 'Action'];

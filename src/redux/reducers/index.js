@@ -8,8 +8,10 @@ import { productCategoryReducer } from './productCategoriesReducer';
 import { sortCategoryReducer } from './sortCategoryReducer';
 import { loanReducer } from './loanReducer';
 import { ordersReducer } from './ordersReducers';
+import { merchantRolesReducer } from './merchantRolesReducer';
+import { merchantCardReducer } from './merchantCardData';
 const reducers = combineReducers({
-  users: userReducer,
+  user: userReducer,
   products: productReducer,
   branches: branchReducer,
   merchant: merchantReducer,
@@ -18,6 +20,8 @@ const reducers = combineReducers({
   sortCategory: sortCategoryReducer,
   loans: loanReducer,
   orders: ordersReducer,
+  roles: merchantRolesReducer,
+  merchantCards: merchantCardReducer,
 });
 
 export default reducers;

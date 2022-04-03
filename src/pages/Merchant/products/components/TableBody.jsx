@@ -1,11 +1,37 @@
 import { Tr, Tbody, Td, Flex, Text, Tooltip, Circle } from '@chakra-ui/react';
-import { tableBodyData } from './tableBodyData';
 import { MdHeadset } from 'react-icons/md';
 import { MenuLItems } from './MenuList';
-import { useSelector } from 'react-redux';
-
+import { useEffect } from 'react';
+import { ActionTypes } from '../../../../redux/constants/action-types';
+import Axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+const { REACT_APP_API_URL } = process.env;
 export const TableBody = () => {
   const products = useSelector((state) => state.products.products);
+  const merchant = useSelector((state) => state.merchant);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+  const getProducts = async () => {
+    //&branchId=${this.branch.id
+    await Axios.get(
+      `${REACT_APP_API_URL}/products/filter/filter?merchantId=${merchant.id}`
+    )
+      .then((response) => {
+        console.log(response);
+        if (response.status == 200) {
+          const payload = response.data.payload;
+          dispatch({ type: ActionTypes.REFRESH_PRODUCTS, payload });
+        } else {
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <Tbody>
       {products.map((data, i) => {

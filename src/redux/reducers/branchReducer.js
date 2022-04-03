@@ -113,6 +113,9 @@ export const branchReducer = (state = initialState, action) => {
       );
       state = filtered;
       return state;
+    case ActionTypes.REFRESH_BRANCH:
+      state = action.payload;
+      return state;
     default:
       return state;
   }

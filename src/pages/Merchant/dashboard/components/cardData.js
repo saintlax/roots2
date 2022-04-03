@@ -6,15 +6,21 @@ export const cardData = [
     className: 'card-one',
   },
   {
-    title: 'Number of Orders',
+    title: 'Completed Orders',
     amount: 'N20,000',
     percentage: '5.0',
     className: 'card-two',
   },
   {
-    title: 'Amount Generated',
-    amount: ' N72000',
-    percentage: '40',
-    className: 'card-three',
+    title: 'Pending Orders',
+    amount: 'N20,000',
+    percentage: '5.0',
+    className: 'card-one',
+  },
+  {
+    title: 'Cancelled Orders',
+    amount: 'N20,000',
+    percentage: '5.0',
+    className: 'card-two',
   },
 ];

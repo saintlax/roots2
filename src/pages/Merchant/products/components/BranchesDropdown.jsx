@@ -1,13 +1,39 @@
 import { Flex, Select } from '@chakra-ui/react';
 import { BsBagCheck } from 'react-icons/bs';
+import { useEffect } from 'react';
+import { ActionTypes } from '../../../../redux/constants/action-types';
+import Axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
+const { REACT_APP_API_URL } = process.env;
 export const BranchesDropdown = ({ onBranchIdSelected }) => {
   const branches = useSelector((state) => state.branches);
+  const merchant = useSelector((state) => state.merchant);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    getBranches();
+  }, []);
 
   const handleSelection = (e) => {
     onBranchIdSelected(e.target.selectedOptions[0].value);
   };
-
+  const getBranches = async () => {
+    //&branchId=${this.branch.id
+    await Axios.get(
+      `${REACT_APP_API_URL}/branches/filter/filter?merchantId=${merchant.id}`
+    )
+      .then((response) => {
+        console.log(response);
+        if (response.status == 200) {
+          const payload = response.data.payload;
+          dispatch({ type: ActionTypes.REFRESH_BRANCH, payload });
+        } else {
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <Flex
       // width={'160px'}

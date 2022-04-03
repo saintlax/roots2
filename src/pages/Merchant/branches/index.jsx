@@ -16,6 +16,7 @@ import { Dropdown } from './components/Dropdown';
 import { OrdersTable } from './components/OrdersTable';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { AddBranchModal } from './components/AddBranchModal';
+import { AddRolesModal } from './components/AddRolesModal.jsx';
 export const Branches = () => {
   const isMobile = IsMobile();
   const onStatusSelected = (value) => {
@@ -93,7 +94,18 @@ export const Branches = () => {
       <Flex pt='5' pb='3' align='center' justify='space-between'>
         <Text as='h2'>Branches</Text>
         <Box>
-          <Dropdown onStatusSelected={onStatusSelected} />
+          <HStack justify='space-between' py='5'>
+            <Dropdown onStatusSelected={onStatusSelected} />
+            {isMobile ? (
+              <Button size='sm' bg='primary'>
+                <AddRolesModal isMobile={isMobile} />
+              </Button>
+            ) : (
+              <Button size='sm' bg={'#1459DF'} color='#fff'>
+                <AddRolesModal isMobile={isMobile} />
+              </Button>
+            )}
+          </HStack>
         </Box>
       </Flex>
       <Box>

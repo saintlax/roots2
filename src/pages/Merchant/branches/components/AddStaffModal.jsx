@@ -15,6 +15,7 @@ import {
   HStack,
   SimpleGrid,
   GridItem,
+  Select,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useToast } from '@chakra-ui/toast';
@@ -35,9 +36,11 @@ export const AddStaffModal = ({ branch }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [role, setRole] = useState(0);
   const dispatch = useDispatch();
   const toast = useToast();
   const merchant = useSelector((state) => state.merchant);
+  const roles = useSelector((state) => state.roles);
 
   const handlePassword = (event) => {
     setPassword(event.target.value);
@@ -46,6 +49,18 @@ export const AddStaffModal = ({ branch }) => {
     setConfirmPassword(event.target.value);
   };
   const register = (event) => {
+    let myRole = null;
+    if (role == 0) {
+      getToast('Role Error', 'Assign a role to this user', 'error');
+      return;
+    }
+    const filterRole = roles.filter((rolee) => rolee.id == role);
+    if (filterRole.length > 0) {
+      myRole = filterRole[0];
+    } else {
+      getToast('Role Error', 'Role could not be found', 'error');
+      return;
+    }
     if (!firstName && !lastName && !email) {
       getToast('Validation Error', 'All fields are required', 'error');
       return;
@@ -70,6 +85,7 @@ export const AddStaffModal = ({ branch }) => {
       email,
       branchName: branch?.name,
       merchantName: merchant?.businessName,
+      role: myRole,
     };
     postInviteUser(payload);
   };
@@ -222,6 +238,27 @@ export const AddStaffModal = ({ branch }) => {
               </FormControl>
             </Flex>
 
+            <Flex
+              width={'100%'}
+              direction='column'
+              justifyContent='center'
+              alignItems='center'
+            >
+              <FormControl>
+                <Select
+                  size='sm'
+                  placeholder='Choose a role'
+                  border='none'
+                  _focus={{ border: 'none' }}
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                >
+                  {roles.map((role, i) => {
+                    return <option value={role.id}>{role.name}</option>;
+                  })}
+                </Select>
+              </FormControl>
+            </Flex>
             <Flex
               width={'100%'}
               direction='column'
