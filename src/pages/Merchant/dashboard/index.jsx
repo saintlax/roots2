@@ -10,12 +10,14 @@ import { useEffect } from 'react';
 import { ActionTypes } from '../../../redux/constants/action-types';
 import Axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
 const { REACT_APP_API_URL } = process.env;
 
 export const Dashboard = () => {
   const cardData = useSelector((state) => state.merchantCards);
   const merchant = useSelector((state) => state.merchant);
   const dispatch = useDispatch();
+  const [branchesReports, setBranchesReports] = useState([]);
 
   useEffect(() => {
     getCardData();
@@ -59,6 +61,24 @@ export const Dashboard = () => {
     ];
     dispatch({ type: ActionTypes.REFRESH_MERCHANT_CARD, payload });
   };
+  const sortBranchesReport = (data) => {
+    const { branchesReport, totalBranchesRevenue } = data;
+    let arr = [];
+    for (const branch in branchesReport) {
+      const amount = branchesReport[branch];
+      const percent =
+        amount > 0 && totalBranchesRevenue > 0
+          ? Math.round((amount / totalBranchesRevenue) * 100)
+          : 0;
+      const row = {
+        branch,
+        amount,
+        percent,
+      };
+      arr = [...arr, row];
+    }
+    setBranchesReports(arr);
+  };
   const getCardData = async () => {
     //&branchId=${this.branch.id
     await Axios.get(
@@ -71,6 +91,7 @@ export const Dashboard = () => {
 
           console.log('card data......', payload);
           sortCards(payload);
+          sortBranchesReport(payload);
         } else {
         }
       })
@@ -89,7 +110,7 @@ export const Dashboard = () => {
         ))}
 
         <Box className='branch-per-revenue-wrapper'>
-          <BranchPerRevenue />
+          <BranchPerRevenue branchesReports={branchesReports} />
         </Box>
         <Box className='product-analytics'>
           <ProductAnalytics />
