@@ -19,6 +19,7 @@ export const Dashboard = () => {
   const dispatch = useDispatch();
   const [branchesReports, setBranchesReports] = useState([]);
   const [summary, setSummary] = useState({});
+  const userBranch = useSelector((state) => state.userBranch);
 
   useEffect(() => {
     getCardData();
@@ -82,9 +83,13 @@ export const Dashboard = () => {
   };
   const getCardData = async () => {
     //&branchId=${this.branch.id
-    await Axios.get(
-      `${REACT_APP_API_URL}/products/merchantSummary/${merchant.id}`
-    )
+    let query = ``;
+    if (userBranch && Object.keys(userBranch).length > 0) {
+      query = `${userBranch.merchantId}`;
+    } else if (merchant && Object.keys(merchant).length > 0) {
+      query = `${merchant.id}`;
+    }
+    await Axios.get(`${REACT_APP_API_URL}/products/merchantSummary/${query}`)
       .then((response) => {
         console.log(response);
         if (response.status == 200) {

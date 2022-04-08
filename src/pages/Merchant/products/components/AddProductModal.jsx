@@ -98,27 +98,28 @@ export const AddProductModal = ({ isMobile, userMerchant }) => {
       category,
     };
     if (userMerchant && Object.keys(userMerchant).length > 0) {
-      product = { ...product, merchant: userMerchant };
+      product = {
+        ...product,
+        merchant: userMerchant,
+        merchantId: userMerchant.id,
+      };
     }
     if (merchant && Object.keys(merchant).length > 0) {
-      product = { ...product, merchant };
+      product = { ...product, merchant, merchantId: merchant.id };
     }
 
     if (selectedBranch) {
-      product = { ...product, branch: selectedBranch };
+      product = {
+        ...product,
+        branch: selectedBranch,
+        branchId: selectedBranch.id,
+      };
     }
 
     if (branch && branch.id) {
-      product = { ...product, branch };
+      product = { ...product, branch, branchId: branch.id };
     }
-    console.log('=========== user merchant=========================');
-    console.log(userMerchant);
-    console.log('====================================');
-    console.log('selected branch', selectedBranch);
-    console.log('user branch', userMerchant);
-    console.log('Product', product);
 
-    /*
     let filter = products.filter(
       (prod) => prod.name === product.name && prod.price === product.price
     );
@@ -127,7 +128,6 @@ export const AddProductModal = ({ isMobile, userMerchant }) => {
     } else {
       getToast('Duplicate', 'This product already exist', 'error');
     }
-    */
   };
 
   const clearFields = () => {

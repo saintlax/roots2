@@ -20,12 +20,22 @@ const ProductAnalytics = ({ summary }) => {
   const products = useSelector((state) => state.products.topSelling);
   const merchant = useSelector((state) => state.merchant);
   const dispatch = useDispatch();
+  const userBranch = useSelector((state) => state.userBranch);
+
   useEffect(() => {
     getProducts();
   }, []);
   const getProducts = async () => {
     //&branchId=${this.branch.id
-    await Axios.get(`${REACT_APP_API_URL}/products/topSelling/${merchant.id}`)
+    let query = ``;
+    if (userBranch && Object.keys(userBranch).length > 0) {
+      query = `${userBranch.merchantId}`;
+    } else if (merchant && Object.keys(merchant).length > 0) {
+      query = `${merchant.id}`;
+    }
+    await Axios.get(
+      `${REACT_APP_API_URL}/products/topSellingMerchantProducts/${query}`
+    )
       .then((response) => {
         console.log(response);
         if (response.status == 200) {
