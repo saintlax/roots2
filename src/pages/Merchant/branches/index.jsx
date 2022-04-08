@@ -17,19 +17,42 @@ import { OrdersTable } from './components/OrdersTable';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { AddBranchModal } from './components/AddBranchModal';
 import { AddRolesModal } from './components/AddRolesModal.jsx';
+import { useSelector } from 'react-redux';
 export const Branches = () => {
   const isMobile = IsMobile();
+  const userBranch = useSelector((state) => state.userBranch);
   const onStatusSelected = (value) => {
     console.log('====================================');
     console.log(value);
     console.log('====================================');
   };
 
+  const ShowAddBranchModal = () => {
+    console.log('=========uuuuuuuuuuu===========================');
+    console.log(userBranch);
+    console.log('====================================');
+    if (userBranch.id == -1) {
+      if (isMobile) {
+        return (
+          <Button size='sm' bg='primary'>
+            <AddBranchModal isMobile={isMobile} />
+          </Button>
+        );
+      } else {
+        return (
+          <Button size='sm' bg={'#1459DF'} color='#fff'>
+            <AddBranchModal isMobile={isMobile} />
+          </Button>
+        );
+      }
+    }
+    return <></>;
+  };
+
   return (
     <Stack w='100%' h='100%'>
       <HStack justify='space-between' py='5'>
         <Text as='h2'>Products Summary</Text>
-
         {isMobile ? (
           <Button size='sm' bg='primary'>
             <AddBranchModal isMobile={isMobile} />
@@ -39,6 +62,7 @@ export const Branches = () => {
             <AddBranchModal isMobile={isMobile} />
           </Button>
         )}
+        {/* <ShowAddBranchModal /> */}
       </HStack>
       <Flex
         gap='5'

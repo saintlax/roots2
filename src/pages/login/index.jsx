@@ -4,6 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import { Context } from '../../context/userAuthContext/userTypeContext';
 import bgImage from './assets/background.png';
 import { Login } from './components/Login';
+import { useSelector, useDispatch } from 'react-redux';
+import { ActionTypes } from '../../redux/constants/action-types';
+import Axios from 'axios';
+import { useToast } from '@chakra-ui/toast';
+const {
+  REACT_APP_API_URL,
+  REACT_APP_MERCHANT,
+  REACT_APP_USER,
+  REACT_APP_USER_BRANCH,
+} = process.env;
 
 const Index = () => {
   const [show, setShow] = useState(false);
@@ -12,12 +22,100 @@ const Index = () => {
   const [disable, setIsDisable] = useState(true);
   const navigate = useNavigate();
   const { setUserType } = useContext(Context);
+  const dispatch = useDispatch();
+  const toast = useToast();
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingText, setLoadingText] = useState('Please wait..');
+  const getToast = (title, description, status) => {
+    const color = status === 'success' ? 'blue' : 'red';
+    toast({
+      title: title,
+      description: description,
+      status: status,
+      duration: 5000,
+      isClosable: true,
+      // variant: 'left-accent',
+      position: 'top-right',
+      containerStyle: {
+        border: '10px solid ' + color,
+        backgroundColor: color,
+      },
+    });
+  };
 
   const handleLogin = () => {
     if (email && password) {
-      setUserType(email.toLowerCase() === 'admin' ? 'admin' : 'merchant');
+      const user = { email, password };
+      postLogin(user);
+    } else {
+      getToast('Validation Error', 'Email andd password are required', 'error');
+    }
+  };
+
+  const processPayload = (payload) => {
+    localStorage.setItem(REACT_APP_USER, JSON.stringify(payload));
+    dispatch({
+      type: ActionTypes.ADD_USER,
+      payload: payload,
+    });
+    const { merchant, type, isAdmin } = payload;
+    if (isAdmin) {
+      // setUserType(email.toLowerCase() === 'admin' ? 'admin' : 'merchant');
+      // navigate('/dashboard');
+      setUserType('admin');
       navigate('/dashboard');
     }
+    if (merchant && type === 'MERCHANT') {
+      localStorage.setItem(REACT_APP_MERCHANT, JSON.stringify(merchant[0]));
+      dispatch({
+        type: ActionTypes.ADD_MERCHANT,
+        payload: merchant[0],
+      });
+      setUserType('merchant');
+      navigate('/dashboard');
+    }
+    if (type === 'STAFF') {
+      const { branches } = payload;
+      if (branches && branches.length > 0) {
+        const branch = branches[0];
+        localStorage.setItem(REACT_APP_USER_BRANCH, JSON.stringify(branch));
+        dispatch({
+          type: ActionTypes.ADD_USER_BRANCH,
+          payload: branch,
+        });
+        setUserType('merchant');
+        navigate('/dashboard');
+      }
+    }
+  };
+  const postLogin = async (user) => {
+    setIsLoading(true);
+    setLoadingText('please wait..');
+    await Axios.post(`${REACT_APP_API_URL}/users/login`, user)
+      .then((response) => {
+        if (response.status == 200) {
+          const payload = response.data.payload;
+          processPayload(payload);
+          getToast('Hi, welcome', 'Access granted', 'success');
+          setIsLoading(false);
+        } else {
+          getToast(
+            'Unknown',
+            'Server replied with: ' + response.status,
+            'error'
+          );
+          setIsLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        getToast(
+          'Authentication error',
+          'Confirm your credentials and try again',
+          'error'
+        );
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -66,6 +164,8 @@ const Index = () => {
           setEmail={setEmail}
           disable={disable}
           handleLogin={handleLogin}
+          isLoading={isLoading}
+          loadingText={loadingText}
         />
       </Box>
     </Flex>

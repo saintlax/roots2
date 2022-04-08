@@ -23,7 +23,8 @@ const ProductCatalogue = ({ isMobile }) => {
   const onHasTemp = (status) => {
     setHasTemp(status);
   };
-  const onBranchIdSelected = (branchId) => {
+  const onBranchIdSelected = (branch) => {
+    const branchId = branch.id;
     setSelectedBranchId(branchId);
     filterProducts(branchId, selectedCategory);
   };

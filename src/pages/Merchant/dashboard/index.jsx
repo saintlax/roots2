@@ -18,6 +18,7 @@ export const Dashboard = () => {
   const merchant = useSelector((state) => state.merchant);
   const dispatch = useDispatch();
   const [branchesReports, setBranchesReports] = useState([]);
+  const [summary, setSummary] = useState({});
 
   useEffect(() => {
     getCardData();
@@ -92,6 +93,7 @@ export const Dashboard = () => {
           console.log('card data......', payload);
           sortCards(payload);
           sortBranchesReport(payload);
+          setSummary(payload);
         } else {
         }
       })
@@ -113,7 +115,7 @@ export const Dashboard = () => {
           <BranchPerRevenue branchesReports={branchesReports} />
         </Box>
         <Box className='product-analytics'>
-          <ProductAnalytics />
+          <ProductAnalytics summary={summary} />
         </Box>
       </Box>
     </Stack>

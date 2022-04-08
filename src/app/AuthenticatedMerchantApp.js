@@ -6,10 +6,12 @@ import { Orders } from '../pages/Merchant/orders';
 import { Products } from '../pages/Merchant/products';
 import { Branches } from '../pages/Merchant/branches';
 // import Notifications from '../pages/Merchant/notifications';
+import { useSelector } from 'react-redux';
 import { Nav } from '../components/nav';
 
 const AuthenticatedMerchantApp = () => {
   const { DASHBOARD, ORDERS, PRODUCTS, BRANCHES } = PROTECTED_PATHS;
+  const userBranch = useSelector((state) => state.userBranch);
 
   return (
     <Box w='100%' h='100%'>
@@ -24,7 +26,11 @@ const AuthenticatedMerchantApp = () => {
           pr={['3%', '7%']}
         >
           <Routes>
-            <Route path={BRANCHES} element={<Branches />} />
+            {userBranch && Object.keys(userBranch).length === 0 ? (
+              <Route path={BRANCHES} element={<Branches />} />
+            ) : (
+              <></>
+            )}
             <Route path={DASHBOARD} element={<Dashboard />} />
             <Route path={ORDERS} element={<Orders />} />
             <Route path={PRODUCTS} element={<Products />} />

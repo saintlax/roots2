@@ -11,15 +11,20 @@ export const TableBody = () => {
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.orders.orders);
   const merchant = useSelector((state) => state.merchant);
+  const userBranch = useSelector((state) => state.userBranch);
 
   useEffect(() => {
-    console.log('LOADING ORDERS......', merchant);
     getOrders();
   }, []);
   const getOrders = async () => {
-    //&branchId=${this.branch.id
+    let query = ``;
+    if (userBranch && Object.keys(userBranch).length > 0) {
+      query = `${userBranch.merchantId}`;
+    } else if (merchant && Object.keys(merchant).length > 0) {
+      query = `${merchant.id}`;
+    }
     await Axios.get(
-      `${REACT_APP_API_URL}/loanproducts/filter/filter?merchantId=${merchant.id}`
+      `${REACT_APP_API_URL}/loanproducts/filter/filter?merchantId=${query}`
     )
       .then((response) => {
         console.log(response);

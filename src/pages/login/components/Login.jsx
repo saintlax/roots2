@@ -8,6 +8,8 @@ export const Login = ({
   setEmail,
   disable,
   handleLogin,
+  isLoading,
+  loadingText,
 }) => {
   const products = useSelector((state) => state);
   const NO_SHADOW = { _focus: { boxShadow: 'none' } };
@@ -20,7 +22,7 @@ export const Login = ({
   return (
     <Box width={'100%'} px={['3%', '5%', '15%']}>
       <Heading textAlign={['center']} as={'h2'} fontSize={'30px'} my='50px'>
-        Login to your Tap account
+        Login to your Roots account
       </Heading>
       <div class='inputContainer'>
         <input
@@ -35,7 +37,7 @@ export const Login = ({
       </div>
       <div class='inputContainer'>
         <input
-          type='text'
+          type='password'
           class='input'
           placeholder=''
           onChange={(e) => setPassword(e.target.value)}
@@ -63,6 +65,8 @@ export const Login = ({
         {...NO_SHADOW}
         {...BTN_STYLE}
         onClick={handleLogin}
+        isLoading={isLoading}
+        loadingText={loadingText}
       >
         Login
       </Button>

@@ -8,19 +8,25 @@ const { REACT_APP_API_URL } = process.env;
 export const CategoryDropdown = ({ onCategorySelected }) => {
   const productCategories = useSelector((state) => state.productCategories);
   const merchant = useSelector((state) => state.merchant);
+  const userBranch = useSelector((state) => state.userBranch);
   const dispatch = useDispatch();
   const handleSelection = (e) => {
     onCategorySelected(e.target.selectedOptions[0].value);
   };
 
   useEffect(() => {
-    console.log('LOADING CATEGORIES......', merchant);
     getCategories();
   }, []);
   const getCategories = async () => {
     //&branchId=${this.branch.id
+    let query = ``;
+    if (userBranch && Object.keys(userBranch).length > 0) {
+      query = `${userBranch.merchantId}`;
+    } else if (merchant && Object.keys(merchant).length > 0) {
+      query = `${merchant.id}`;
+    }
     await Axios.get(
-      `${REACT_APP_API_URL}/productCategories/filter/filter?merchantId=${merchant.id}`
+      `${REACT_APP_API_URL}/productCategories/filter/filter?merchantId=${query}`
     )
       .then((response) => {
         console.log(response);

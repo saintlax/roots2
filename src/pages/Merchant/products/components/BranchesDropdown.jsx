@@ -8,6 +8,7 @@ const { REACT_APP_API_URL } = process.env;
 export const BranchesDropdown = ({ onBranchIdSelected }) => {
   const branches = useSelector((state) => state.branches);
   const merchant = useSelector((state) => state.merchant);
+  const userBranch = useSelector((state) => state.userBranch);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -15,12 +16,22 @@ export const BranchesDropdown = ({ onBranchIdSelected }) => {
   }, []);
 
   const handleSelection = (e) => {
-    onBranchIdSelected(e.target.selectedOptions[0].value);
+    const branchId = e.target.selectedOptions[0].value;
+    const branchh = branches.filter((bran) => bran.id == branchId);
+    if (branchh && branchh.length > 0) {
+      onBranchIdSelected(branchh[0]);
+    }
+    // onBranchIdSelected(e.target.selectedOptions[0].value);
   };
   const getBranches = async () => {
-    //&branchId=${this.branch.id
+    let query = ``;
+    if (userBranch && Object.keys(userBranch).length > 0) {
+      query = `${userBranch.merchantId}`;
+    } else if (merchant && Object.keys(merchant).length > 0) {
+      query = `${merchant.id}`;
+    }
     await Axios.get(
-      `${REACT_APP_API_URL}/branches/filter/filter?merchantId=${merchant.id}`
+      `${REACT_APP_API_URL}/branches/filter/filter?merchantId=${query}`
     )
       .then((response) => {
         console.log(response);

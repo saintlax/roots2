@@ -10,13 +10,23 @@ const { REACT_APP_API_URL } = process.env;
 export const TopProductTableBody = () => {
   const products = useSelector((state) => state.products.topSelling);
   const merchant = useSelector((state) => state.merchant);
+  const userBranch = useSelector((state) => state.userBranch);
+
   const dispatch = useDispatch();
   useEffect(() => {
     getProducts();
   }, []);
   const getProducts = async () => {
+    let query = ``;
+    if (userBranch && Object.keys(userBranch).length > 0) {
+      //query = `/filter/filter?branchId=${userBranch.id}&merchantId=${userBranch.merchantId}`;
+      query = `/products/topSellingBranchProducts/${userBranch.merchantId}`;
+    } else if (merchant && Object.keys(merchant).length > 0) {
+      //query = `/filter/filter?merchantId=${merchant.id}`;
+      query = `/products/topSellingMerchantProducts/${merchant.id}`;
+    }
     //&branchId=${this.branch.id
-    await Axios.get(`${REACT_APP_API_URL}/products/topSelling/${merchant.id}`)
+    await Axios.get(`${REACT_APP_API_URL}${query}`)
       .then((response) => {
         console.log(response);
         if (response.status == 200) {

@@ -26,10 +26,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ActionTypes } from '../../../../redux/constants/action-types';
 import Axios from 'axios';
 import { useToast } from '@chakra-ui/toast';
+import { BranchesDropdown } from './BranchesDropdown';
 
 const { REACT_APP_API_URL } = process.env;
 
-export const AddProductModal = ({ isMobile }) => {
+export const AddProductModal = ({ isMobile, userMerchant }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
@@ -41,6 +42,7 @@ export const AddProductModal = ({ isMobile }) => {
   const merchant = useSelector((state) => state.merchant);
   const products = useSelector((state) => state.products.products);
   const branch = useSelector((state) => state.userBranch);
+  const [selectedBranch, setSelectedBranch] = useState({});
   // console.log('merchant ===>', merchant);
   const dispatch = useDispatch();
   const toast = useToast();
@@ -78,20 +80,45 @@ export const AddProductModal = ({ isMobile }) => {
       getToast('Validation Error', 'Category is required field', 'error');
       return;
     }
-    const product = {
+    if (Object.keys(selectedBranch) === 0 && Object.keys(branch)) {
+      getToast('Branch Error', 'Staff branch was not selected', 'error');
+      return;
+    }
+    let product = {
       name,
       price,
       qty,
       status,
       images,
       description,
-      merchant,
-      merchantId: merchant.id,
-      branch,
-      branchId: branch.id,
+      //merchant,
+      //merchantId: merchant.id,
+      //branch,
+      //branchId: branch.id,
       category,
     };
+    if (userMerchant && Object.keys(userMerchant).length > 0) {
+      product = { ...product, merchant: userMerchant };
+    }
+    if (merchant && Object.keys(merchant).length > 0) {
+      product = { ...product, merchant };
+    }
 
+    if (selectedBranch) {
+      product = { ...product, branch: selectedBranch };
+    }
+
+    if (branch && branch.id) {
+      product = { ...product, branch };
+    }
+    console.log('=========== user merchant=========================');
+    console.log(userMerchant);
+    console.log('====================================');
+    console.log('selected branch', selectedBranch);
+    console.log('user branch', userMerchant);
+    console.log('Product', product);
+
+    /*
     let filter = products.filter(
       (prod) => prod.name === product.name && prod.price === product.price
     );
@@ -100,6 +127,7 @@ export const AddProductModal = ({ isMobile }) => {
     } else {
       getToast('Duplicate', 'This product already exist', 'error');
     }
+    */
   };
 
   const clearFields = () => {
@@ -212,6 +240,10 @@ export const AddProductModal = ({ isMobile }) => {
     setImages(filter);
   };
 
+  const onBranchIdSelected = (value) => {
+    setSelectedBranch(value);
+  };
+
   return (
     <>
       <Flex onClick={onOpen} alignItems='center' width={'100%'}>
@@ -311,6 +343,7 @@ export const AddProductModal = ({ isMobile }) => {
                 })}
               </Select>
             </FormControl>
+            <BranchesDropdown onBranchIdSelected={onBranchIdSelected} />
 
             <FormControl>
               <FormLabel htmlFor='description' {...labelStyles}>

@@ -28,3 +28,21 @@ export const MERCHANT_NAV_ITEMS = [
     icon: <GiHandBag />,
   },
 ];
+
+export const STAFF_NAV_ITEMS = [
+  {
+    title: 'Dashboard',
+    to: DASHBOARD,
+    icon: <MdOutlineDashboard />,
+  },
+  {
+    title: 'Orders',
+    to: ORDERS,
+  },
+
+  {
+    title: 'Products',
+    to: PRODUCTS,
+    icon: <AiOutlineShoppingCart />,
+  },
+];

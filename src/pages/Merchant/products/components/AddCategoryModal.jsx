@@ -10,6 +10,7 @@ import {
   GridItem,
   Button,
   HStack,
+  ModalHeader,
 } from '@chakra-ui/react';
 
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -32,6 +33,8 @@ export const AddCategoryModal = ({ isMobile }) => {
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [loadingText, setLoadingText] = useState('Please wait..');
+  const userBranch = useSelector((state) => state.userBranch);
+  console.log('user branch', userBranch);
 
   const getToast = (title, description, status) => {
     const color = status === 'success' ? 'blue' : 'red';
@@ -59,12 +62,21 @@ export const AddCategoryModal = ({ isMobile }) => {
       );
       return;
     }
+    let merchantId = 0;
+    //let branchId = 0;
+    if (userBranch && Object.keys(userBranch).length > 0) {
+      merchantId = userBranch.merchantId;
+      //branchId = userBranch.id;
+    } else if (merchant && Object.keys(merchant).length > 0) {
+      merchantId = merchant.id;
+      //branchId = userBranch.id;
+    }
     const category = {
       name,
-      merchant,
-      merchantId: merchant.id,
-      branch,
-      branchId: branch.id,
+      //merchant,
+      merchantId: merchantId,
+      //branch,
+      //branchId: branchId,
     };
 
     let filter = productCategories.filter((cat) => cat.name === category.name);
@@ -127,7 +139,7 @@ export const AddCategoryModal = ({ isMobile }) => {
       <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          {/* <ModalHeader>Modal Title</ModalHeader> */}
+          <ModalHeader>Add Product category</ModalHeader>
           <ModalCloseButton />
           <ModalBody p='50px'>
             <SimpleGrid columns={1} columnGap={3} rowGap={6} w='full'>

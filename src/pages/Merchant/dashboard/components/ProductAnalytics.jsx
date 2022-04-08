@@ -10,8 +10,36 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import Doghnut from './Doghnut';
+import { useEffect } from 'react';
+import { ActionTypes } from '../../../../redux/constants/action-types';
+import Axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+const { REACT_APP_API_URL } = process.env;
 
-const ProductAnalytics = () => {
+const ProductAnalytics = ({ summary }) => {
+  const products = useSelector((state) => state.products.topSelling);
+  const merchant = useSelector((state) => state.merchant);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    getProducts();
+  }, []);
+  const getProducts = async () => {
+    //&branchId=${this.branch.id
+    await Axios.get(`${REACT_APP_API_URL}/products/topSelling/${merchant.id}`)
+      .then((response) => {
+        console.log(response);
+        if (response.status == 200) {
+          const payload = response.data.payload;
+
+          console.log('LOADING topselling Products......', payload);
+          dispatch({ type: ActionTypes.REFRESH_TOPSELLING_PRODUCTS, payload });
+        } else {
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <Flex
       direction={['column', '', '', 'row']}
@@ -30,7 +58,7 @@ const ProductAnalytics = () => {
             h={['100%', '', '220px']}
             mx={['auto']}
           >
-            <Doghnut />
+            <Doghnut summary={summary} />
           </Box>
         </Stack>
         <UnorderedList
@@ -44,17 +72,17 @@ const ProductAnalytics = () => {
         >
           <ListItem>
             <Text as='span' pos='relative' left='-10px' top='-4px'>
-              N4000
+              N{summary?.amountGenerated}
             </Text>
           </ListItem>
           <ListItem>
             <Text as='span' pos='relative' left='-10px' top='-4px'>
-              N4,000
+              N{summary?.amountPending}
             </Text>
           </ListItem>
           <ListItem>
             <Text as='span' pos='relative' left='-10px' top='-4px'>
-              N3,200
+              N{summary?.amountCancelled}
             </Text>
           </ListItem>
         </UnorderedList>
@@ -64,13 +92,13 @@ const ProductAnalytics = () => {
         <Text as='h3' mb='5px'>
           Top Selling Products
         </Text>
-        {[...Array(7)].map((_, index) => (
+        {products.slice(0, 7).map((product, index) => (
           <HStack key={index} justify={'space-evenly'}>
-            <Text>Nike Shoe</Text>
-            <Text color='green'>N250,000</Text>
+            <Text>{product.name}</Text>
+            <Text color='green'>N{product.price}</Text>
           </HStack>
         ))}
-        <Text as='h4'>View Products</Text>
+        {/* <Text as='h4'>View Products</Text> */}
       </Stack>
     </Flex>
   );
