@@ -49,6 +49,12 @@ export const Dashboard = () => {
         className: 'card-two',
       },
       {
+        title: 'Wallet',
+        amount: ' N 0.00',
+        percentage: '0',
+        className: 'card-three',
+      },
+      {
         title: 'Cancelled Orders',
         amount: ' N' + amountCancelled,
         percentage: '' + Math.round(percentageCancelled),
@@ -59,6 +65,12 @@ export const Dashboard = () => {
         amount: ' N' + amountApproved,
         percentage: '' + Math.round(percentageApproved),
         className: 'card-two',
+      },
+      {
+        title: 'Withdrawals',
+        amount: ' N 0.00',
+        percentage: '0',
+        className: 'card-three',
       },
     ];
     dispatch({ type: ActionTypes.REFRESH_MERCHANT_CARD, payload });

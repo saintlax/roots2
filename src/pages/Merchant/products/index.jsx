@@ -30,6 +30,7 @@ export const Products = () => {
           const payload = response.data.payload;
           if (payload && payload.length > 0) {
             const merchant = payload[0];
+
             setUserMerchant(merchant);
           }
         }

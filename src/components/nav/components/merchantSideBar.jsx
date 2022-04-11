@@ -17,7 +17,7 @@ import { useState } from 'react';
 import CustomModal from '../../common/CustomModal';
 import { FiSettings, FiLogIn } from 'react-icons/fi';
 import Settings from '../../../pages/Merchant/dashboard/components/Settings';
-import ViewProfile from '../../../pages/Merchant/dashboard/components/ViewProfile';
+import ViewMerchantProfile from '../../../pages/Merchant/dashboard/components/ViewProfile';
 import logo from '../images/Vector.svg';
 
 export const MerchantSideBar = () => {
@@ -62,7 +62,7 @@ export const MerchantSideBar = () => {
               btnIcon={<Avatar size='sm' src='https://bit.ly/kent-c-dodds' />}
               btnTitle='Profile'
             >
-              <ViewProfile />
+              <ViewMerchantProfile />
             </CustomModal>
 
             <CustomModal

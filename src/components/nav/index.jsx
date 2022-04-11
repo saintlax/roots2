@@ -25,7 +25,8 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { FiSettings, FiLogIn } from 'react-icons/fi';
 import logo from './images/Vector.svg';
 import CustomModal from '../../components/common/CustomModal';
-import ViewProfile from '../../pages/Merchant/dashboard/components/ViewProfile';
+import ViewMerchantProfile from '../../pages/Merchant/dashboard/components/ViewProfile';
+import ViewUserProfile from '../../pages/Merchant/dashboard/components/ViewUserProfile';
 import Settings from '../../pages/Merchant/dashboard/components/Settings';
 import Notifications from './components/Notification';
 import { ComponentTitle } from './components/ComponentTitile';
@@ -44,14 +45,17 @@ export const Nav = () => {
   const { pathname } = useLocation();
   const [showInput, setShowInput] = useState(false);
   const userBranch = useSelector((state) => state.userBranch);
+  const merchant = useSelector((state) => state.merchant);
+  const user = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const ShowLinkTo = () => {
-    console.log('============== user branch ======================');
-    console.log(userBranch);
-    console.log('====================================');
+  const isMerchant = () => {
+    if (userBranch && Object.keys(userBranch).length === 0) return true;
+    else return false;
+  };
 
+  const ShowLinkTo = () => {
     if (userBranch && Object.keys(userBranch).length === 0) {
       return MERCHANT_NAV_ITEMS.map(({ title, to, icon }, id) => (
         <LinkTo key={id} to={to} title={title} id={1} iconComponent={icon} />
@@ -186,10 +190,22 @@ export const Nav = () => {
                     <HStack>
                       <Avatar
                         size='sm'
-                        name='Kent Dodds'
+                        name={
+                          user?.firstName +
+                          ' ' +
+                          user?.lastName +
+                          ' ' +
+                          user?.middleName
+                        }
                         src='https://bit.ly/kent-c-dodds'
                       />
-                      <Text>Carter Kenter</Text>
+                      <Text>
+                        {user?.firstName +
+                          ' ' +
+                          user?.lastName +
+                          ' ' +
+                          user?.middleName}
+                      </Text>
                     </HStack>
                   </MenuButton>
                   <MenuList color='darkGray'>
@@ -201,7 +217,14 @@ export const Nav = () => {
                         }
                         btnTitle='Profile'
                       >
-                        <ViewProfile />
+                        {isMerchant() ? (
+                          <ViewMerchantProfile
+                            user={user}
+                            merchant={merchant}
+                          />
+                        ) : (
+                          <ViewUserProfile user={user} />
+                        )}
                       </CustomModal>
                     </MenuItem>
 
