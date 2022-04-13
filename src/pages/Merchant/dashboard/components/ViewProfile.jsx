@@ -16,6 +16,8 @@ import { BiLock, BiPencil } from 'react-icons/bi';
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { useToast } from '@chakra-ui/toast';
+import { useDispatch } from 'react-redux';
+import { ActionTypes } from '../../../../redux/constants/action-types';
 
 const { REACT_APP_API_URL, REACT_APP_USER, REACT_APP_MERCHANT } = process.env;
 
@@ -34,6 +36,7 @@ const ViewMerchantProfile = ({ onClose, merchant }) => {
   const [logo, setLogo] = useState(profilePic);
   const [CACDocumentPath, setCACDocumentPath] = useState('');
   const toast = useToast();
+  const dispatch = useDispatch();
 
   const updateMerchant = () => {
     let payload = {
@@ -62,20 +65,17 @@ const ViewMerchantProfile = ({ onClose, merchant }) => {
       userId,
       ...rest
     } = payload;
-    console.log('====================================');
-    console.log(rest);
-    console.log('====================================');
-    putMerchant(rest);
+    putMerchant(rest, payload);
   };
 
-  const putMerchant = async (payload) => {
+  const putMerchant = async (payload, original) => {
     setIsLoading(true);
     await Axios.put(`${REACT_APP_API_URL}/merchant/${merchant.id}`, payload)
       .then((response) => {
         console.log(response);
         if (response.status == 200) {
-          const payload = response.data.payload;
-          //dispatch({ type: ActionTypes.ADD_PRODUCT, payload: payload });
+          //const payload = response.data.payload;
+          dispatch({ type: ActionTypes.EDIT_MERCHANT, payload: original });
           getToast('Success', 'Merchant updated successfully', 'success');
           setIsLoading(false);
           //onClose();
@@ -109,7 +109,7 @@ const ViewMerchantProfile = ({ onClose, merchant }) => {
     setNameOfBank(merchant?.nameOfBank);
     setCACDocument(merchant?.CACDocument);
     setCompanyPhoneNumber(merchant?.companyPhoneNumber);
-
+    setCACDocumentPath(merchant?.CACDocumentPath);
     setLogo(merchant?.companyLogo);
     setBackgroundImage(merchant?.companyCover);
   }, [merchant]);
