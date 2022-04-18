@@ -20,7 +20,7 @@ export const TopProductTableBody = () => {
     let query = ``;
     if (userBranch && Object.keys(userBranch).length > 0) {
       //query = `/filter/filter?branchId=${userBranch.id}&merchantId=${userBranch.merchantId}`;
-      query = `/products/topSellingBranchProducts/${userBranch.merchantId}`;
+      query = `/products/topSellingBranchProducts/${userBranch.id}`;
     } else if (merchant && Object.keys(merchant).length > 0) {
       //query = `/filter/filter?merchantId=${merchant.id}`;
       query = `/products/topSellingMerchantProducts/${merchant.id}`;

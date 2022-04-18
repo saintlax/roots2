@@ -107,6 +107,7 @@ export const Dashboard = () => {
         if (response.status == 200) {
           const payload = response.data.payload;
 
+          dispatch({ type: ActionTypes.ADD_MERCHANT_SUMMARY, payload });
           console.log('card data......', payload);
           sortCards(payload);
           sortBranchesReport(payload);

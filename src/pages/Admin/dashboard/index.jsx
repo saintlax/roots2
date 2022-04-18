@@ -1,12 +1,118 @@
 import { Box, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
 import Card from './components/Card';
-import { cardData } from './components/cardData';
+//import { cardData } from './components/cardData';
 import GraphChart from './components/GraphChart';
 import RecentActivities from './components/RecentActivities';
 import './dashboard.css';
+import { ActionTypes } from '../../../redux/constants/action-types';
+import Axios from 'axios';
+import { useToast } from '@chakra-ui/toast';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { BiWalletAlt, BiUser, BiStore } from 'react-icons/bi';
+import withdraw from '../../../assets/icons/withdraw.svg';
+
+const { REACT_APP_API_URL } = process.env;
 
 const Dashboard = () => {
+  const adminSummary = useSelector((state) => state.adminSummary);
+  const dispatch = useDispatch();
+  const cardData = [
+    {
+      id: 1,
+      amount: ' 83457',
+      title: 'Wallet Balance',
+      percentage: 48,
+      iconBg: '#eaf1ff',
+      icon: <BiWalletAlt size={35} color='#1459DF' />,
+      className: 'card-one',
+    },
+    {
+      id: 2,
+      amount: ' ' + adminSummary?.commissions,
+      title: 'Comissions Made',
+      percentage: 48,
+      iconBg: '#fef4e8',
+      icon: <img src={withdraw} alt='withdraw' height='35px' width='35px' />,
+      className: 'card-two',
+    },
+    {
+      id: 3,
+      amount: ' ' + adminSummary?.totalUsers,
+      title: 'Total Users',
+      percentage: 48,
+      iconBg: '#e8f9ee',
+      icon: <BiUser size={35} color='#14C25A' />,
+      className: 'card-three',
+    },
+    {
+      id: 4,
+      amount: ' ' + adminSummary?.totalMerchants,
+      title: 'Total Merchants',
+      percentage: 48,
+      iconBg: '#fdeaee',
+      icon: <BiStore size={35} color='#E73152' />,
+      className: 'card-four',
+    },
+    {
+      id: 5,
+      amount: ' ' + adminSummary?.approvedLoans,
+      title: 'Approved Loans',
+      percentage: 48,
+      iconBg: '#eaf1ff',
+      icon: <BiWalletAlt size={35} color='#1459DF' />,
+      className: 'card-one',
+    },
+    {
+      id: 6,
+      amount: ' ' + adminSummary?.pendingLoans,
+      title: 'Pending Loans',
+      percentage: 48,
+      iconBg: '#eaf1ff',
+      icon: <BiWalletAlt size={35} color='#1459DF' />,
+      className: 'card-two',
+    },
+    {
+      id: 7,
+      amount: ' ' + adminSummary?.declinedLoans,
+      title: 'Declined Loans',
+      percentage: 48,
+      iconBg: '#eaf1ff',
+      icon: <BiWalletAlt size={35} color='#1459DF' />,
+      className: 'card-three',
+    },
+    {
+      id: 1,
+      amount: ' ' + adminSummary?.totalPayments,
+      title: 'Total Payments',
+      percentage: 48,
+      iconBg: '#eaf1ff',
+      icon: <BiWalletAlt size={35} color='#1459DF' />,
+      className: 'card-four',
+    },
+  ];
+
+  useEffect(() => {
+    getSummary();
+  }, []);
+
+  const getSummary = async () => {
+    await Axios.get(`${REACT_APP_API_URL}/loans/admin/summary`)
+      .then((response) => {
+        if (response.status == 200) {
+          const payload = response.data.payload;
+          dispatch({
+            type: ActionTypes.ADD_ADMIN_SUMMARY,
+            payload,
+          });
+        } else {
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <Box className='dashboard-grid'>
       {cardData.map((card) => (

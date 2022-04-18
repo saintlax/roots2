@@ -195,10 +195,14 @@ const Signup = () => {
     })
       .then((response) => {
         console.log('MERCHANT SUCCESS', response);
-        const newMerchant = response.data.payload;
-        localStorage.setItem(REACT_APP_MERCHANT, JSON.stringify(newMerchant));
-        getToast('Successful', 'Your Merchant created successfully', 'success');
-        navigate('/dashboard');
+        // const newMerchant = response.data.payload;
+        // localStorage.setItem(REACT_APP_MERCHANT, JSON.stringify(newMerchant));
+        getToast(
+          'Successful',
+          'Your Merchant created successfully.',
+          'success'
+        );
+        navigate('/'); //dashboard
       })
       .catch((error) => {
         console.log('merchat API ERROR', error);

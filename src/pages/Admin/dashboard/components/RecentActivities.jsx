@@ -8,9 +8,50 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import React from 'react';
-import { recentActivities } from './recentActivitiesData';
+// import { recentActivities } from './recentActivitiesData';
+import Axios from 'axios';
+import { useToast } from '@chakra-ui/toast';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { ActionTypes } from '../../../../redux/constants/action-types';
+const { REACT_APP_API_URL } = process.env;
 
 const RecentActivities = () => {
+  const recentActivities = useSelector(
+    (state) => state.recentActivities.activities
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    getRecentActivities();
+  }, []);
+  const getRecentActivities = async () => {
+    await Axios.get(`${REACT_APP_API_URL}/recentActivities`)
+      .then((response) => {
+        if (response.status == 200) {
+          const payload = response.data.payload;
+          dispatch({
+            type: ActionTypes.REFRESH_RECENT_ACTIVITY,
+            payload,
+          });
+        } else {
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const getTime = (unix_timestamp) => {
+    var date = new Date(unix_timestamp);
+    var hours = date.getHours();
+    var minutes = '0' + date.getMinutes();
+    var seconds = '0' + date.getSeconds();
+
+    var formattedTime =
+      hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+
+    return formattedTime;
+  };
   return (
     <Stack
       bg='#fff'
@@ -54,7 +95,7 @@ const RecentActivities = () => {
               fontSize='13px'
               color='lightGray'
             >
-              {activity.time}
+              {getTime(activity.time)}
             </Text>
           </Flex>
         </HStack>

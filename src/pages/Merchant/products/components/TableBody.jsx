@@ -19,13 +19,11 @@ export const TableBody = () => {
     //&branchId=${this.branch.id
     let query = ``;
     if (userBranch && Object.keys(userBranch).length > 0) {
-      query = `${userBranch.merchantId}`;
+      query = `branchId=${userBranch.merchantId}`;
     } else if (merchant && Object.keys(merchant).length > 0) {
-      query = `${merchant.id}`;
+      query = `merchantId=${merchant.id}`;
     }
-    await Axios.get(
-      `${REACT_APP_API_URL}/products/filter/filter?merchantId=${query}`
-    )
+    await Axios.get(`${REACT_APP_API_URL}/products/filter/filter?${query}`)
       .then((response) => {
         console.log(response);
         if (response.status == 200) {
@@ -96,11 +94,7 @@ export const TableBody = () => {
             </Td>
 
             <Td px={['20px !important', '40px !important']} fontSize={['14px']}>
-              <MenuLItems
-                name={data?.name}
-                dateCreated={data?.CreatedOn}
-                product={data}
-              />
+              <MenuLItems product={data} />
             </Td>
           </Tr>
         );

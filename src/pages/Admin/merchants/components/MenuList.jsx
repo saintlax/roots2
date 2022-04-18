@@ -12,7 +12,7 @@ import { AiOutlineDelete } from 'react-icons/ai';
 import { UserModal } from './UserModal';
 import CautionAlertDialog from '../../../../components/CautionAlertDialog';
 
-export const MenuLItems = ({ name, dateCreated }) => {
+export const MenuLItems = ({ merchant }) => {
   return (
     <>
       <Menu>
@@ -21,7 +21,7 @@ export const MenuLItems = ({ name, dateCreated }) => {
         </MenuButton>
         <MenuList>
           <MenuItem>
-            <UserModal name={name} dateCreated={dateCreated} />
+            <UserModal merchant={merchant} />
           </MenuItem>
           <MenuItem>
             <FiEdit />

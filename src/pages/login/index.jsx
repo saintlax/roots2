@@ -59,7 +59,7 @@ const Index = () => {
       payload: payload,
     });
     const { merchant, type, isAdmin } = payload;
-    if (isAdmin) {
+    if (type === 'ADMIN') {
       // setUserType(email.toLowerCase() === 'admin' ? 'admin' : 'merchant');
       // navigate('/dashboard');
       setUserType('admin');

@@ -10,6 +10,9 @@ import { loanReducer } from './loanReducer';
 import { ordersReducer } from './ordersReducers';
 import { merchantRolesReducer } from './merchantRolesReducer';
 import { merchantCardReducer } from './merchantCardData';
+import { merchantSummaryReducer } from './merchantSummaryReducer';
+import { adminSummaryReducer } from './adminSummaryReducer';
+import { recentActivitiesReducer } from './recentActivitiesReducer';
 const reducers = combineReducers({
   user: userReducer,
   products: productReducer,
@@ -22,6 +25,9 @@ const reducers = combineReducers({
   orders: ordersReducer,
   roles: merchantRolesReducer,
   merchantCards: merchantCardReducer,
+  merchantSummary: merchantSummaryReducer,
+  adminSummary: adminSummaryReducer,
+  recentActivities: recentActivitiesReducer,
 });
 
 export default reducers;

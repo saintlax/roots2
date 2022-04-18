@@ -15,7 +15,7 @@ import { BsEye } from 'react-icons/bs';
 import topImage from '../images/background.png';
 import { MerchantTab } from './MerchantTab';
 
-export const UserModal = ({ name, dateCreated }) => {
+export const UserModal = ({ merchant }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -50,8 +50,8 @@ export const UserModal = ({ name, dateCreated }) => {
                 src='https://bit.ly/dan-abramov'
               />
               <Text mt='5px'>Merchant</Text>
-              <Text fontWeight={'bold'}>Anayo Obiajulu</Text>
-              <Text>Account created {dateCreated}</Text>
+              <Text fontWeight={'bold'}>{merchant?.businessName}</Text>
+              <Text>Account created {merchant?.createdOn}</Text>
             </Flex>
             <Flex
               width={'100%'}
@@ -62,26 +62,7 @@ export const UserModal = ({ name, dateCreated }) => {
               fontWeight={'semibold'}
               borderBottom='5px solid #f4f4f4'
             >
-              <MerchantTab />
-              {/* <Flex
-                width={"160px"}
-                justifyContent="center"
-                alignItems={"center"}
-                bg="#fff"
-                px="8px"
-                borderRadius={"5px"}
-              >
-                <BsBagCheck size={26} />
-                <Select
-                  placeholder="Last 7 days"
-                  border="none"
-                  _focus={{ border: "none" }}
-                >
-                  <option value="option1">Option 1</option>
-                  <option value="option2">Option 2</option>
-                  <option value="option3">Option 3</option>
-                </Select>
-              </Flex> */}
+              <MerchantTab merchant={merchant} />
             </Flex>
           </ModalBody>
         </ModalContent>

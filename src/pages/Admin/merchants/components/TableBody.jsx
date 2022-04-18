@@ -1,8 +1,13 @@
 import { Tr, Tbody, Td, Avatar, Flex, Text, Checkbox } from '@chakra-ui/react';
-import { tableBodyData } from './tableBodyData';
+// import { tableBodyData } from './tableBodyData';
 import { MenuLItems } from './MenuList';
-
+import { useSelector, useDispatch } from 'react-redux';
 export const TableBody = () => {
+  const adminSummary = useSelector((state) => state.adminSummary);
+  console.log('====================================');
+  console.log(adminSummary?.allMerchants);
+  console.log('====================================');
+  const tableBodyData = adminSummary?.allMerchants;
   return (
     <Tbody>
       {tableBodyData.map((data, i) => {
@@ -14,24 +19,24 @@ export const TableBody = () => {
             <Td>
               <Flex alignItems={'center'}>
                 <Avatar size={'sm'} name={data?.name} src={''} mr='5px' />
-                <Text>{data?.name}</Text>
+                <Text>{data?.businessName}</Text>
               </Flex>
             </Td>
             <Td>{data?.email}</Td>
-            <Td>{data?.phone}</Td>
-            <Td>{data?.branches}</Td>
+            <Td>{data?.companyPhoneNumber}</Td>
+            <Td>{data?.branches?.length}</Td>
             <Td>
               <Text
-                color={'#009A49'}
+                color={data?.isActive ? '#FFFFFF' : '#009A49'}
                 bg='#F3FCF7'
                 borderRadius={'5px'}
                 p='5px 8px'
               >
-                {data?.status}
+                {data?.isActive ? 'ACTIVE' : 'INACTIVE'}
               </Text>
             </Td>
             <Td>
-              <MenuLItems name={data?.name} dateCreated={data?.dateCreated} />
+              <MenuLItems merchant={data} />
             </Td>
           </Tr>
         );

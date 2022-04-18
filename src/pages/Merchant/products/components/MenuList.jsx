@@ -4,7 +4,7 @@ import { BsThreeDots } from 'react-icons/bs';
 import { EditProductModal } from './EditProductModal';
 import { DeleteProductAlert } from './DeleteProductAlert';
 
-export const MenuLItems = ({ name, dateCreated, product }) => {
+export const MenuLItems = ({ product }) => {
   return (
     <>
       <Menu>

@@ -8,8 +8,11 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import Doghnut from '../../dashboard/components/Doghnut';
+import { useSelector } from 'react-redux';
 
 const ProductSalesAnalytics = () => {
+  const summary = useSelector((state) => state.merchantSummary);
+
   return (
     <Stack borderRadius={'10px'} p='5' border='1px solid #eee' h='100%'>
       <Text as='h3'>Product Sales Analytics</Text>
@@ -33,17 +36,17 @@ const ProductSalesAnalytics = () => {
         >
           <ListItem>
             <Text as='span' pos='relative' left='-10px' top='-4px'>
-              N4000
+              N{summary?.amountGenerated}
             </Text>
           </ListItem>
           <ListItem>
             <Text as='span' pos='relative' left='-10px' top='-4px'>
-              N4,000
+              N{summary?.amountPending}
             </Text>
           </ListItem>
           <ListItem>
             <Text as='span' pos='relative' left='-10px' top='-4px'>
-              N3,200
+              N{summary?.amountCancelled}
             </Text>
           </ListItem>
         </UnorderedList>

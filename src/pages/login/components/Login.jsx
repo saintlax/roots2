@@ -1,6 +1,5 @@
 import { Box, Button, Checkbox, Flex, Heading, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 export const Login = ({
   show,
   setShow,
@@ -11,7 +10,6 @@ export const Login = ({
   isLoading,
   loadingText,
 }) => {
-  const products = useSelector((state) => state);
   const NO_SHADOW = { _focus: { boxShadow: 'none' } };
   const BTN_STYLE = {
     _hover: { bg: 'rgba(20, 89, 223, 0.7)' },
