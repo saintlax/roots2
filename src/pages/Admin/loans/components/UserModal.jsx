@@ -12,9 +12,85 @@ import {
   Avatar,
 } from '@chakra-ui/react';
 import { BsEye } from 'react-icons/bs';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { ActionTypes } from '../../../../redux/constants/action-types';
+import Axios from 'axios';
+import { useToast } from '@chakra-ui/toast';
+import { FiEdit } from 'react-icons/fi';
 
-export const UserModal = ({ name, data }) => {
+const { REACT_APP_API_URL } = process.env;
+
+export const UserModal = ({ name, loan }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const dispatch = useDispatch();
+  const toast = useToast();
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingText, setLoadingText] = useState('Please wait..');
+
+  const getToast = (title, description, status) => {
+    const color = status === 'success' ? 'blue' : 'red';
+    toast({
+      title: title,
+      description: description,
+      status: status,
+      duration: 5000,
+      isClosable: true,
+      // variant: 'left-accent',
+      position: 'top-right',
+      containerStyle: {
+        border: '10px solid ' + color,
+        backgroundColor: color,
+      },
+    });
+  };
+
+  const updateLoan = (status) => {
+    loan = { ...loan, status };
+    const {
+      __v,
+      _id,
+      createdOn,
+      updatedOn,
+      approvals,
+      payments,
+      postedBy,
+      ...payload
+    } = loan;
+    putLoan(payload);
+  };
+
+  const putLoan = async (payload) => {
+    setIsLoading(true);
+    setLoadingText('please wait..');
+    await Axios.put(`${REACT_APP_API_URL}/loans/${payload.id}`, payload)
+      .then((response) => {
+        console.log(response);
+        if (response.status == 200) {
+          //const payload = response.data.payload;
+          //loan = { ...product, payload };
+          dispatch({ type: ActionTypes.EDIT_ADMIN_LOAN, payload: loan });
+          getToast('Success', 'Product updated successfully', 'success');
+          setIsLoading(false);
+          // clearFields();
+          onClose();
+          //console.log('REDUX PRODUCTS', products);
+        } else {
+          getToast(
+            'Unknown',
+            'Server replied with: ' + response.status,
+            'error'
+          );
+          setIsLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        getToast('Product error', 'Product could not be updated', 'error');
+        setIsLoading(false);
+      });
+  };
 
   return (
     <>
@@ -35,24 +111,24 @@ export const UserModal = ({ name, data }) => {
               justifyContent='center'
               alignItems={'center'}
             >
-              <Avatar size='lg' name={data?.name} src={data?.imageUrl} />
+              <Avatar size='lg' name={name} src={loan?.imageUrl} />
               <Text my='5px' fontWeight={'bold'}>
                 {name}
               </Text>
               <Text
                 color={
-                  data?.status === 'Accepted'
+                  loan?.status === 'Accepted'
                     ? '#009A49'
-                    : data?.status === 'Rejected'
+                    : loan?.status === 'Rejected'
                     ? '#FF1A1A'
                     : 'yellow'
                 }
               >
-                {data?.status}
+                {loan?.status}
               </Text>
             </Flex>
             <Box borderBottom='5px solid #f4f4f4' fontWeight={'semibold'}>
-              {data?.status === 'Pending' && (
+              {loan?.status !== 'COMPLETED' && (
                 <Flex
                   my={'20px'}
                   width='100%'
@@ -65,6 +141,7 @@ export const UserModal = ({ name, data }) => {
                       width={['100%']}
                       borderColor='#4A4C4F'
                       color={'darkgreen'}
+                      onClick={() => updateLoan('REJECTED')}
                     >
                       Reject Loan
                     </Button>
@@ -83,8 +160,9 @@ export const UserModal = ({ name, data }) => {
                       _hover={{ bg: '#1459DF' }}
                       color={'#FFF'}
                       width={['100%']}
+                      onClick={() => updateLoan('COMPLETED')}
                     >
-                      Accept Loan
+                      Close Loan
                     </Button>
                   </Flex>
                 </Flex>
@@ -108,7 +186,7 @@ export const UserModal = ({ name, data }) => {
                   <Text>Loan Amount</Text>
                 </Box>
               </Flex>
-              <Text>#10,000</Text>
+              <Text>#{loan?.amount}</Text>
             </Flex>
             <Flex
               my={'20px'}
@@ -125,7 +203,7 @@ export const UserModal = ({ name, data }) => {
                   <Text>Payback date</Text>
                 </Box>
               </Flex>
-              <Text>24-11-2021</Text>
+              <Text>{loan?.paybackDate}</Text>
             </Flex>
           </ModalBody>
         </ModalContent>

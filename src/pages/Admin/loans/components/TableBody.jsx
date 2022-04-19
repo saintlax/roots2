@@ -2,10 +2,35 @@ import { Tr, Tbody, Td, Avatar, Flex, Text, Checkbox } from '@chakra-ui/react';
 import { tableBodyData } from './tableBodyData';
 import { MenuLItems } from './MenuList';
 
+import { useEffect } from 'react';
+import { ActionTypes } from '../../../../redux/constants/action-types';
+import Axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+const { REACT_APP_API_URL } = process.env;
+
 export const TableBody = () => {
+  const dispatch = useDispatch();
+  const loans = useSelector((state) => state.adminLoans.loans);
+  useEffect(() => {
+    getAllLoans();
+  }, []);
+  const getAllLoans = async () => {
+    await Axios.get(`${REACT_APP_API_URL}/loans`)
+      .then((response) => {
+        console.log(response);
+        if (response.status == 200) {
+          const payload = response.data.payload;
+          dispatch({ type: ActionTypes.REFRESH_ADMIN_LOANS, payload });
+        } else {
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <Tbody>
-      {tableBodyData.map((data, i) => {
+      {loans.map((data, i) => {
         return (
           <Tr key={i}>
             <Td>
@@ -15,29 +40,31 @@ export const TableBody = () => {
               <Flex alignItems={'center'}>
                 <Avatar
                   size={'sm'}
-                  name={data?.name}
+                  name={data?.user?.firstName + ' ' + data?.user?.lastName}
                   src={data?.imageUrl}
                   mr='5px'
                 />
-                <Text>{data?.name}</Text>
+                <Text>
+                  {data?.user?.firstName + ' ' + data?.user?.lastName}
+                </Text>
               </Flex>
             </Td>
-            <Td>{data?.email}</Td>
-            <Td>{data?.loanAmount}</Td>
-            <Td>{data?.date}</Td>
+            <Td>{data?.user?.phoneNumber}</Td>
+            <Td>{data?.amount}</Td>
+            <Td>{data?.createdOn}</Td>
             <Td>
               <Text
                 color={
-                  data?.status === 'Accepted'
+                  data?.status === 'COMPLETED'
                     ? '#009A49'
-                    : data?.status === 'Rejected'
+                    : data?.status === 'DECLINED'
                     ? '#FF1A1A'
                     : 'yellow'
                 }
                 bg={
-                  data?.status === 'Accepted'
+                  data?.status === 'COMPLETED'
                     ? '#F3FCF7'
-                    : data?.status === 'Rejected'
+                    : data?.status === 'DECLINED'
                     ? '#FFF4F4'
                     : '#fffcf4'
                 }
@@ -48,7 +75,10 @@ export const TableBody = () => {
               </Text>
             </Td>
             <Td>
-              <MenuLItems name={data?.name} data={data} />
+              <MenuLItems
+                name={data?.user?.firstName + ' ' + data?.user?.lastName}
+                data={data}
+              />
             </Td>
           </Tr>
         );

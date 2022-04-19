@@ -13,6 +13,7 @@ import { merchantCardReducer } from './merchantCardData';
 import { merchantSummaryReducer } from './merchantSummaryReducer';
 import { adminSummaryReducer } from './adminSummaryReducer';
 import { recentActivitiesReducer } from './recentActivitiesReducer';
+import { adminLoansReducer } from './adminLoansReducer';
 const reducers = combineReducers({
   user: userReducer,
   products: productReducer,
@@ -28,6 +29,7 @@ const reducers = combineReducers({
   merchantSummary: merchantSummaryReducer,
   adminSummary: adminSummaryReducer,
   recentActivities: recentActivitiesReducer,
+  adminLoans: adminLoansReducer,
 });
 
 export default reducers;
