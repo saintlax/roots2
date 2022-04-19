@@ -4,9 +4,7 @@ import { MenuLItems } from './MenuList';
 import { useSelector, useDispatch } from 'react-redux';
 export const TableBody = () => {
   const adminSummary = useSelector((state) => state.adminSummary);
-  console.log('====================================');
-  console.log(adminSummary?.allMerchants);
-  console.log('====================================');
+
   const tableBodyData = adminSummary?.allMerchants;
   return (
     <Tbody>

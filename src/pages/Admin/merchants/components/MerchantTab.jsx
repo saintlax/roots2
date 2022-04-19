@@ -18,6 +18,8 @@ import { BiLock } from 'react-icons/bi';
 import FormInput from '../../../../components/common/FormInput';
 import { BiStore } from 'react-icons/bi';
 import Axios from 'axios';
+import { MerchantProductsTable } from './MerchantProductsTable';
+import { TransactionsTable } from './TransactionsTable';
 const { REACT_APP_API_URL } = process.env;
 
 export const MerchantTab = ({ merchant }) => {
@@ -30,6 +32,7 @@ export const MerchantTab = ({ merchant }) => {
   const [CACDocumentPath, setCACDocumentPath] = useState('');
   const [CACDocument, setCACDocument] = useState('');
   const [products, setProducts] = useState([]);
+  const [orders, setOrders] = useState([]);
   useEffect(() => {
     setBusinessName(merchant?.businessName);
     setBusinessAcountNumber(merchant?.businessAcountNumber);
@@ -39,6 +42,7 @@ export const MerchantTab = ({ merchant }) => {
     setNameOfBank(merchant?.nameOfBank);
     setCACDocument(merchant?.CACDocument);
     getProducts();
+    getOrders();
   }, [merchant]);
 
   const ShowBranches = () => {
@@ -77,6 +81,23 @@ export const MerchantTab = ({ merchant }) => {
         if (response.status == 200) {
           const payload = response.data.payload;
           setProducts(payload);
+          // dispatch({ type: ActionTypes.REFRESH_PRODUCTS, payload });
+        } else {
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const getOrders = async () => {
+    const query = `merchantId=${merchant.id}`;
+    await Axios.get(`${REACT_APP_API_URL}/loanproducts/filter/filter?${query}`)
+      .then((response) => {
+        console.log(response);
+        if (response.status == 200) {
+          const payload = response.data.payload;
+          setOrders(payload);
           // dispatch({ type: ActionTypes.REFRESH_PRODUCTS, payload });
         } else {
         }
@@ -160,10 +181,10 @@ export const MerchantTab = ({ merchant }) => {
           <ShowBranches />
         </TabPanel>
         <TabPanel>
-          <p>Products</p>
+          <MerchantProductsTable merchant={merchant} products={products} />
         </TabPanel>
         <TabPanel>
-          <p>Transaction History</p>
+          <TransactionsTable merchant={merchant} orders={orders} />
         </TabPanel>
       </TabPanels>
     </Tabs>
