@@ -18,6 +18,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { AddBranchModal } from './components/AddBranchModal';
 import { AddRolesModal } from './components/AddRolesModal.jsx';
 import { useSelector } from 'react-redux';
+import BranchDoghnut from './components/BranchDonut';
 export const Branches = () => {
   const isMobile = IsMobile();
   const userBranch = useSelector((state) => state.userBranch);
@@ -85,7 +86,7 @@ export const Branches = () => {
             h={['100%', '', '200px', '220px']}
             mx={['auto']}
           >
-            <Doghnut />
+            <BranchDoghnut />
           </Box>
           <UnorderedList
             w='100%'
@@ -109,6 +110,11 @@ export const Branches = () => {
             <ListItem>
               <Text as='span' pos='relative' left='-10px' top='-4px'>
                 Total Revenue
+              </Text>
+            </ListItem>
+            <ListItem>
+              <Text as='span' pos='relative' left='-10px' top='-4px'>
+                Something else
               </Text>
             </ListItem>
           </UnorderedList>

@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { BiWalletAlt, BiUser, BiStore } from 'react-icons/bi';
 import withdraw from '../../../assets/icons/withdraw.svg';
+import { formatCurrency } from '../../../constants/constants';
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -30,9 +31,9 @@ const Dashboard = () => {
     },
     {
       id: 2,
-      amount: ' ' + adminSummary?.commissions,
+      amount: ' ' + formatCurrency(adminSummary?.commissions),
       title: 'Comissions Made',
-      percentage: 48,
+      percentage: 73,
       iconBg: '#fef4e8',
       icon: <img src={withdraw} alt='withdraw' height='35px' width='35px' />,
       className: 'card-two',
@@ -41,7 +42,7 @@ const Dashboard = () => {
       id: 3,
       amount: ' ' + adminSummary?.totalUsers,
       title: 'Total Users',
-      percentage: 48,
+      percentage: 70,
       iconBg: '#e8f9ee',
       icon: <BiUser size={35} color='#14C25A' />,
       className: 'card-three',
@@ -50,43 +51,43 @@ const Dashboard = () => {
       id: 4,
       amount: ' ' + adminSummary?.totalMerchants,
       title: 'Total Merchants',
-      percentage: 48,
+      percentage: 12,
       iconBg: '#fdeaee',
       icon: <BiStore size={35} color='#E73152' />,
       className: 'card-four',
     },
     {
       id: 5,
-      amount: ' ' + adminSummary?.approvedLoans,
+      amount: ' ' + formatCurrency(adminSummary?.approvedLoans),
       title: 'Approved Loans',
-      percentage: 48,
+      percentage: 55,
       iconBg: '#eaf1ff',
       icon: <BiWalletAlt size={35} color='#1459DF' />,
       className: 'card-one',
     },
     {
       id: 6,
-      amount: ' ' + adminSummary?.pendingLoans,
+      amount: ' ' + formatCurrency(adminSummary?.pendingLoans),
       title: 'Pending Loans',
-      percentage: 48,
+      percentage: 33,
       iconBg: '#eaf1ff',
       icon: <BiWalletAlt size={35} color='#1459DF' />,
       className: 'card-two',
     },
     {
       id: 7,
-      amount: ' ' + adminSummary?.declinedLoans,
+      amount: ' ' + formatCurrency(adminSummary?.declinedLoans),
       title: 'Declined Loans',
-      percentage: 48,
+      percentage: 0,
       iconBg: '#eaf1ff',
       icon: <BiWalletAlt size={35} color='#1459DF' />,
       className: 'card-three',
     },
     {
       id: 1,
-      amount: ' ' + adminSummary?.totalPayments,
+      amount: ' ' + formatCurrency(adminSummary?.totalPayments),
       title: 'Total Payments',
-      percentage: 48,
+      percentage: 0,
       iconBg: '#eaf1ff',
       icon: <BiWalletAlt size={35} color='#1459DF' />,
       className: 'card-four',

@@ -18,19 +18,25 @@ import {
   BsEye,
 } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
+import { formatCurrency } from '../../../../constants/constants';
 
 export const BranchDetailModal = ({ branch }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const loans = useSelector((state) => state.loans.loans);
+  // const loans = useSelector((state) => state.loans.loans);
+
+  console.log('============= YYYYYYYYYYYY =======================');
+  console.log(branch);
+  console.log('====================================');
 
   const ShowLoans = () => {
-    return loans.map((loan, i) => {
+    return branch?.orders.map((loan, i) => {
       return (
         <Flex
           my={'20px'}
           justifyContent={'space-between'}
           alignItems='center'
           fontWeight={'normal'}
+          key={i}
         >
           <Flex
             width={'65%'}
@@ -38,19 +44,27 @@ export const BranchDetailModal = ({ branch }) => {
             alignItems='center'
           >
             <Circle size={'30px'} bg='#1459DF'>
-              {loan.status === 'Completed' ? (
+              {loan?.status === 'Completed' ? (
                 <BsArrowDownRight color='#fff' />
               ) : (
                 <BsArrowUpRight color='#fff' />
               )}
             </Circle>
             <Box>
-              <Text>{loan.status}</Text>
-              <Text>{loan.date}</Text>
+              <Text
+                color={
+                  loan?.status.toUpperCase() === 'APPROVED' ? 'green' : 'red'
+                }
+              >
+                {loan?.status}
+              </Text>
+              <Text>{loan?.product?.name}</Text>
             </Box>
           </Flex>
-          <Text color={loan.status === 'Completed' ? 'green' : 'red'}>
-            #{loan.amount}
+          <Text
+            color={loan?.status.toUpperCase() === 'APPROVED' ? 'green' : 'red'}
+          >
+            {formatCurrency(loan?.product?.price)}
           </Text>
         </Flex>
       );

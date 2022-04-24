@@ -14,6 +14,7 @@ import { useToast } from '@chakra-ui/toast';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ActionTypes } from '../../../../redux/constants/action-types';
+import { formatTime } from '../../../../constants/constants';
 const { REACT_APP_API_URL } = process.env;
 
 const RecentActivities = () => {
@@ -41,17 +42,7 @@ const RecentActivities = () => {
         console.log(error);
       });
   };
-  const getTime = (unix_timestamp) => {
-    var date = new Date(unix_timestamp);
-    var hours = date.getHours();
-    var minutes = '0' + date.getMinutes();
-    var seconds = '0' + date.getSeconds();
 
-    var formattedTime =
-      hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-
-    return formattedTime;
-  };
   return (
     <Stack
       bg='#fff'
@@ -95,7 +86,7 @@ const RecentActivities = () => {
               fontSize='13px'
               color='lightGray'
             >
-              {getTime(activity.time)}
+              {formatTime(activity.time)}
             </Text>
           </Flex>
         </HStack>

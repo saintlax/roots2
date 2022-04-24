@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { ActionTypes } from '../../../../redux/constants/action-types';
 import Axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
+import { formatCurrency, formatDate } from '../../../../constants/constants';
 const { REACT_APP_API_URL } = process.env;
 
 export const TableBody = () => {
@@ -50,8 +51,9 @@ export const TableBody = () => {
               </Flex>
             </Td>
             <Td>{data?.user?.phoneNumber}</Td>
-            <Td>{data?.amount}</Td>
-            <Td>{data?.createdOn}</Td>
+            <Td>{formatCurrency(data?.amount)}</Td>
+            <Td>{formatCurrency(data?.paybackAmount)}</Td>
+            <Td>{formatDate(data?.paybackDate)}</Td>
             <Td>
               <Text
                 color={

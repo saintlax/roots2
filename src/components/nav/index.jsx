@@ -259,7 +259,7 @@ export const Nav = () => {
         >
           <Flex
             alignItems='center'
-            width={['100%', '100%', '80%', '65%']}
+            width={['100%', '100%', '80%', '90%']}
             height={['100%']}
             justifyContent={['space-between']}
             px={['0%', '0%', '8.5%']}

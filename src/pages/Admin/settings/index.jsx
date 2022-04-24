@@ -1,12 +1,34 @@
 import { Divider, Flex, HStack, Stack, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { BiKey } from 'react-icons/bi';
-import { FiBell } from 'react-icons/fi';
+import {
+  FiBell,
+  FiBriefcase,
+  FiAlertTriangle,
+  FiActivity,
+} from 'react-icons/fi';
 import ChangePassword from './components/ChangePassword';
+import Commission from './components/Commission';
+import DefaultPayback from './components/DefaultPayback';
 import NotificationsSettings from './components/NotificationsSettings';
 
 const Settings = () => {
   const [settingType, setSettingType] = useState('change-password');
+
+  const ShowView = () => {
+    if (settingType === 'change-password') {
+      return <ChangePassword />;
+    }
+    if (settingType === 'commission') {
+      return <Commission />;
+    }
+    if (settingType === 'notifications') {
+      return <NotificationsSettings />;
+    }
+    if (settingType === 'default_payback') {
+      return <DefaultPayback />;
+    }
+  };
 
   return (
     <Stack h='100%' overflowY='auto'>
@@ -30,12 +52,26 @@ const Settings = () => {
             <FiBell size={25} />
             <Text>Notifications</Text>
           </HStack>
+          <Divider />
+          <HStack
+            cursor='pointer'
+            onClick={() => setSettingType('commission')}
+            className={settingType === 'commission' && 'active-setting'}
+          >
+            <FiBriefcase size={25} />
+            <Text>Commission</Text>
+          </HStack>
+          <Divider />
+          <HStack
+            cursor='pointer'
+            onClick={() => setSettingType('default_payback')}
+            className={settingType === 'default_payback' && 'active-setting'}
+          >
+            <FiActivity size={25} />
+            <Text>Interest Rate</Text>
+          </HStack>
         </Stack>
-        {settingType === 'change-password' ? (
-          <ChangePassword />
-        ) : (
-          <NotificationsSettings />
-        )}
+        <ShowView />
       </Flex>
     </Stack>
   );

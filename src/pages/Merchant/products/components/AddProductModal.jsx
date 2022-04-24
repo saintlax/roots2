@@ -49,6 +49,7 @@ export const AddProductModal = ({ isMobile, userMerchant }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [loadingText, setLoadingText] = useState('Please wait..');
   const productCategories = useSelector((state) => state.productCategories);
+  const [profileImage, setProfileImage] = useState('');
 
   const getToast = (title, description, status) => {
     const color = status === 'success' ? 'blue' : 'red';
@@ -91,6 +92,7 @@ export const AddProductModal = ({ isMobile, userMerchant }) => {
       status,
       images,
       description,
+      profileImage,
       //merchant,
       //merchantId: merchant.id,
       //branch,
@@ -226,6 +228,7 @@ export const AddProductModal = ({ isMobile, userMerchant }) => {
   };
 
   const makeProfileImage = (image) => {
+    setProfileImage(image?.path);
     image.isProfile = true;
     //remove all isProfile
     const newArr = images.map(({ isProfile, ...rest }) => {

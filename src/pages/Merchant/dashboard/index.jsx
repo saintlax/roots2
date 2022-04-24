@@ -11,6 +11,7 @@ import { ActionTypes } from '../../../redux/constants/action-types';
 import Axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
+import { formatCurrency } from '../../../constants/constants';
 const { REACT_APP_API_URL } = process.env;
 
 export const Dashboard = () => {
@@ -20,6 +21,7 @@ export const Dashboard = () => {
   const [branchesReports, setBranchesReports] = useState([]);
   const [summary, setSummary] = useState({});
   const userBranch = useSelector((state) => state.userBranch);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     getCardData();
@@ -34,41 +36,42 @@ export const Dashboard = () => {
       percentageCancelled,
       amountApproved,
       percentageApproved,
+      wallet,
     } = data;
     let payload = [
       {
         title: 'Amount Generated',
-        amount: ' N' + amountGenerated,
+        amount: formatCurrency(amountGenerated),
         percentage: '' + Math.round(percentageGenerated),
         className: 'card-one',
       },
       {
         title: 'Pending Orders',
-        amount: ' N' + amountPending,
+        amount: formatCurrency(amountPending),
         percentage: '' + Math.round(percentagePending),
         className: 'card-two',
       },
       {
         title: 'Wallet',
-        amount: ' N 0.00',
+        amount: formatCurrency(wallet),
         percentage: '0',
         className: 'card-three',
       },
       {
         title: 'Cancelled Orders',
-        amount: ' N' + amountCancelled,
+        amount: formatCurrency(amountCancelled),
         percentage: '' + Math.round(percentageCancelled),
         className: 'card-one',
       },
       {
         title: 'Approved Orders',
-        amount: ' N' + amountApproved,
+        amount: formatCurrency(amountApproved),
         percentage: '' + Math.round(percentageApproved),
         className: 'card-two',
       },
       {
         title: 'Withdrawals',
-        amount: ' N 0.00',
+        amount: ' 0.00',
         percentage: '0',
         className: 'card-three',
       },
@@ -97,9 +100,9 @@ export const Dashboard = () => {
     //&branchId=${this.branch.id
     let query = ``;
     if (userBranch && Object.keys(userBranch).length > 0) {
-      query = `${userBranch.merchantId}`;
+      query = `${userBranch.merchantId}/${user.id}`;
     } else if (merchant && Object.keys(merchant).length > 0) {
-      query = `${merchant.id}`;
+      query = `${merchant.id}/${user.id}`;
     }
     await Axios.get(`${REACT_APP_API_URL}/products/merchantSummary/${query}`)
       .then((response) => {

@@ -1,7 +1,8 @@
 export const tableHeadData = [
   'Name',
   'Phone',
-  'Loan Amount(NGN)',
+  'Loan Amount',
+  'Payback Amount',
   'Payback Date',
   'Status',
   'Action',

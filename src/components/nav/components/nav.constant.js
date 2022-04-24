@@ -1,9 +1,9 @@
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { MdOutlineDashboard } from 'react-icons/md';
-import { GiHandBag } from 'react-icons/gi';
+import { GiHandBag, GiBuyCard } from 'react-icons/gi';
 import { PROTECTED_PATHS } from '../../../app/merchantConstants';
 
-const { DASHBOARD, ORDERS, BRANCHES, PRODUCTS } = PROTECTED_PATHS;
+const { DASHBOARD, ORDERS, BRANCHES, PRODUCTS, WITHDRAWALS } = PROTECTED_PATHS;
 
 export const MERCHANT_NAV_ITEMS = [
   {
@@ -26,6 +26,11 @@ export const MERCHANT_NAV_ITEMS = [
     title: 'Branches',
     to: BRANCHES,
     icon: <GiHandBag />,
+  },
+  {
+    title: 'Withdrawals',
+    to: WITHDRAWALS,
+    icon: <GiBuyCard />,
   },
 ];
 
