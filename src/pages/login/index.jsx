@@ -66,13 +66,24 @@ const Index = () => {
       navigate('/dashboard');
     }
     if (merchant && type === 'MERCHANT') {
-      localStorage.setItem(REACT_APP_MERCHANT, JSON.stringify(merchant[0]));
-      dispatch({
-        type: ActionTypes.ADD_MERCHANT,
-        payload: merchant[0],
-      });
-      setUserType('merchant');
-      navigate('/dashboard');
+      const { isActive } = merchant[0];
+
+      if (isActive) {
+        localStorage.setItem(REACT_APP_MERCHANT, JSON.stringify(merchant[0]));
+        dispatch({
+          type: ActionTypes.ADD_MERCHANT,
+          payload: merchant[0],
+        });
+        getToast('Hi, welcome', 'Merchant Access granted', 'success');
+        setUserType('merchant');
+        navigate('/dashboard');
+      } else {
+        getToast(
+          'Access Denied',
+          'Your merchant account has been disabled. Contact administrator',
+          'error'
+        );
+      }
     }
     if (type === 'STAFF') {
       const { branches } = payload;
@@ -96,7 +107,6 @@ const Index = () => {
         if (response.status == 200) {
           const payload = response.data.payload;
           processPayload(payload);
-          getToast('Hi, welcome', 'Access granted', 'success');
           setIsLoading(false);
         } else {
           getToast(

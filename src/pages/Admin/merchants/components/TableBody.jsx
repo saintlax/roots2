@@ -2,10 +2,31 @@ import { Tr, Tbody, Td, Avatar, Flex, Text, Checkbox } from '@chakra-ui/react';
 // import { tableBodyData } from './tableBodyData';
 import { MenuLItems } from './MenuList';
 import { useSelector, useDispatch } from 'react-redux';
+import { ActionTypes } from '../../../../redux/constants/action-types';
+import { useEffect } from 'react';
+import Axios from 'axios';
+const { REACT_APP_API_URL } = process.env;
 export const TableBody = () => {
-  const adminSummary = useSelector((state) => state.adminSummary);
+  const dispatch = useDispatch();
+  const tableBodyData = useSelector((state) => state.allMerchants.merchants);
 
-  const tableBodyData = adminSummary?.allMerchants;
+  useEffect(() => {
+    getAllMerchants();
+  }, []);
+  const getAllMerchants = async () => {
+    await Axios.get(`${REACT_APP_API_URL}/merchant`)
+      .then((response) => {
+        console.log(response);
+        if (response.status == 200) {
+          const { payload } = response.data;
+          dispatch({ type: ActionTypes.REFRESH_ALL_MERCHANT, payload });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  // const tableBodyData = adminSummary?.allMerchants;
   return (
     <Tbody>
       {tableBodyData.map((data, i) => {
@@ -25,8 +46,8 @@ export const TableBody = () => {
             <Td>{data?.branches?.length}</Td>
             <Td>
               <Text
-                color={data?.isActive ? '#FFFFFF' : '#009A49'}
-                bg='#F3FCF7'
+                color={data?.isActive ? '#009A49' : '#FFC529'}
+                bg={data?.isActive ? '#F3FCF7' : '#f4f4f4'}
                 borderRadius={'5px'}
                 p='5px 8px'
               >

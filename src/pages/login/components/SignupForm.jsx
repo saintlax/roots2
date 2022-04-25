@@ -87,6 +87,7 @@ export const SignupForm = ({
       businessName,
       businessAcountNumber,
       file: companyLogo,
+      isActive: true,
     };
     if (!companyAddress || !email || !companyPhoneNumber || !BVN) {
       getToast('Validation', 'All fields are required', 'error');
