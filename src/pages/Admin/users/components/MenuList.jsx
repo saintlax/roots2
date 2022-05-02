@@ -24,10 +24,10 @@ export const MenuLItems = ({ data }) => {
           <MenuItem>
             <UserModal data={data} />
           </MenuItem>
-          <MenuItem>
+          {/* <MenuItem>
             <FiEdit />
             <span style={{ marginLeft: '10px' }}>Edit</span>
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem>
             <DisableUserAlert user={data} mt='5px' small={true} />
           </MenuItem>

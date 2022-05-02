@@ -18,6 +18,7 @@ import {
   BsEye,
 } from 'react-icons/bs';
 import { useEffect, useState } from 'react';
+import { formatCurrency, formatDate } from '../../../../constants/constants';
 
 export const UserTabs = ({ data }) => {
   const [firstName, setFirstName] = useState('');
@@ -69,7 +70,7 @@ export const UserTabs = ({ data }) => {
                     ? 'Loan Paid'
                     : loan?.status}
                 </Text>
-                <Text>{loan?.createdOn}</Text>
+                <Text>{formatDate(loan?.createdOn)}</Text>
               </Box>
             </Flex>
             <Text
@@ -78,8 +79,8 @@ export const UserTabs = ({ data }) => {
               }
             >
               {loan?.status?.toUpperCase() === 'COMPLETED'
-                ? loan?.amount
-                : '-#' + loan?.amount}{' '}
+                ? formatCurrency(loan?.amount)
+                : '-#' + formatCurrency(loan?.amount)}
             </Text>
           </Flex>
         </>

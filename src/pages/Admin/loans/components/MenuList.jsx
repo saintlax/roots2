@@ -11,6 +11,7 @@ import { FiEdit, FiCreditCard } from 'react-icons/fi';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { UserModal } from './UserModal';
 import CautionAlertDialog from '../../../../components/CautionAlertDialog';
+import { PaymentModal } from './PaymentsModal';
 
 export const MenuLItems = ({ name, data }) => {
   return (
@@ -24,8 +25,8 @@ export const MenuLItems = ({ name, data }) => {
             <UserModal name={name} loan={data} />
           </MenuItem>
           <MenuItem>
-            <FiCreditCard />
-            <span style={{ marginLeft: '10px' }}>Payments</span>
+            {/* <span style={{ marginLeft: '10px' }}>Payments</span> */}
+            <PaymentModal name={name} loan={data} />
           </MenuItem>
           <MenuItem>
             <FiEdit />

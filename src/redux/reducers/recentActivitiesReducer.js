@@ -14,7 +14,7 @@ export const recentActivitiesReducer = (state = initialState, action) => {
       );
       return { ...state, activities: update };
     case ActionTypes.DELETE_RECENT_ACTIVITY:
-      const filtered = state.products.filter(
+      const filtered = state.activities.filter(
         (activity) => activity.id !== action.payload.id && activity
       );
       return { ...state, activities: filtered };

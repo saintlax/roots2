@@ -18,6 +18,7 @@ import { ActionTypes } from '../../../../redux/constants/action-types';
 import Axios from 'axios';
 import { useToast } from '@chakra-ui/toast';
 import { FiEdit } from 'react-icons/fi';
+import { formatCurrency, formatDate } from '../../../../constants/constants';
 
 const { REACT_APP_API_URL } = process.env;
 
@@ -186,7 +187,7 @@ export const UserModal = ({ name, loan }) => {
                   <Text>Loan Amount</Text>
                 </Box>
               </Flex>
-              <Text>#{loan?.amount}</Text>
+              <Text>{formatCurrency(loan?.amount)}</Text>
             </Flex>
             <Flex
               my={'20px'}
@@ -203,7 +204,7 @@ export const UserModal = ({ name, loan }) => {
                   <Text>Payback date</Text>
                 </Box>
               </Flex>
-              <Text>{loan?.paybackDate}</Text>
+              <Text>{formatDate(loan?.paybackDate)}</Text>
             </Flex>
           </ModalBody>
         </ModalContent>

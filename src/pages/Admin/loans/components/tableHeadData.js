@@ -7,3 +7,5 @@ export const tableHeadData = [
   'Status',
   'Action',
 ];
+
+export const paymentTableHeadData = ['Amount', 'Date', 'Status'];

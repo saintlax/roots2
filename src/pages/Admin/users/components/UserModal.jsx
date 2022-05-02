@@ -19,6 +19,12 @@ import {
   BsEye,
 } from 'react-icons/bs';
 import { UserTabs } from './UserTabs';
+import { formatDate } from '../../../../constants/constants';
+import Axios from 'axios';
+import { ActionTypes } from '../../../../redux/constants/action-types';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+const { REACT_APP_API_URL } = process.env;
 
 export const UserModal = ({ data }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -50,7 +56,7 @@ export const UserModal = ({ data }) => {
               <Text my='5px' fontWeight={'bold'}>
                 {data?.firstName + ' ' + data?.lastName}
               </Text>
-              <Text>Account created {data?.createdOn}</Text>
+              <Text>Account created {formatDate(data?.createdOn)}</Text>
             </Flex>
             <UserTabs data={data} />
           </ModalBody>

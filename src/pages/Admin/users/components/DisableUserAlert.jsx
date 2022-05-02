@@ -16,7 +16,7 @@ import { ActionTypes } from '../../../../redux/constants/action-types';
 import Axios from 'axios';
 import { useToast } from '@chakra-ui/toast';
 import { useState } from 'react';
-import { AiOutlineDelete } from 'react-icons/ai';
+import { AiOutlineCheck, AiOutlineDelete } from 'react-icons/ai';
 const { REACT_APP_API_URL } = process.env;
 
 export function DisableUserAlert({ user }) {
@@ -48,18 +48,19 @@ export function DisableUserAlert({ user }) {
   const disableUser = async (user) => {
     setIsLoading(true);
     // setLoadingText('please wait..');
+
     await Axios.put(`${REACT_APP_API_URL}/users/disable/${user.id}`, {
-      isActive: true,
+      isActive: !user.isActive,
     })
       .then((response) => {
         console.log(response);
         if (response.status == 200) {
-          // const payload = response.data.payload;
-          // product = { ...product, payload };
-          //dispatch({ type: ActionTypes.DELETE_PRODUCT, payload: product });
-          //getToast('Success', 'Product DELETED successfully', 'success');
+          dispatch({
+            type: ActionTypes.EDIT_ALL_USERS,
+            payload: { ...user, isActive: !user.isActive },
+          });
           setIsLoading(false);
-
+          getToast('Success', 'User access updated successfully', 'success');
           onClose();
         } else {
           getToast(
@@ -72,23 +73,41 @@ export function DisableUserAlert({ user }) {
       })
       .catch((error) => {
         console.log(error);
-        getToast('Error', 'User could not be disabled', 'error');
+        getToast('Error', 'User access could not be updated', 'error');
         setIsLoading(false);
       });
   };
 
   return (
     <>
-      <Text ml='3PX' cursor='pointer' onClick={onOpen}>
-        <Tooltip label='delete transaction' aria-label='A tooltip'>
-          <Text className='red small'>
-            <AiOutlineDelete />
+      {user?.isActive ? (
+        <>
+          <Text ml='3PX' cursor='pointer' onClick={onOpen}>
+            <Tooltip label='delete transaction' aria-label='A tooltip'>
+              <Text className='red small'>
+                <AiOutlineDelete />
+              </Text>
+            </Tooltip>
           </Text>
-        </Tooltip>
-      </Text>
-      <span style={{ marginLeft: '10px' }} onClick={onOpen}>
-        Disable
-      </span>
+          <span style={{ marginLeft: '10px' }} onClick={onOpen}>
+            Disable
+          </span>
+        </>
+      ) : (
+        <>
+          <Text ml='3PX' cursor='pointer' onClick={onOpen}>
+            <Tooltip label='delete transaction' aria-label='A tooltip'>
+              <Text className='red small'>
+                <AiOutlineCheck />
+              </Text>
+            </Tooltip>
+          </Text>
+          <span style={{ marginLeft: '10px' }} onClick={onOpen}>
+            Enable
+          </span>
+        </>
+      )}
+
       <AlertDialog
         motionPreset='slideInBottom'
         leastDestructiveRef={cancelRef}
@@ -100,10 +119,13 @@ export function DisableUserAlert({ user }) {
 
         <AlertDialogContent>
           <AlertDialogHeader fontSize={'18px'}>
-            Are you sure you want to disable {user?.firstName} ?
+            Are you sure you want to {user?.isActive ? 'disable' : 'enable'}{' '}
+            {user?.firstName} ?
           </AlertDialogHeader>
           <Text px='20px' fontSize={'16px'} textAlign={'center'}>
-            This action will prevent user from login into their account
+            {user?.isActive
+              ? 'This action will prevent user from login into their account'
+              : 'This action will grant access to user accoount'}
           </Text>
           <AlertDialogCloseButton />
           <AlertDialogFooter>
@@ -116,7 +138,7 @@ export function DisableUserAlert({ user }) {
               width='100%'
               fontSize={'14px'}
             >
-              No, Don't
+              No
             </Button>
             <Button
               {...BTN}
@@ -128,7 +150,7 @@ export function DisableUserAlert({ user }) {
               fontSize={'14px'}
               isLoading={isLoading}
             >
-              Yes, Disable
+              Yes, Continue
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
