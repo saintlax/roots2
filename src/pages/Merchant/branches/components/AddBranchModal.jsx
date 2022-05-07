@@ -64,17 +64,17 @@ export const AddBranchModal = ({ isMobile }) => {
           const branch = {
             ...payload,
             ...response.data.payload,
-            email: 'anayo@gmail.com',
-            phone: '+23470345678',
-            date: '22-01-2022',
-            amount: '250,000',
-            totalOrders: '1,500',
-            description: 'Loan repayment',
-            branches: '50',
-            status: 'Pending',
-            imageUrl: '',
-            dateCreated: '22-01-2022',
-            orderId: '#546382',
+            // email: 'anayo@gmail.com',
+            // phone: '+23470345678',
+            // date: '22-01-2022',
+            // amount: '0.00',
+            totalOrders: '0.00',
+            // description: 'Loan repayment',
+            // branches: '50',
+            // status: 'PENDING',
+            // imageUrl: '',
+            // dateCreated: '22-01-2022',
+            // orderId: '#546382',
           };
           console.log('=====>', branch);
           dispatch({

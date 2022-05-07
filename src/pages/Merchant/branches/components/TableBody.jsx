@@ -13,17 +13,14 @@ import { formatCurrency } from '../../../../constants/constants';
 const { REACT_APP_API_URL } = process.env;
 export const TableBody = () => {
   const branches = useSelector((state) => state.branches);
-
   const merchant = useSelector((state) => state.merchant);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('LOADING Branches......', merchant);
     getBranches();
     getRoles();
   }, []);
   const getBranches = async () => {
-    //&branchId=${this.branch.id
     await Axios.get(
       `${REACT_APP_API_URL}/branches/filter/filter?merchantId=${merchant.id}`
     )
@@ -32,7 +29,6 @@ export const TableBody = () => {
           const payload = response.data.payload;
           dispatch({ type: ActionTypes.REFRESH_BRANCH, payload });
           getOrders();
-        } else {
         }
       })
       .catch((error) => {

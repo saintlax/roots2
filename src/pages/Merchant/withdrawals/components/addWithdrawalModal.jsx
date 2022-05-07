@@ -11,6 +11,7 @@ import {
   Button,
   HStack,
   ModalHeader,
+  Textarea,
 } from '@chakra-ui/react';
 
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -150,17 +151,18 @@ export const AddWithdrawalModal = ({
             </SimpleGrid>
 
             <div className='inputContainer'>
-              <textarea
+              <Textarea
                 type='text'
-                rows='4'
                 className='input'
                 onChange={(e) => setDescription(e.target.value)}
                 value={description}
+                size='sm'
               />
               <label htmlFor='name' className='label'>
                 Description
               </label>
             </div>
+            <br />
             <HStack mt='8' justify={['space-between', 'flex-end']}>
               <Button
                 bg='primary'

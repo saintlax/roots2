@@ -15,6 +15,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ActionTypes } from '../../../../redux/constants/action-types';
 import { EditBranchModal } from './EditBranchModal';
 import { BranchDetailModal } from './BranchDetailModal';
+import { DeactivateBranchAlert } from './DeactivateBranchAlert';
 
 export const MenuLItems = ({ name, dateCreated, branch }) => {
   const dispatch = useDispatch();
@@ -45,29 +46,12 @@ export const MenuLItems = ({ name, dateCreated, branch }) => {
             <EditBranchModal branch={branch} />
           </MenuItem>
           <MenuItem>
-            <CautionAlertDialog
-              icon={
-                <Tooltip label='delete transaction' aria-label='A tooltip'>
-                  <Text className='red small'>
-                    <AiOutlineDelete />
-                  </Text>
-                </Tooltip>
-              }
-              cautionTitle='Are you sure you want to delete transaction?'
-              noText={'No, Dont Deactivate'}
-              yesText={'Yes, Delete Transaction'}
-              mt='5px'
-              small={true}
-              onContinue={null}
-            />
-            <span style={{ marginLeft: '10px' }}>Deactivate</span>
-            {/* <AiOutlineDelete />
-            <span style={{ marginLeft: "10px" }}>Deactivate</span> */}
+            <DeactivateBranchAlert branch={branch} />
           </MenuItem>
-          <MenuItem onClick={deleteBranch}>
+          {/* <MenuItem onClick={deleteBranch}>
             <FiTrash />
             <span style={{ marginLeft: '10px' }}>Delete</span>
-          </MenuItem>
+          </MenuItem> */}
         </MenuList>
       </Menu>
     </>
