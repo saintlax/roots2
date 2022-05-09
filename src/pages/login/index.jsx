@@ -89,6 +89,14 @@ const Index = () => {
       const { branches } = payload;
       if (branches && branches.length > 0) {
         const branch = branches[0];
+        if (!branch?.isActive) {
+          getToast(
+            'Access Denied',
+            'This branch has been disabled. Contact your merchant administrator',
+            'error'
+          );
+          return;
+        }
         localStorage.setItem(REACT_APP_USER_BRANCH, JSON.stringify(branch));
         dispatch({
           type: ActionTypes.ADD_USER_BRANCH,

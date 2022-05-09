@@ -49,7 +49,6 @@ export const Withdrawals = () => {
           <Button size='sm' bg='primary'>
             <AddWithdrawalModal
               isMobile={isMobile}
-              user={user}
               wallet={wallet}
               onWalletChange={onWalletChange}
             />

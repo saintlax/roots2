@@ -22,16 +22,12 @@ import Axios from 'axios';
 import { useToast } from '@chakra-ui/toast';
 const { REACT_APP_API_URL } = process.env;
 
-export const AddWithdrawalModal = ({
-  isMobile,
-  user,
-  wallet,
-  onWalletChange,
-}) => {
+export const AddWithdrawalModal = ({ isMobile, wallet, onWalletChange }) => {
+  const user = useSelector((state) => state.user);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
-
+  const merchant = useSelector((state) => state.merchant);
   const dispatch = useDispatch();
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
@@ -74,9 +70,11 @@ export const AddWithdrawalModal = ({
 
     const withdrawal = {
       amount,
-      userId: user.id,
+      userId: user.id + '',
       status: 'PENDING',
       description,
+      accountNumber: merchant?.businessAcountNumber,
+      nameOfBank: merchant?.nameOfBank,
     };
     postWithdrawal(withdrawal);
   };
@@ -92,7 +90,7 @@ export const AddWithdrawalModal = ({
       .then((response) => {
         if (response.status == 200) {
           const payload = response.data.payload;
-          wallet = { ...wallet, amount: wallet.amount - parseInt(amount) };
+          wallet = { ...wallet, amount: payload?.amount };
           onWalletChange(wallet);
           getToast('Success', 'Withdrawal created successfully', 'success');
           setIsLoading(false);
@@ -109,8 +107,8 @@ export const AddWithdrawalModal = ({
         }
       })
       .catch((error) => {
-        console.log(error);
-        getToast('Error', 'Withdrawal could not be created', 'error');
+        console.log('ERROR', error);
+        getToast('Error', 'Withdrawal could not be completed', 'error');
         setIsLoading(false);
       });
   };

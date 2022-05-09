@@ -44,14 +44,16 @@ export const TableBody = () => {
             <Tooltip label={data?.amount}>
               <Td fontSize={['12px']} py='20px !important'>
                 <Flex alignItems={'center'}>
-                  <Text isTruncated>{formatCurrency(data?.amount)}</Text>
+                  <Text isTruncated>
+                    {data?.amount ? formatCurrency(data?.amount) : '0.00'}
+                  </Text>
                 </Flex>
               </Td>
             </Tooltip>
             <Tooltip label={data?.description}>
               <Td fontSize={['12px']} py='20px !important'>
                 <Flex alignItems={'center'}>
-                  <Text isTruncated>{formatCurrency(data?.description)}</Text>
+                  <Text isTruncated>{data?.description}</Text>
                 </Flex>
               </Td>
             </Tooltip>

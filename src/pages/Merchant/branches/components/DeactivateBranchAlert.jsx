@@ -28,7 +28,9 @@ export function DeactivateBranchAlert({ branch }) {
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
   // const [loadingText, setLoadingText] = useState('Please wait..');
-
+  console.log('============== CURRENT BRANCH ======================');
+  console.log(branch);
+  console.log('====================================');
   const getToast = (title, description, status) => {
     const color = status === 'success' ? 'blue' : 'red';
     toast({
