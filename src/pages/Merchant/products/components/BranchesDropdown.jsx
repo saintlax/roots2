@@ -51,10 +51,9 @@ export const BranchesDropdown = ({ onBranchIdSelected }) => {
       justifyContent='center'
       alignItems={'center'}
       bg='#fff'
-      px='8px'
       borderRadius={'5px'}
     >
-      <BsBagCheck size={26} />
+      {/* <BsBagCheck size={26} /> */}
       <Select
         size='sm'
         placeholder='Branches'

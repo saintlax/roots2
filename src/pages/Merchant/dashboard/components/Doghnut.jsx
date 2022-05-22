@@ -1,6 +1,7 @@
 import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import { formatCurrency } from '../../../../constants/constants';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -63,9 +64,9 @@ export default function Doghnut({ summary }) {
       {
         label: 'ffffffff',
         data: [
-          summary?.amountGenerated,
-          summary?.amountPending,
-          summary?.amountCancelled,
+          formatCurrency(summary?.amountGenerated),
+          formatCurrency(summary?.amountPending),
+          formatCurrency(summary?.amountCancelled),
         ],
         backgroundColor: [
           'rgba(91, 147, 255, 1)',

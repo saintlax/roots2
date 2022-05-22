@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 import { ActionTypes } from '../../../../redux/constants/action-types';
 import Axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
+import { formatCurrency } from '../../../../constants/constants';
 const { REACT_APP_API_URL } = process.env;
 
 const ProductAnalytics = ({ summary }) => {
@@ -68,7 +69,13 @@ const ProductAnalytics = ({ summary }) => {
             h={['100%', '', '220px']}
             mx={['auto']}
           >
-            <Doghnut summary={summary} />
+            {summary?.amountGenerated > 0 &&
+            summary?.amountPending > 0 &&
+            summary?.amountCancelled > 0 ? (
+              <Doghnut summary={summary} />
+            ) : (
+              <></>
+            )}
           </Box>
         </Stack>
         <UnorderedList
@@ -82,17 +89,26 @@ const ProductAnalytics = ({ summary }) => {
         >
           <ListItem>
             <Text as='span' pos='relative' left='-10px' top='-4px'>
-              N{summary?.amountGenerated}
+              N
+              {summary?.amountGenerated
+                ? formatCurrency(summary?.amountGenerated)
+                : '0.00'}
             </Text>
           </ListItem>
           <ListItem>
             <Text as='span' pos='relative' left='-10px' top='-4px'>
-              N{summary?.amountPending}
+              N
+              {summary?.amountPending
+                ? formatCurrency(summary?.amountPending)
+                : '0.00'}
             </Text>
           </ListItem>
           <ListItem>
             <Text as='span' pos='relative' left='-10px' top='-4px'>
-              N{summary?.amountCancelled}
+              N
+              {summary?.amountCancelled
+                ? formatCurrency(summary?.amountCancelled)
+                : '0.00'}
             </Text>
           </ListItem>
         </UnorderedList>
@@ -105,7 +121,9 @@ const ProductAnalytics = ({ summary }) => {
         {products.slice(0, 7).map((product, index) => (
           <HStack key={index} justify={'space-evenly'}>
             <Text>{product.name}</Text>
-            <Text color='green'>N{product.price}</Text>
+            <Text color='green'>
+              N{product.price ? formatCurrency(product.price) : '0.00'}
+            </Text>
           </HStack>
         ))}
         {/* <Text as='h4'>View Products</Text> */}

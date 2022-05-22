@@ -19,7 +19,7 @@ import {
   Select,
 } from '@chakra-ui/react';
 import { BsThreeDots, BsTrash, BsCheckLg } from 'react-icons/bs';
-
+import { BsBagCheck } from 'react-icons/bs';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -330,23 +330,36 @@ export const AddProductModal = ({ isMobile, userMerchant }) => {
               </GridItem>
             </SimpleGrid>
 
-            <FormControl>
-              <Select
-                size='sm'
-                placeholder='Choose Category'
-                border='none'
-                _focus={{ border: 'none' }}
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                {productCategories.map((categoryy, i) => {
-                  return (
-                    <option value={categoryy.name}>{categoryy.name}</option>
-                  );
-                })}
-              </Select>
-            </FormControl>
-            <BranchesDropdown onBranchIdSelected={onBranchIdSelected} />
+            <SimpleGrid columns={2} columnGap={3} rowGap={6} w='full'>
+              <GridItem colSpan={1}>
+                <Flex
+                  // width={'160px'}
+                  justifyContent='center'
+                  alignItems={'center'}
+                  bg='#fff'
+                  borderRadius={'5px'}
+                >
+                  {/* <BsBagCheck size={26} /> */}
+                  <Select
+                    size='sm'
+                    placeholder='Choose Category'
+                    border='none'
+                    _focus={{ border: 'none' }}
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                  >
+                    {productCategories.map((categoryy, i) => {
+                      return (
+                        <option value={categoryy.name}>{categoryy.name}</option>
+                      );
+                    })}
+                  </Select>
+                </Flex>
+              </GridItem>
+              <GridItem colSpan={1}>
+                <BranchesDropdown onBranchIdSelected={onBranchIdSelected} />
+              </GridItem>
+            </SimpleGrid>
 
             <FormControl>
               <FormLabel htmlFor='description' {...labelStyles}>

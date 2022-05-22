@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { ActionTypes } from '../../../../redux/constants/action-types';
 import Axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
+import { formatDate, formatCurrency } from '../../../../constants/constants';
 const { REACT_APP_API_URL } = process.env;
 
 export const TableBody = () => {
@@ -50,14 +51,18 @@ export const TableBody = () => {
             <Td fontSize={['13px']}>
               <Flex alignItems={'center'}>
                 {/* <Avatar size={"sm"} name={data?.name} src={""} mr="5px" /> */}
-                <Text>{data?.createdOn}</Text>
+                <Text>{data.createdOn ? formatDate(data?.createdOn) : ''}</Text>
               </Flex>
             </Td>
             <Td fontSize={['13px']}>
-              {data?.user?.firstName} {data?.user?.lasstName}
+              {data?.user?.firstName} {data?.user?.lastName}
             </Td>
             <Td fontSize={['13px']}>{data?.user?.phoneNumber}</Td>
-            <Td fontSize={['13px']}>{data?.product?.price}</Td>
+            <Td fontSize={['13px']}>
+              {data?.product.price
+                ? formatCurrency(data?.product?.price)
+                : '0.00'}
+            </Td>
             <Td fontSize={['13px']}>
               <Text
                 color={

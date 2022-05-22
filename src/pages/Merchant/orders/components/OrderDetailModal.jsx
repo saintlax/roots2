@@ -16,6 +16,7 @@ import { BsBagCheck, BsEye, BsBriefcase } from 'react-icons/bs';
 import { useToast } from '@chakra-ui/toast';
 import { OrderActionAlert } from './OrderActionAlert';
 import { useState } from 'react';
+import { formatCurrency, formatDate } from '../../../../constants/constants';
 
 export const OrderDetailModal = ({ order }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -69,7 +70,7 @@ export const OrderDetailModal = ({ order }) => {
     <>
       <Flex onClick={onOpen} alignItems='center' width={'100%'}>
         <BsEye />
-        <span style={{ marginLeft: '10px' }}>View</span>
+        <span style={{ marginLeft: '10px' }}>View Order</span>
       </Flex>
 
       <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
@@ -92,7 +93,9 @@ export const OrderDetailModal = ({ order }) => {
               <Text my='5px' fontWeight={'bold'}>
                 {order?.user?.firstName} {order?.user?.lastName}
               </Text>
-              <Text>Ordered on {order?.createdOn}</Text>
+              <Text>
+                Ordered on {order.createdOn ? formatDate(order?.createdOn) : ''}
+              </Text>
             </Flex>
             <Flex
               my={'20px'}
@@ -141,7 +144,11 @@ export const OrderDetailModal = ({ order }) => {
                   <Text>{order?.product?.status}</Text>
                 </Box>
               </Flex>
-              <Text color={'red'}>#{order?.product?.price}</Text>
+              <Text color={'red'}>
+                {order?.product.price
+                  ? formatCurrency(order?.product?.price)
+                  : '0.00'}
+              </Text>
             </Flex>
             <Flex
               my={'20px'}

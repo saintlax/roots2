@@ -5,6 +5,7 @@ import { ActionTypes } from '../../../../redux/constants/action-types';
 import Axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { formatCurrency } from '../../../../constants/constants';
 const { REACT_APP_API_URL } = process.env;
 
 export const TopProductTableBody = () => {
@@ -53,16 +54,18 @@ export const TopProductTableBody = () => {
             <Tooltip label={data?.name}>
               <Td fontSize={['12px']} py='20px !important'>
                 <Flex alignItems={'center'}>
-                  <Circle bg={'#fbf5ef'} size='30px' mr='10px'>
+                  {/* <Circle bg={'#fbf5ef'} size='30px' mr='10px'>
                     <MdHeadset size={'16px'} />
-                  </Circle>
+                  </Circle> */}
                   <Text isTruncated>{data?.name}</Text>
                 </Flex>
               </Td>
             </Tooltip>
             <Tooltip label={data?.price}>
               <Td fontSize={['12px']} py='20px !important'>
-                <Text isTruncated>{data?.price}</Text>
+                <Text isTruncated>
+                  {data.price ? formatCurrency(data?.price) : '0.00'}
+                </Text>
               </Td>
             </Tooltip>
             <Tooltip label={data?.orders}>
@@ -71,7 +74,7 @@ export const TopProductTableBody = () => {
               </Td>
             </Tooltip>
             <Td fontSize={['12px']} py='20px !important'>
-              #{data?.revenue}
+              {data.revenue ? formatCurrency(data?.revenue) : '0.00'}
             </Td>
           </Tr>
         );

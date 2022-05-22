@@ -132,9 +132,15 @@ export const Dashboard = () => {
           <Card key={index} {...data} />
         ))}
 
-        <Box className='branch-per-revenue-wrapper'>
-          <BranchPerRevenue branchesReports={branchesReports} />
-        </Box>
+        {branchesReports.length > 0 ? (
+          <>
+            <Box className='branch-per-revenue-wrapper'>
+              <BranchPerRevenue branchesReports={branchesReports} />
+            </Box>
+          </>
+        ) : (
+          <></>
+        )}
         <Box className='product-analytics'>
           <ProductAnalytics summary={summary} />
         </Box>
