@@ -15,7 +15,7 @@ import {
   MenuList,
   Text,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './index.css';
 import { BsSearch } from 'react-icons/bs';
 import { AiOutlineBell } from 'react-icons/ai';
@@ -35,6 +35,8 @@ import { MerchantSideBar } from './components/merchantSideBar';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ActionTypes } from '../../redux/constants/action-types';
+import { Context } from '../../context/userAuthContext/userTypeContext';
+
 const {
   REACT_APP_API_URL,
   REACT_APP_MERCHANT,
@@ -49,6 +51,8 @@ export const Nav = () => {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { userType } = useContext(Context);
+  const { setUserType } = useContext(Context);
 
   const isMerchant = () => {
     if (userBranch && Object.keys(userBranch).length === 0) return true;
@@ -84,6 +88,7 @@ export const Nav = () => {
       type: ActionTypes.DELETE_USER_BRANCH,
       payload: null,
     });
+    setUserType('none');
     navigate('/');
   };
 

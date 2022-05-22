@@ -17,6 +17,7 @@ function App() {
   useEffect(() => {
     pathname !== '/' &&
     pathname !== 'forgot-password' &&
+    pathname !== 'reset-password' &&
     pathname !== '/signup' &&
     pathname !== '/account-setup' &&
     pathname !== '/bank-information'
@@ -29,6 +30,10 @@ function App() {
       return <AuthenticatedApp />;
     } else if (userType?.toLowerCase() === 'merchant') {
       return <AuthenticatedMerchantApp />;
+    } else if (userType?.toLowerCase() === 'none') {
+      return <UnAuthenticatedApp />;
+    } else {
+      return <UnAuthenticatedApp />;
     }
   } else {
     return <UnAuthenticatedApp />;
