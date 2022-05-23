@@ -83,7 +83,7 @@ const ResetPassword = () => {
 
   const postReset = async (payload) => {
     setIsLoading(true);
-    await Axios.post(`${REACT_APP_API_URL}/users/changePassword`, payload)
+    await Axios.post(`${REACT_APP_API_URL}/users/resetPassword`, payload)
       .then((response) => {
         if (response.status === 200 && response.data.payload) {
           getToast(
