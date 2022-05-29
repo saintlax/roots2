@@ -3,6 +3,7 @@ import { BsThreeDots } from 'react-icons/bs';
 // import { UserModal } from './UserModal';
 import { EditProductModal } from './EditProductModal';
 import { DeleteProductAlert } from './DeleteProductAlert';
+import { PlaceOrderModal } from './placeOrder';
 
 export const MenuLItems = ({ product }) => {
   return (
@@ -17,6 +18,9 @@ export const MenuLItems = ({ product }) => {
           </MenuItem> */}
           <MenuItem>
             <EditProductModal product={product} />
+          </MenuItem>
+          <MenuItem>
+            <PlaceOrderModal product={product} />
           </MenuItem>
           <MenuItem>
             <DeleteProductAlert product={product} mt='5px' small={true} />

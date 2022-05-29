@@ -19,7 +19,7 @@ export const TableBody = () => {
     //&branchId=${this.branch.id
     let query = ``;
     if (userBranch && Object.keys(userBranch).length > 0) {
-      query = `branchId=${userBranch.merchantId}`;
+      query = `branchId=${userBranch.id}`;
     } else if (merchant && Object.keys(merchant).length > 0) {
       query = `merchantId=${merchant.id}`;
     }

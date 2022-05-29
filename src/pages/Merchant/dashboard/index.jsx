@@ -123,9 +123,77 @@ export const Dashboard = () => {
       });
   };
 
+  const onFilter = (data) => {
+    let d = new Date();
+    switch (data) {
+      case 'Last 7 days':
+        d.setDate(d.getDate() - 7);
+        console.log(d);
+        break;
+      case 'Today':
+        console.log(d);
+        break;
+      case 'Yesterday':
+        d.setDate(d.getDate() - 1);
+        break;
+      case 'Last month':
+        d = new Date(d.getFullYear(), d.getMonth() - 1, d.getDate());
+        console.log(d);
+        break;
+
+      case 'Last 6 months':
+        d = new Date(d.getFullYear(), d.getMonth() - 6, d.getDate());
+        console.log(d);
+        break;
+      case 'Last Year':
+        d = new Date(d.getFullYear(), d.getMonth() - 12, d.getDate());
+        console.log(d);
+        break;
+      case 'Last 2 Years':
+        d = new Date(d.getFullYear(), d.getMonth() - 24, d.getDate());
+        console.log(d);
+        break;
+      case 'Last 5 Years':
+        d = new Date(d.getFullYear(), d.getMonth() - 12 * 5, d.getDate());
+        console.log(d);
+        break;
+    }
+    postFilter(d, new Date());
+  };
+
+  const postFilter = async (startDate, endDate) => {
+    let query = ``;
+    if (userBranch && Object.keys(userBranch).length > 0) {
+      query = `merchantId=${userBranch.merchantId}&userId=${user.id}`;
+    } else if (merchant && Object.keys(merchant).length > 0) {
+      query = `merchantId=${merchant.id}&userId=${user.id}`;
+    }
+    query += `&startDate=${startDate}&endDate=${endDate}`;
+    await Axios.get(
+      `${REACT_APP_API_URL}/products/filterReportByDate/filter?${query}`
+    )
+      .then((response) => {
+        console.log(response);
+        if (response.status == 200) {
+          const payload = response.data.payload;
+
+          dispatch({ type: ActionTypes.EDIT_MERCHANT_SUMMARY, payload });
+          console.log('filter response data......', payload);
+          sortCards(payload);
+          sortBranchesReport(payload);
+          setSummary(payload);
+          console.log('filter data', payload);
+        } else {
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <Stack py='5' w='100%' h='100%' spacing='30px !important'>
-      <FilterParameter />
+      <FilterParameter onFilter={onFilter} />
 
       <Box className='merchant-dashboard-grid'>
         {cardData.map((data, index) => (

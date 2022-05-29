@@ -47,12 +47,7 @@ const MobileMenu = ({ onClose }) => {
         <Avatar name='Kent Dodds' src='https://bit.ly/kent-c-dodds' />
         <Stack>
           <Text>Carter Kenter</Text>
-          <Text
-            fontSize={'12px'}
-            color='#9AA1D0;
-'
-            mt='0 !important'
-          >
+          <Text fontSize={'12px'} color='#9AA1D0;' mt='0 !important'>
             View Profile
           </Text>
         </Stack>

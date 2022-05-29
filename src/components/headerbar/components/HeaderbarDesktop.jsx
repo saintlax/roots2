@@ -52,7 +52,7 @@ const HeaderbarDesktop = () => {
       <Flex w='95%' justify='space-between'>
         <HStack>
           <MyInput
-            placeholder='Search Product'
+            placeholder='Search Products'
             hasRightIcon
             RightIcon={<BiSearch />}
           />

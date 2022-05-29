@@ -11,10 +11,19 @@ import IsMobile from '../components/common/IsMobile';
 import Headerbar from '../components/headerbar';
 import Menu from '../components/menu';
 import Loans from '../pages/Admin/loans';
+import Banks from '../pages/Admin/banks';
 
 const AuthenticatedApp = () => {
-  const { DASHBOARD, USERS, MERCHANTS, TRANSACTIONS, LOANS, SETTINGS, ROLES } =
-    PROTECTED_PATHS;
+  const {
+    DASHBOARD,
+    USERS,
+    MERCHANTS,
+    TRANSACTIONS,
+    LOANS,
+    SETTINGS,
+    ROLES,
+    BANKS,
+  } = PROTECTED_PATHS;
 
   const isMobileScreen = IsMobile();
 
@@ -37,6 +46,7 @@ const AuthenticatedApp = () => {
             <Route path={LOANS} element={<Loans />} />
             <Route path={SETTINGS} element={<Settings />} />
             <Route path={ROLES} element={<Roles />} />
+            <Route path={BANKS} element={<Banks />} />
           </Routes>
         </Box>
       </Stack>

@@ -53,6 +53,7 @@ export const Nav = () => {
   const dispatch = useDispatch();
   const { userType } = useContext(Context);
   const { setUserType } = useContext(Context);
+  const [searchValue, setSearchValue] = useState('');
 
   const isMerchant = () => {
     if (userBranch && Object.keys(userBranch).length === 0) return true;
@@ -92,6 +93,15 @@ export const Nav = () => {
     navigate('/');
   };
 
+  const handleSearch = (e) => {
+    setSearchValue(e.target.value);
+    if (pathname !== '/products') {
+      navigate('/products');
+    }
+    if (!searchValue) {
+      console.log('path', pathname);
+    }
+  };
   return (
     <>
       <Box width={'100%'} height={['100%']} bg='#fff'>
@@ -159,6 +169,7 @@ export const Nav = () => {
                   py='7px'
                   px='20px'
                   borderRadius={'15px'}
+                  onChange={(e) => handleSearch(e)}
                 />
               </InputGroup>
             </Flex>

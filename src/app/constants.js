@@ -21,6 +21,7 @@ export const PROTECTED_PATHS = {
   LOANS: '/loans',
   SETTINGS: '/settings',
   ROLES: '/roles',
+  BANKS: '/banks',
 };
 
 /**

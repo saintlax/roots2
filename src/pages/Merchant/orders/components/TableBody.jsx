@@ -20,13 +20,11 @@ export const TableBody = () => {
   const getOrders = async () => {
     let query = ``;
     if (userBranch && Object.keys(userBranch).length > 0) {
-      query = `${userBranch.merchantId}`;
+      query = `branchId=${userBranch.id}`;
     } else if (merchant && Object.keys(merchant).length > 0) {
-      query = `${merchant.id}`;
+      query = `merchantId=${merchant.id}`;
     }
-    await Axios.get(
-      `${REACT_APP_API_URL}/loanproducts/filter/filter?merchantId=${query}`
-    )
+    await Axios.get(`${REACT_APP_API_URL}/loanproducts/filter/filter?${query}`)
       .then((response) => {
         console.log(response);
         if (response.status == 200) {

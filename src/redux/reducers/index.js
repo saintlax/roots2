@@ -19,6 +19,7 @@ import { loanDaysReducer } from './LoanDaysReducer';
 import { allMerchantsReducer } from './allMerchantsReducer';
 import { allUsersReducer } from './allUsersReducer';
 import { withdrawalReducer } from './withdrawalReducer';
+import { banksReducer } from './bankReducer';
 const reducers = combineReducers({
   user: userReducer,
   products: productReducer,
@@ -40,6 +41,7 @@ const reducers = combineReducers({
   allMerchants: allMerchantsReducer,
   allUsers: allUsersReducer,
   withdrawals: withdrawalReducer,
+  banks: banksReducer,
 });
 
 export default reducers;
