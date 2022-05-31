@@ -15,9 +15,9 @@ import {
   MenuList,
   Text,
 } from '@chakra-ui/react';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './index.css';
-import { BsSearch } from 'react-icons/bs';
+import { BsSearch, BsArrowUpLeftCircle } from 'react-icons/bs';
 import { AiOutlineBell } from 'react-icons/ai';
 import { MERCHANT_NAV_ITEMS, STAFF_NAV_ITEMS } from './components/nav.constant';
 import { LinkTo } from './components/LinkTo';
@@ -36,7 +36,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ActionTypes } from '../../redux/constants/action-types';
 import { Context } from '../../context/userAuthContext/userTypeContext';
-
+import Axios from 'axios';
 const {
   REACT_APP_API_URL,
   REACT_APP_MERCHANT,
@@ -54,6 +54,7 @@ export const Nav = () => {
   const { userType } = useContext(Context);
   const { setUserType } = useContext(Context);
   const [searchValue, setSearchValue] = useState('');
+  const [searching, setSearching] = useState(false);
 
   const isMerchant = () => {
     if (userBranch && Object.keys(userBranch).length === 0) return true;
@@ -98,10 +99,67 @@ export const Nav = () => {
     if (pathname !== '/products') {
       navigate('/products');
     }
-    if (!searchValue) {
-      console.log('path', pathname);
+  };
+  const searchProducts = (term) => {
+    if (term && term.length > 0) {
+      searchGET(term);
+    } else {
+      getAllProducts();
     }
   };
+
+  useEffect(() => {
+    searchProducts(searchValue);
+  }, [searchValue]);
+
+  const getAllProducts = async () => {
+    let query = ``;
+    if (userBranch && Object.keys(userBranch).length > 0) {
+      query = `branchId=${userBranch.id}`;
+    } else if (merchant && Object.keys(merchant).length > 0) {
+      query = `merchantId=${merchant.id}`;
+    }
+    await Axios.get(`${REACT_APP_API_URL}/products/filter/filter?${query}`)
+      .then((response) => {
+        console.log(response);
+        if (response.status == 200) {
+          const payload = response.data.payload;
+          dispatch({ type: ActionTypes.REFRESH_PRODUCTS, payload });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const searchGET = async (term) => {
+    let branchId = 0,
+      merchantId = 0;
+    if (userBranch && Object.keys(userBranch).length > 0) {
+      branchId = userBranch.id;
+    } else if (merchant && Object.keys(merchant).length > 0) {
+      merchantId = merchant.id;
+    }
+    setSearching(true);
+    await Axios.get(
+      `${REACT_APP_API_URL}/products/merchantSearch/${merchantId}/${branchId}/name,description/${term}`
+    )
+      .then((response) => {
+        setSearching(false);
+        console.log(response);
+        if (response.status == 200) {
+          const payload = response.data.payload;
+          dispatch({
+            type: ActionTypes.REFRESH_PRODUCTS,
+            payload,
+          });
+        }
+      })
+      .catch((error) => {
+        setSearching(true);
+        console.log(error);
+      });
+  };
+
   return (
     <>
       <Box width={'100%'} height={['100%']} bg='#fff'>
@@ -157,7 +215,13 @@ export const Nav = () => {
               <InputGroup display={['none', 'none', 'block']}>
                 <InputRightElement
                   pointerEvents='none'
-                  children={<BsSearch size='20px' />}
+                  children={
+                    !searching ? (
+                      <BsSearch size='20px' />
+                    ) : (
+                      <Button isLoading='true' size='20px' />
+                    )
+                  }
                   p='10px'
                 />
                 <Input
