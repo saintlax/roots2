@@ -41,8 +41,6 @@ const ProductAnalytics = ({ summary }) => {
         console.log(response);
         if (response.status == 200) {
           const payload = response.data.payload;
-
-          console.log('LOADING topselling Products......', payload);
           dispatch({ type: ActionTypes.REFRESH_TOPSELLING_PRODUCTS, payload });
         } else {
         }
@@ -61,73 +59,76 @@ const ProductAnalytics = ({ summary }) => {
       borderRadius={'10'}
       gap='2'
     >
-      <Flex flex={['0.9']} direction={['column', 'row']} pr='3'>
-        <Stack>
-          <Text as='h3'>Product Sales Analytics</Text>
-          <Box
-            w={['100%', '300px', '']}
-            h={['100%', '', '220px']}
-            mx={['auto']}
-          >
-            {summary?.amountGenerated > 0 &&
-            summary?.amountPending > 0 &&
-            summary?.amountCancelled > 0 ? (
+      {summary?.amountGenerated > 0 || summary?.amountPending > 0 ? (
+        <Flex flex={['0.9']} direction={['column', 'row']} pr='3'>
+          <Stack>
+            <Text as='h3'>Product Sales Analytics</Text>
+            <Box
+              w={['100%', '300px', '']}
+              h={['100%', '', '220px']}
+              mx={['auto']}
+            >
               <Doghnut summary={summary} />
-            ) : (
-              <></>
-            )}
-          </Box>
-        </Stack>
-        <UnorderedList
-          w='100%'
-          styleType='disc'
-          display='flex'
-          flexDirection={['row', 'column']}
-          justifyContent={['space-between', 'center']}
-          alignItems={['center', '', 'start']}
-          flexWrap='wrap'
-        >
-          <ListItem>
-            <Text as='span' pos='relative' left='-10px' top='-4px'>
-              N
-              {summary?.amountGenerated
-                ? formatCurrency(summary?.amountGenerated)
-                : '0.00'}
-            </Text>
-          </ListItem>
-          <ListItem>
-            <Text as='span' pos='relative' left='-10px' top='-4px'>
-              N
-              {summary?.amountPending
-                ? formatCurrency(summary?.amountPending)
-                : '0.00'}
-            </Text>
-          </ListItem>
-          <ListItem>
-            <Text as='span' pos='relative' left='-10px' top='-4px'>
-              N
-              {summary?.amountCancelled
-                ? formatCurrency(summary?.amountCancelled)
-                : '0.00'}
-            </Text>
-          </ListItem>
-        </UnorderedList>
-      </Flex>
+            </Box>
+          </Stack>
+          <UnorderedList
+            w='100%'
+            styleType='disc'
+            display='flex'
+            flexDirection={['row', 'column']}
+            justifyContent={['space-between', 'center']}
+            alignItems={['center', '', 'start']}
+            flexWrap='wrap'
+          >
+            <ListItem>
+              <Text as='span' pos='relative' left='-10px' top='-4px'>
+                N
+                {summary?.amountGenerated
+                  ? formatCurrency(summary?.amountGenerated)
+                  : '0.00'}
+              </Text>
+            </ListItem>
+            <ListItem>
+              <Text as='span' pos='relative' left='-10px' top='-4px'>
+                N
+                {summary?.amountPending
+                  ? formatCurrency(summary?.amountPending)
+                  : '0.00'}
+              </Text>
+            </ListItem>
+            <ListItem>
+              <Text as='span' pos='relative' left='-10px' top='-4px'>
+                N
+                {summary?.amountCancelled
+                  ? formatCurrency(summary?.amountCancelled)
+                  : '0.00'}
+              </Text>
+            </ListItem>
+          </UnorderedList>
+        </Flex>
+      ) : (
+        <></>
+      )}
+
       <Divider orientation='vertical' />
-      <Stack flex='0.9' textAlign={'center'}>
-        <Text as='h3' mb='5px'>
-          Top Selling Products
-        </Text>
-        {products.slice(0, 7).map((product, index) => (
-          <HStack key={index} justify={'space-evenly'}>
-            <Text>{product.name}</Text>
-            <Text color='green'>
-              N{product.price ? formatCurrency(product.price) : '0.00'}
-            </Text>
-          </HStack>
-        ))}
-        {/* <Text as='h4'>View Products</Text> */}
-      </Stack>
+      {products && products.length > 0 ? (
+        <Stack flex='0.9' textAlign={'center'}>
+          <Text as='h3' mb='5px'>
+            Top Selling Products
+          </Text>
+          {products.slice(0, 7).map((product, index) => (
+            <HStack key={index} justify={'space-evenly'}>
+              <Text>{product.name}</Text>
+              <Text color='green'>
+                N{product.price ? formatCurrency(product.price) : '0.00'}
+              </Text>
+            </HStack>
+          ))}
+          {/* <Text as='h4'>View Products</Text> */}
+        </Stack>
+      ) : (
+        <></>
+      )}
     </Flex>
   );
 };

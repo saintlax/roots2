@@ -105,25 +105,30 @@ export const OrderDetailModal = ({ order }) => {
               borderBottom='5px solid #f4f4f4'
             >
               <Text>Product Detail</Text>
-              <Flex
-                width={'160px'}
-                justifyContent='center'
-                alignItems={'center'}
-                bg='#fff'
-                px='8px'
-                borderRadius={'5px'}
-              >
-                <BsBagCheck size={26} />
-                <Select
-                  placeholder='Action'
-                  border='none'
-                  _focus={{ border: 'none' }}
-                  onChange={(e) => handleSelection(e)}
+              {order?.status !== 'AWAITING CUSTOMER' &&
+              order?.status.toUpperCase() !== 'COMPLETED' ? (
+                <Flex
+                  width={'160px'}
+                  justifyContent='center'
+                  alignItems={'center'}
+                  bg='#fff'
+                  px='8px'
+                  borderRadius={'5px'}
                 >
-                  <option value='Approved'>Approve</option>
-                  <option value='Declined'>Decline</option>
-                </Select>
-              </Flex>
+                  <BsBagCheck size={26} />
+                  <Select
+                    placeholder='Action'
+                    border='none'
+                    _focus={{ border: 'none' }}
+                    onChange={(e) => handleSelection(e)}
+                  >
+                    <option value='Approved'>Approve</option>
+                    <option value='Declined'>Decline</option>
+                  </Select>
+                </Flex>
+              ) : (
+                <></>
+              )}
             </Flex>
             <Flex
               my={'20px'}

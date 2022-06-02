@@ -1,9 +1,7 @@
 import { ActionTypes } from '../constants/action-types';
 const { REACT_APP_USER_BRANCH } = process.env;
 const branch = localStorage.getItem(REACT_APP_USER_BRANCH);
-const initialState = branch
-  ? JSON.parse(branch)
-  : { id: -1, name: 'Dev branch' };
+const initialState = branch ? JSON.parse(branch) : {};
 export const userBranchReducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.ADD_USER_BRANCH:
