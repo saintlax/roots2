@@ -29,6 +29,7 @@ export const AddBankModal = ({}) => {
   const dispatch = useDispatch();
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [logo, setLogo] = useState('');
   const getToast = (title, description, status) => {
     const color = status === 'success' ? 'blue' : 'red';
     toast({
@@ -78,8 +79,33 @@ export const AddBankModal = ({}) => {
     const payload = {
       name,
       code,
+      logo,
     };
     postBank(payload);
+  };
+
+  const uploadImage = (image) => {
+    let form = new FormData();
+    form.append('file', image);
+    setIsLoading(true);
+    Axios.post(`${REACT_APP_API_URL}/upload`, form, {
+      header: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+      .then((response) => {
+        const payload = response.data.payload;
+        const { path } = payload;
+        setIsLoading(false);
+        setLogo(path);
+
+        getToast('Success', 'LOGO was uploaded successfully', 'success');
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+        getToast('Error', 'File could not be uploaded', 'error');
+      });
   };
   return (
     <>
@@ -132,6 +158,15 @@ export const AddBankModal = ({}) => {
                 <Input
                   placeholder='064'
                   onChange={(e) => setCode(e.target.value)}
+                />
+              </FormControl>
+
+              <FormControl mt={4}>
+                <FormLabel>Logo</FormLabel>
+                <Input
+                  id='CACDocumentPath'
+                  type='file'
+                  onChange={(e) => uploadImage(e.target.files[0])}
                 />
               </FormControl>
 
