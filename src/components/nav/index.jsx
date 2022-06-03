@@ -207,7 +207,13 @@ export const Nav = () => {
                 display={['block', 'block', 'none']}
               >
                 {showInput ? (
-                  <Input type='text' bg='#fff' color='grey' />
+                  <Input
+                    type='text'
+                    bg='#fff'
+                    color='grey'
+                    placeholder='Search Products'
+                    onChange={(e) => handleSearch(e)}
+                  />
                 ) : (
                   ComponentTitle(pathname)
                 )}
@@ -229,7 +235,7 @@ export const Nav = () => {
                   bg={'#D0DEF9B2'}
                   color='#fff'
                   type='search'
-                  placeholder='Search'
+                  placeholder='Search products'
                   py='7px'
                   px='20px'
                   borderRadius={'15px'}
