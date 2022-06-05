@@ -33,6 +33,7 @@ export const AddBranchModal = ({ isMobile }) => {
   const dispatch = useDispatch();
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [profileImage, setProfileImage] = useState('');
 
   const getToast = (title, description, status) => {
     const color = status === 'success' ? 'blue' : 'red';
@@ -102,10 +103,35 @@ export const AddBranchModal = ({ isMobile }) => {
     const payload = {
       name,
       address,
+      profileImage,
       users: [],
       merchantId: merchant.id,
     };
     postBranch(payload);
+  };
+
+  const uploadImage = (image) => {
+    let form = new FormData();
+    form.append('file', image);
+    setIsLoading(true);
+    Axios.post(`${REACT_APP_API_URL}/upload`, form, {
+      header: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+      .then((response) => {
+        const payload = response.data.payload;
+        const { path } = payload;
+        setIsLoading(false);
+        setProfileImage(path);
+
+        getToast('Success', 'Image was uploaded successfully', 'success');
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+        getToast('Error', 'File could not be uploaded', 'error');
+      });
   };
 
   return (
@@ -173,6 +199,16 @@ export const AddBranchModal = ({ isMobile }) => {
                     Required field
                   </FormErrorMessage>
                 )}
+              </FormControl>
+              <FormControl mt={4}>
+                <FormLabel htmlFor='name' {...labelStyles}>
+                  Branch Image
+                </FormLabel>
+                <Input
+                  id='profileImage'
+                  type='file'
+                  onChange={(e) => uploadImage(e.target.files[0])}
+                />
               </FormControl>
             </Flex>
             <HStack mt='8' justify={['space-between', 'flex-end']}>

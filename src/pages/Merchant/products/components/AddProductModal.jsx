@@ -17,6 +17,7 @@ import {
   Image,
   Text,
   Select,
+  ModalHeader,
 } from '@chakra-ui/react';
 import { BsThreeDots, BsTrash, BsCheckLg } from 'react-icons/bs';
 import { BsBagCheck } from 'react-icons/bs';
@@ -255,7 +256,7 @@ export const AddProductModal = ({ isMobile, userMerchant }) => {
         ) : (
           <>
             <AiOutlinePlus color='#fff' />
-            <span style={{ marginLeft: '10px' }}>Create new</span>
+            <span style={{ marginLeft: '10px' }}>product</span>
           </>
         )}
       </Flex>
@@ -263,7 +264,7 @@ export const AddProductModal = ({ isMobile, userMerchant }) => {
       <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          {/* <ModalHeader>Modal Title</ModalHeader> */}
+          <ModalHeader>Add Product</ModalHeader>
           <ModalCloseButton />
           <ModalBody p='50px'>
             <HStack spacing='2px' overflowX='scroll'>

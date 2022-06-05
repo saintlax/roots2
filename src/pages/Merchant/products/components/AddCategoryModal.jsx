@@ -131,7 +131,7 @@ export const AddCategoryModal = ({ isMobile }) => {
         ) : (
           <>
             <AiOutlinePlus color='#fff' />
-            <span style={{ marginLeft: '10px' }}>Create category</span>
+            <span style={{ marginLeft: '10px' }}> category</span>
           </>
         )}
       </Flex>

@@ -1,4 +1,13 @@
-import { Tr, Tbody, Td, Flex, Text, Tooltip, Circle } from '@chakra-ui/react';
+import {
+  Tr,
+  Tbody,
+  Td,
+  Flex,
+  Text,
+  Tooltip,
+  Circle,
+  Avatar,
+} from '@chakra-ui/react';
 import { MdHeadset } from 'react-icons/md';
 import { MenuLItems } from './MenuList';
 import { useEffect } from 'react';
@@ -50,7 +59,12 @@ export const TableBody = () => {
               >
                 <Flex alignItems={'center'}>
                   <Circle bg={'#fbf5ef'} size='30px' mr='10px'>
-                    <MdHeadset size={'16px'} />
+                    {/* <MdHeadset size={'16px'} /> */}
+                    <Avatar
+                      size={'sm'}
+                      name={data?.name}
+                      src={data?.profileImage}
+                    />
                   </Circle>
                   <Text isTruncated>{data?.name}</Text>
                 </Flex>

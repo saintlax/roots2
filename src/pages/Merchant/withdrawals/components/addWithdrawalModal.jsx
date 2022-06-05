@@ -15,11 +15,12 @@ import {
 } from '@chakra-ui/react';
 
 import { AiOutlinePlus } from 'react-icons/ai';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ActionTypes } from '../../../../redux/constants/action-types';
 import Axios from 'axios';
 import { useToast } from '@chakra-ui/toast';
+import { VerifyPINModal } from './VerifyPINModal';
 const { REACT_APP_API_URL } = process.env;
 
 export const AddWithdrawalModal = ({ isMobile, wallet, onWalletChange }) => {
@@ -32,7 +33,11 @@ export const AddWithdrawalModal = ({ isMobile, wallet, onWalletChange }) => {
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [loadingText, setLoadingText] = useState('Please wait..');
+  const [disable, setIsDisable] = useState(true);
 
+  useEffect(() => {
+    amount && !isNaN(amount) ? setIsDisable(false) : setIsDisable(true);
+  }, [amount]);
   const getToast = (title, description, status) => {
     const color = status === 'success' ? 'blue' : 'red';
     toast({
@@ -113,6 +118,12 @@ export const AddWithdrawalModal = ({ isMobile, wallet, onWalletChange }) => {
       });
   };
 
+  const onVerify = (data) => {
+    if (data) {
+      sendRequest();
+    }
+  };
+
   return (
     <>
       <Flex onClick={onOpen} alignItems='center' width={'100%'}>
@@ -166,11 +177,13 @@ export const AddWithdrawalModal = ({ isMobile, wallet, onWalletChange }) => {
                 bg='primary'
                 px='30px'
                 color='#fff'
-                onClick={sendRequest}
                 isLoading={isLoading}
                 loadingText={loadingText}
+                isDisabled={disable}
               >
-                Submit
+                {/* onClick={sendRequest} */}
+                {/* Submit */}
+                <VerifyPINModal isLoading={isLoading} onVerify={onVerify} />
               </Button>
             </HStack>
           </ModalBody>

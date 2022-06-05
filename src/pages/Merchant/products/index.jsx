@@ -42,9 +42,9 @@ export const Products = () => {
   return (
     <Stack w='100%' h='100%'>
       <HStack justify='space-between' py='5'>
-        <Text as='h2'>Products Summary</Text>
+        {/* <Text as='h2'>Products Summary</Text> */}
 
-        {isMobile ? (
+        {/* {isMobile ? (
           <Button size='sm' bg='primary'>
             <AddProductModal isMobile={isMobile} userMerchant={userMerchant} />
           </Button>
@@ -52,17 +52,17 @@ export const Products = () => {
           <Button size='sm' bg={'#1459DF'} color='#fff'>
             <AddProductModal isMobile={isMobile} userMerchant={userMerchant} />
           </Button>
-        )}
+        )} */}
       </HStack>
       <Stack className='products-page-grid'>
+        <Box className='product-catalogue'>
+          <ProductCatalogue isMobile={isMobile} userMerchant={userMerchant} />
+        </Box>
         <Box className='top-selling-products'>
           <ProductSummary />
         </Box>
         <Box className='product-sales-analytics'>
           <ProductSalesAnalytics />
-        </Box>
-        <Box className='product-catalogue'>
-          <ProductCatalogue isMobile={isMobile} />
         </Box>
       </Stack>
     </Stack>

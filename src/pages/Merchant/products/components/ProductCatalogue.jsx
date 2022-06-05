@@ -9,7 +9,8 @@ import { AddCategoryModal } from './AddCategoryModal';
 import { BranchesDropdown } from './BranchesDropdown';
 import { useSelector, useDispatch } from 'react-redux';
 import { ActionTypes } from '../../../../redux/constants/action-types';
-const ProductCatalogue = ({ isMobile }) => {
+import { AddProductModal } from './AddProductModal';
+const ProductCatalogue = ({ isMobile, userMerchant }) => {
   const [views, setViews] = useState(true);
   const view = views ? 'List View' : 'Grid View';
   const [hasTemp, setHasTemp] = useState(false);
@@ -112,6 +113,21 @@ const ProductCatalogue = ({ isMobile }) => {
           </Button>
           <BranchesDropdown onBranchIdSelected={onBranchIdSelected} />
           <CategoryDropdown onCategorySelected={onCategorySelected} />
+          {isMobile ? (
+            <Button size='sm' bg='primary'>
+              <AddProductModal
+                isMobile={isMobile}
+                userMerchant={userMerchant}
+              />
+            </Button>
+          ) : (
+            <Button size='sm' bg={'#1459DF'} color='#fff'>
+              <AddProductModal
+                isMobile={isMobile}
+                userMerchant={userMerchant}
+              />
+            </Button>
+          )}
 
           {isMobile ? (
             <Button size='sm' bg='primary'>
