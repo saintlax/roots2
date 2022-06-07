@@ -27,8 +27,8 @@ export const SignupForm = ({
   const [companyPhoneNumber, setCompanyPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [BVN, setBVN] = useState('');
-  const [businessAcountNumber, setBusinessAcountNumber] = useState('');
-  const [nameOfBank, setNameOfBank] = useState('');
+  const [businessAcountNumber, setBusinessAcountNumber] = useState('NULL');
+  const [nameOfBank, setNameOfBank] = useState('NULL');
   const [companyLogo, setCompanyLogo] = useState(null);
   const toast = useToast();
 
@@ -175,7 +175,7 @@ export const SignupForm = ({
           </GridItem>
         </SimpleGrid>
 
-        <SimpleGrid columns={2} columnGap={3} rowGap={6} w='full'>
+        {/* <SimpleGrid columns={2} columnGap={3} rowGap={6} w='full'>
           <GridItem colSpan={1}>
             <div className='inputContainer'>
               <input
@@ -200,7 +200,7 @@ export const SignupForm = ({
               </label>
             </div>
           </GridItem>
-        </SimpleGrid>
+        </SimpleGrid> */}
         <SimpleGrid columns={1} columnGap={3} rowGap={6} w='full'>
           <GridItem colSpan={1}>
             <div className='inputContainer'>

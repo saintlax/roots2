@@ -9,6 +9,7 @@ import {
 
 import { Link } from 'react-router-dom';
 import { CreatePasswordModal } from './CreatePasswordModal';
+import { useEffect, useState } from 'react';
 
 export const ConfirmUserForm = ({
   onButtonClick,
@@ -23,6 +24,47 @@ export const ConfirmUserForm = ({
     color: '#fff',
   };
 
+  const [gender, setGender] = useState('');
+  const [marital_status, setMarital_status] = useState('');
+  const [first_name, setFirst_name] = useState('');
+  const [middle_name, setMiddle_name] = useState('');
+  const [last_name, setLast_name] = useState('');
+  const [phone_number, setPhone_number] = useState('');
+  const [email, setEmail] = useState('');
+  const [date_of_birth, setDate_of_birth] = useState('');
+  const [address, setAddress] = useState('');
+  const [lga_of_residence, setLga_of_residence] = useState('');
+  const [state_of_residence, setState_of_residence] = useState('');
+  const [nationality, setNationality] = useState('');
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    !nationality ||
+    !state_of_residence ||
+    !lga_of_residence ||
+    !address ||
+    !date_of_birth ||
+    !email ||
+    !phone_number ||
+    !last_name ||
+    !last_name ||
+    !first_name ||
+    !gender
+      ? setDisabled(false)
+      : setDisabled(true);
+  }, [
+    nationality,
+    state_of_residence,
+    lga_of_residence,
+    address,
+    date_of_birth,
+    email,
+    phone_number,
+    last_name,
+    first_name,
+    gender,
+  ]);
+
   return (
     <Box width={'100%'} px={['3%', '5%', '2%']}>
       <Heading textAlign={['center']} as={'h2'} fontSize={'30px'} mb='50px'>
@@ -33,11 +75,13 @@ export const ConfirmUserForm = ({
         <SimpleGrid columns={2} columnGap={3} rowGap={6} w='full'>
           <GridItem colSpan={1}>
             <div className='inputContainer'>
+              {/* disabled={true}
+                value={userData?.gender} */}
               <input
                 type='text'
                 className='input'
-                disabled={true}
-                value={userData?.gender}
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
               />
               <label htmlFor='business-name' className='label'>
                 Gender
@@ -46,11 +90,12 @@ export const ConfirmUserForm = ({
           </GridItem>
           <GridItem colSpan={1}>
             <div className='inputContainer'>
+              {/* disabled={true} */}
               <input
                 type='text'
                 className='input'
-                disabled={true}
-                value={userData?.marital_status}
+                value={marital_status}
+                onChange={(e) => setMarital_status(e.target.value)}
               />
               <label htmlFor='business-name' className='label'>
                 Marital Status
@@ -65,8 +110,8 @@ export const ConfirmUserForm = ({
               <input
                 type='text'
                 className='input'
-                disabled={true}
-                value={userData?.first_name}
+                value={first_name}
+                onChange={(e) => setFirst_name(e.target.value)}
               />
               <label htmlFor='business-name' className='label'>
                 First Name
@@ -78,8 +123,8 @@ export const ConfirmUserForm = ({
               <input
                 type='text'
                 className='input'
-                disabled={true}
-                value={userData?.middle_name}
+                value={middle_name}
+                onChange={(e) => setMiddle_name(e.target.value)}
               />
               <label htmlFor='business-name' className='label'>
                 Middle Name
@@ -92,8 +137,8 @@ export const ConfirmUserForm = ({
               <input
                 type='text'
                 className='input'
-                disabled={true}
-                value={userData?.last_name}
+                value={last_name}
+                onChange={(e) => setLast_name(e.target.value)}
               />
               <label htmlFor='business-name' className='label'>
                 Last Name
@@ -108,8 +153,8 @@ export const ConfirmUserForm = ({
               <input
                 type='text'
                 className='input'
-                disabled={true}
-                value={userData?.phone_number}
+                value={phone_number}
+                onChange={(e) => setPhone_number(e.target.value)}
               />
               <label htmlFor='business-name' className='label'>
                 Phone
@@ -121,8 +166,8 @@ export const ConfirmUserForm = ({
               <input
                 type='text'
                 className='input'
-                disabled={true}
-                value={userData?.email}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <label htmlFor='business-name' className='label'>
                 Email
@@ -137,8 +182,8 @@ export const ConfirmUserForm = ({
               <input
                 type='text'
                 className='input'
-                disabled={true}
-                value={userData?.date_of_birth}
+                value={date_of_birth}
+                onChange={(e) => setDate_of_birth(e.target.value)}
               />
               <label htmlFor='business-name' className='label'>
                 Date of Birth
@@ -150,8 +195,8 @@ export const ConfirmUserForm = ({
               <input
                 type='text'
                 className='input'
-                disabled={true}
-                value={userData?.address}
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
               />
               <label htmlFor='business-name' className='label'>
                 Address
@@ -166,8 +211,8 @@ export const ConfirmUserForm = ({
               <input
                 type='text'
                 className='input'
-                disabled={true}
-                value={userData?.lga_of_residence}
+                value={lga_of_residence}
+                onChange={(e) => setLga_of_residence(e.target.value)}
               />
               <label htmlFor='business-name' className='label'>
                 LGA
@@ -179,8 +224,8 @@ export const ConfirmUserForm = ({
               <input
                 type='text'
                 className='input'
-                disabled={true}
-                value={userData?.state_of_residence}
+                value={state_of_residence}
+                onChange={(e) => setState_of_residence(e.target.value)}
               />
               <label htmlFor='business-name' className='label'>
                 State of Residence
@@ -193,8 +238,8 @@ export const ConfirmUserForm = ({
               <input
                 type='text'
                 className='input'
-                disabled={true}
-                value={userData?.nationality}
+                value={nationality}
+                onChange={(e) => setNationality(e.target.value)}
               />
               <label htmlFor='business-name' className='label'>
                 Nationality
@@ -210,6 +255,7 @@ export const ConfirmUserForm = ({
         {...BTN_STYLE}
         isLoading={isLoading}
         loadingText='Please wait..'
+        isDisabled={disabled}
       >
         <CreatePasswordModal
           onButtonClick={onButtonClick}
