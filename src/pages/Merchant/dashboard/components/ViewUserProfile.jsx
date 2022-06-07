@@ -30,6 +30,8 @@ const ViewUserProfile = ({ onClose, user }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [loadingText, setLoadingText] = useState('Please wait..');
+  const [profileImage, setProfileImage] = useState('');
+
   const toast = useToast();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -39,6 +41,7 @@ const ViewUserProfile = ({ onClose, user }) => {
     setEmail(user?.email);
     setPhoneNumber(user?.phoneNumber);
     setAddress(user?.address);
+    setProfileImage(user?.profileImage);
   }, [user]);
 
   const getToast = (title, description, status) => {
@@ -68,6 +71,7 @@ const ViewUserProfile = ({ onClose, user }) => {
         phoneNumber,
         address,
         middleName,
+        profileImage,
       };
       delete payload.branches;
       delete payload.merchant;
@@ -78,6 +82,8 @@ const ViewUserProfile = ({ onClose, user }) => {
       delete payload.password;
       delete payload.isActive;
       delete payload.isAdmin;
+      delete payload.accountId;
+      delete payload.isDeleted;
       putUser(payload);
     } else {
       getToast(
@@ -103,6 +109,7 @@ const ViewUserProfile = ({ onClose, user }) => {
             phoneNumber,
             address,
             middleName,
+            profileImage,
           };
           dispatch({ type: ActionTypes.EDIT_USER, payload: updatedUser });
           getToast('Success', 'Updated successfully', 'success');
@@ -121,6 +128,30 @@ const ViewUserProfile = ({ onClose, user }) => {
         console.log(error);
         getToast('Updtae error', 'User could not be updated', 'error');
         setIsLoading(false);
+      });
+  };
+
+  const uploadImage = (image) => {
+    let form = new FormData();
+    form.append('file', image);
+    setIsLoading(true);
+    Axios.post(`${REACT_APP_API_URL}/upload`, form, {
+      header: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+      .then((response) => {
+        const payload = response.data.payload;
+        const { path } = payload;
+        setIsLoading(false);
+        setProfileImage(path);
+
+        getToast('Success', 'Image was uploaded successfully', 'success');
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+        getToast('Error', 'File could not be uploaded', 'error');
       });
   };
   return (
@@ -174,6 +205,16 @@ const ViewUserProfile = ({ onClose, user }) => {
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           />
+          <FormControl>
+            <FormLabel htmlFor='name' {...labelStyles}>
+              Profile Image
+            </FormLabel>
+            <Input
+              id='profileImage'
+              type='file'
+              onChange={(e) => uploadImage(e.target.files[0])}
+            />
+          </FormControl>
           <Box pos='relative'>
             <HStack mt='8' justify={['space-between', 'flex-end']}>
               <Button
@@ -195,3 +236,9 @@ const ViewUserProfile = ({ onClose, user }) => {
 };
 
 export default ViewUserProfile;
+const labelStyles = {
+  fontSize: '14px',
+  color: '#1E223E',
+  mb: '5px',
+  mt: '10px',
+};

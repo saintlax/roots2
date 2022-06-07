@@ -99,7 +99,7 @@ export const AddRolesModal = ({ isMobile }) => {
         ) : (
           <>
             <AiOutlinePlus color='#fff' />
-            <span style={{ marginLeft: '10px' }}>Create Role</span>
+            <span style={{ marginLeft: '10px' }}> role</span>
           </>
         )}
       </Flex>

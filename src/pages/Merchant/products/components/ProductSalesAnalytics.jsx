@@ -13,7 +13,9 @@ import { useSelector } from 'react-redux';
 const ProductSalesAnalytics = () => {
   const summary = useSelector((state) => state.merchantSummary);
 
-  return (
+  return summary?.amountCancelled > 0 ||
+    summary?.amountGenerated > 0 ||
+    summary?.amountPending > 0 ? (
     <Stack borderRadius={'10px'} p='5' border='1px solid #eee' h='100%'>
       <Text as='h3'>Product Sales Analytics</Text>
       <Flex className='doughnut-stat-wrapper' direction={['column', 'row']}>
@@ -52,6 +54,8 @@ const ProductSalesAnalytics = () => {
         </UnorderedList>
       </Flex>
     </Stack>
+  ) : (
+    <></>
   );
 };
 

@@ -283,7 +283,7 @@ export const Nav = () => {
                           ' ' +
                           user?.middleName
                         }
-                        src='https://bit.ly/kent-c-dodds'
+                        src={user?.profileImage}
                       />
                       <Text>
                         {user?.firstName +
@@ -295,12 +295,10 @@ export const Nav = () => {
                     </HStack>
                   </MenuButton>
                   <MenuList color='darkGray'>
-                    <MenuItem>
+                    {/* <MenuItem>
                       <CustomModal
                         title={'Profile'}
-                        btnIcon={
-                          <Avatar size='sm' src='https://bit.ly/kent-c-dodds' />
-                        }
+                        btnIcon={<Avatar size='sm' src={user?.profileImage} />}
                         btnTitle='Profile'
                       >
                         {isMerchant() ? (
@@ -311,6 +309,33 @@ export const Nav = () => {
                         ) : (
                           <ViewUserProfile user={user} />
                         )}
+                      </CustomModal>
+                    </MenuItem> */}
+                    {isMerchant() ? (
+                      <MenuItem>
+                        <CustomModal
+                          title={'Merchant Account'}
+                          btnIcon={
+                            <Avatar size='sm' src={merchant?.companyLogo} />
+                          }
+                          btnTitle='Merchant Account'
+                        >
+                          <ViewMerchantProfile
+                            user={user}
+                            merchant={merchant}
+                          />
+                        </CustomModal>
+                      </MenuItem>
+                    ) : (
+                      <></>
+                    )}
+                    <MenuItem>
+                      <CustomModal
+                        title={'Profile'}
+                        btnIcon={<Avatar size='sm' src={user?.profileImage} />}
+                        btnTitle='Profile'
+                      >
+                        <ViewUserProfile user={user} />
                       </CustomModal>
                     </MenuItem>
 

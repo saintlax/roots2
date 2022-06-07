@@ -7,7 +7,7 @@ export const Catalogue = ({ product }) => {
       <Flex justifyContent={'flex-end'}>
         <BsThreeDots size={'16px'} cursor='pointer' />
       </Flex>
-      <Box height={'200px'} w='100px'>
+      <Box height={'200px'} w='420px'>
         <Image
           w='100%'
           height='100%'

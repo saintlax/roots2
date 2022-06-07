@@ -10,7 +10,7 @@ export const ProductSummary = () => {
         pt='10px'
       >
         <Text fontWeight={'semibold'}>Top Selling Products</Text>
-        <Select
+        {/* <Select
           placeholder='Last Week'
           variant='unstyled'
           _placeholder={{ fontSize: '12px' }}
@@ -20,7 +20,7 @@ export const ProductSummary = () => {
           <option>Option1</option>
           <option>Option2</option>
           <option>Option3</option>
-        </Select>
+        </Select> */}
       </Flex>
       <Box w='100%' overflowX='auto'>
         <Table variant='striped' colorScheme={'blackAlpha'}>

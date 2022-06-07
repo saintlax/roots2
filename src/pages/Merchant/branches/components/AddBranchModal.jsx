@@ -142,7 +142,7 @@ export const AddBranchModal = ({ isMobile }) => {
         ) : (
           <>
             <AiOutlinePlus color='#fff' />
-            <span style={{ marginLeft: '10px' }}>Create new</span>
+            <span style={{ marginLeft: '10px' }}> branch</span>
           </>
         )}
       </Flex>

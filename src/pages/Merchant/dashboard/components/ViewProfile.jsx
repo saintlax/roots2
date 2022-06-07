@@ -42,15 +42,12 @@ const ViewMerchantProfile = ({ onClose, merchant }) => {
     let payload = {
       ...merchant,
       companyAddress,
-      companyCover: backgroundImage,
       companyPhoneNumber,
-      companyLogo: logo,
       businessAcountNumber,
       businessName,
       email,
       nameOfBank,
       CACDocument,
-      CACDocumentPath,
     };
     const {
       __v,
@@ -59,47 +56,18 @@ const ViewMerchantProfile = ({ onClose, merchant }) => {
       updatedOn,
       isActive,
       BVN,
-      //businessAcountNumber,
-      // CACDocument,
+      CACDocumentPath,
+      companyLogo,
+      companyCover,
       code,
       userId,
+      isDeleted,
       ...rest
     } = payload;
-    putMerchant(rest, payload);
-  };
 
-  const putMerchant = async (payload, original) => {
-    setIsLoading(true);
-    await Axios.put(`${REACT_APP_API_URL}/merchant/${merchant.id}`, payload)
-      .then((response) => {
-        console.log(response);
-        if (response.status == 200) {
-          //const payload = response.data.payload;
-          dispatch({ type: ActionTypes.EDIT_MERCHANT, payload: original });
-          getToast('Success', 'Merchant updated successfully', 'success');
-          setIsLoading(false);
-          //onClose();
-        } else {
-          getToast(
-            'Unknown',
-            'Server replied with: ' + response.status,
-            'error'
-          );
-          setIsLoading(false);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        getToast('Error', 'Merchant could not be updated', 'error');
-        setIsLoading(false);
-      });
+    let route = `${REACT_APP_API_URL}/merchant/${merchant.id}`;
+    put(route, rest);
   };
-
-  useEffect(() => {
-    if (companyCover) setBackgroundImage(companyCover);
-    if (companyLogo) setLogo(companyLogo);
-    updateMerchant();
-  }, [companyLogo, companyCover, CACDocumentPath]);
 
   useEffect(() => {
     setCompanyAddress(merchant?.companyAddress);
@@ -141,20 +109,26 @@ const ViewMerchantProfile = ({ onClose, merchant }) => {
 
         setIsLoading(false);
         if (type === 'LOGO') {
-          setCompanyLogo(path);
-          getToast('Success', 'LOGO was uploaded successfully', 'success');
+          let route = `${REACT_APP_API_URL}/merchant/updateLogo/${merchant.id}`;
+          let logo = { companyLogo: path };
+          put(route, logo);
         }
         if (type === 'COVER') {
-          setCompanyCover(path);
-          getToast('Success', 'COVER was uploaded successfully', 'success');
+          let route = `${REACT_APP_API_URL}/merchant/updateCover/${merchant.id}`;
+          let cover = { companyCover: path };
+          put(route, cover);
         }
         if (type === 'CACDOCUMENT') {
-          setCACDocumentPath(path);
-          getToast(
-            'Success',
-            'CAC document was uploaded successfully',
-            'success'
-          );
+          alert('here');
+          let route = `${REACT_APP_API_URL}/merchant/updateCACDOCUMENT/${merchant.id}`;
+          let cover = { CACDocumentPath: path };
+          put(route, cover);
+          // setCACDocumentPath(path);
+          // getToast(
+          //   'Success',
+          //   'CAC document was uploaded successfully',
+          //   'success'
+          // );
         }
       })
       .catch((error) => {
@@ -180,11 +154,43 @@ const ViewMerchantProfile = ({ onClose, merchant }) => {
       },
     });
   };
+
+  const put = async (route, payload) => {
+    setIsLoading(true);
+    await Axios.put(route, payload)
+      .then((response) => {
+        console.log(response);
+        if (response.status == 200) {
+          const payload = response.data.payload;
+          const update = { ...merchant, ...payload.data };
+          dispatch({ type: ActionTypes.EDIT_MERCHANT, payload: update });
+          getToast('Success', 'Merchant updated successfully', 'success');
+          setIsLoading(false);
+          //onClose();
+        } else {
+          getToast(
+            'Unknown',
+            'Server replied with: ' + response.status,
+            'error'
+          );
+          setIsLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        getToast('Error', 'Merchant could not be updated', 'error');
+        setIsLoading(false);
+      });
+  };
   return (
     <Stack h='100%' px={[0, 2, 5]} w='100%'>
       <Box px={[null, null, '5%']} pos='relative'>
-        <FormLabel cursor='pointer' htmlFor='profileBg'>
-          <Img src={backgroundImage} alt='background' />
+        <FormLabel cursor='pointer' htmlFor='profileBg' w='500px'>
+          <Img
+            src={merchant.companyCover ? merchant?.companyCover : profileBg}
+            alt='background'
+            w='100%'
+          />
           <Input
             id='profileBg'
             display={'none'}
@@ -198,8 +204,9 @@ const ViewMerchantProfile = ({ onClose, merchant }) => {
             w='100%'
             h='100%'
             cursor='pointer'
-            src={logo}
+            src={companyLogo ? companyLogo : logo}
             alt='profile picture'
+            borderRadius='20px'
           />
           <Input
             type='file'
