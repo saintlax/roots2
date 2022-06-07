@@ -21,6 +21,7 @@ export const CreatePasswordModal = ({
   onButtonClick,
   isLoading,
   handleMerchantRegisterFormLoading,
+  user,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [password, setPassword] = useState('');
@@ -49,6 +50,7 @@ export const CreatePasswordModal = ({
     const data = {
       password,
       confirmPassword,
+      ...user,
     };
     setPassword('');
     setConfirmPassword('');

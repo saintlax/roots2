@@ -6,6 +6,7 @@ export const PUBLIC_PATHS = {
   ACCOUNT_SETUP: '/account-setup',
   BANK_INFORMATION: '/bank-information',
   RESETPASSWORD: '/reset-password',
+  VERIFY_EMAIL: '/verify-email',
 };
 
 /**

@@ -5,12 +5,14 @@ import {
   Text,
   SimpleGrid,
   GridItem,
+  Select,
+  Flex,
 } from '@chakra-ui/react';
 
 import { Link } from 'react-router-dom';
 import { CreatePasswordModal } from './CreatePasswordModal';
 import { useEffect, useState } from 'react';
-
+import { BsBagCheck, BsPerson } from 'react-icons/bs';
 export const ConfirmUserForm = ({
   onButtonClick,
   userData,
@@ -25,82 +27,121 @@ export const ConfirmUserForm = ({
   };
 
   const [gender, setGender] = useState('');
-  const [marital_status, setMarital_status] = useState('');
-  const [first_name, setFirst_name] = useState('');
-  const [middle_name, setMiddle_name] = useState('');
-  const [last_name, setLast_name] = useState('');
-  const [phone_number, setPhone_number] = useState('');
+  const [maritalStatus, setMaritalStatus] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [middleName, setMiddleName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
-  const [date_of_birth, setDate_of_birth] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState('');
   const [address, setAddress] = useState('');
-  const [lga_of_residence, setLga_of_residence] = useState('');
-  const [state_of_residence, setState_of_residence] = useState('');
+  const [LGAOfResidence, setLGAOfResidence] = useState('');
+  const [stateOfResidence, setStateOfResidence] = useState('');
   const [nationality, setNationality] = useState('');
   const [disabled, setDisabled] = useState(true);
+  const [user, setUser] = useState({});
+  const [BVN, setBVN] = useState('');
 
   useEffect(() => {
     !nationality ||
-    !state_of_residence ||
-    !lga_of_residence ||
+    !stateOfResidence ||
+    !LGAOfResidence ||
     !address ||
-    !date_of_birth ||
+    !dateOfBirth ||
     !email ||
-    !phone_number ||
-    !last_name ||
-    !last_name ||
-    !first_name ||
-    !gender
-      ? setDisabled(false)
-      : setDisabled(true);
+    !phoneNumber ||
+    !lastName ||
+    !firstName ||
+    !gender ||
+    !BVN ||
+    !maritalStatus
+      ? setDisabled(true)
+      : setDisabled(false);
   }, [
     nationality,
-    state_of_residence,
-    lga_of_residence,
+    stateOfResidence,
+    LGAOfResidence,
     address,
-    date_of_birth,
+    dateOfBirth,
     email,
-    phone_number,
-    last_name,
-    first_name,
+    phoneNumber,
+    lastName,
+    firstName,
     gender,
+    maritalStatus,
+    BVN,
   ]);
 
+  const createBioData = () => {
+    let data = {
+      nationality,
+      stateOfResidence,
+      LGAOfResidence,
+      address,
+      dateOfBirth,
+      email,
+      phoneNumber,
+      lastName,
+      firstName,
+      gender,
+      maritalStatus,
+      BVN,
+    };
+    setUser(data);
+  };
+  const genders = ['MALE', 'FEMALE', 'BINARY', 'NON-BINARY'];
+  const maritals = ['MARRIED', 'SINGLE', 'WIDOWED', 'DIVORCED'];
   return (
-    <Box width={'100%'} px={['3%', '5%', '2%']}>
+    <Box width={'100%'} px={['2%', '2%', '2%']}>
       <Heading textAlign={['center']} as={'h2'} fontSize={'30px'} mb='50px'>
-        Confirm your data
+        Bio data
       </Heading>
 
       <Box>
         <SimpleGrid columns={2} columnGap={3} rowGap={6} w='full'>
           <GridItem colSpan={1}>
-            <div className='inputContainer'>
-              {/* disabled={true}
-                value={userData?.gender} */}
-              <input
-                type='text'
-                className='input'
+            <Flex
+              justifyContent='center'
+              alignItems={'center'}
+              bg='#fff'
+              borderRadius={'5px'}
+            >
+              <BsPerson size={26} />
+              <Select
+                size='sm'
+                placeholder='Choose a gender'
+                border='none'
+                _focus={{ border: 'none' }}
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
-              />
-              <label htmlFor='business-name' className='label'>
-                Gender
-              </label>
-            </div>
+              >
+                {genders.map((genderr, i) => {
+                  return <option value={genderr}>{genderr}</option>;
+                })}
+              </Select>
+            </Flex>
           </GridItem>
           <GridItem colSpan={1}>
-            <div className='inputContainer'>
-              {/* disabled={true} */}
-              <input
-                type='text'
-                className='input'
-                value={marital_status}
-                onChange={(e) => setMarital_status(e.target.value)}
-              />
-              <label htmlFor='business-name' className='label'>
-                Marital Status
-              </label>
-            </div>
+            <Flex
+              justifyContent='center'
+              alignItems={'center'}
+              bg='#fff'
+              borderRadius={'5px'}
+            >
+              <BsPerson size={26} />
+              <Select
+                size='sm'
+                placeholder='Choose a Marital Status'
+                border='none'
+                _focus={{ border: 'none' }}
+                value={maritalStatus}
+                onChange={(e) => setMaritalStatus(e.target.value)}
+              >
+                {maritals.map((mar, i) => {
+                  return <option value={mar}>{mar}</option>;
+                })}
+              </Select>
+            </Flex>
           </GridItem>
         </SimpleGrid>
 
@@ -110,8 +151,8 @@ export const ConfirmUserForm = ({
               <input
                 type='text'
                 className='input'
-                value={first_name}
-                onChange={(e) => setFirst_name(e.target.value)}
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
               />
               <label htmlFor='business-name' className='label'>
                 First Name
@@ -123,8 +164,8 @@ export const ConfirmUserForm = ({
               <input
                 type='text'
                 className='input'
-                value={middle_name}
-                onChange={(e) => setMiddle_name(e.target.value)}
+                value={middleName}
+                onChange={(e) => setMiddleName(e.target.value)}
               />
               <label htmlFor='business-name' className='label'>
                 Middle Name
@@ -137,8 +178,8 @@ export const ConfirmUserForm = ({
               <input
                 type='text'
                 className='input'
-                value={last_name}
-                onChange={(e) => setLast_name(e.target.value)}
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
               />
               <label htmlFor='business-name' className='label'>
                 Last Name
@@ -153,8 +194,8 @@ export const ConfirmUserForm = ({
               <input
                 type='text'
                 className='input'
-                value={phone_number}
-                onChange={(e) => setPhone_number(e.target.value)}
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
               />
               <label htmlFor='business-name' className='label'>
                 Phone
@@ -176,14 +217,26 @@ export const ConfirmUserForm = ({
           </GridItem>
         </SimpleGrid>
 
+        <div className='inputContainer'>
+          <input
+            type='text'
+            className='input'
+            value={BVN}
+            onChange={(e) => setBVN(e.target.value)}
+          />
+          <label htmlFor='business-name' className='label'>
+            Bank Verification Number (BVN)
+          </label>
+        </div>
+
         <SimpleGrid columns={2} columnGap={3} rowGap={6} w='full'>
           <GridItem colSpan={1}>
             <div className='inputContainer'>
               <input
                 type='text'
                 className='input'
-                value={date_of_birth}
-                onChange={(e) => setDate_of_birth(e.target.value)}
+                value={dateOfBirth}
+                onChange={(e) => setDateOfBirth(e.target.value)}
               />
               <label htmlFor='business-name' className='label'>
                 Date of Birth
@@ -211,8 +264,8 @@ export const ConfirmUserForm = ({
               <input
                 type='text'
                 className='input'
-                value={lga_of_residence}
-                onChange={(e) => setLga_of_residence(e.target.value)}
+                value={LGAOfResidence}
+                onChange={(e) => setLGAOfResidence(e.target.value)}
               />
               <label htmlFor='business-name' className='label'>
                 LGA
@@ -224,8 +277,8 @@ export const ConfirmUserForm = ({
               <input
                 type='text'
                 className='input'
-                value={state_of_residence}
-                onChange={(e) => setState_of_residence(e.target.value)}
+                value={stateOfResidence}
+                onChange={(e) => setStateOfResidence(e.target.value)}
               />
               <label htmlFor='business-name' className='label'>
                 State of Residence
@@ -256,11 +309,13 @@ export const ConfirmUserForm = ({
         isLoading={isLoading}
         loadingText='Please wait..'
         isDisabled={disabled}
+        onClick={createBioData}
       >
         <CreatePasswordModal
           onButtonClick={onButtonClick}
           isLoading={isLoading}
           handleMerchantRegisterFormLoading={handleMerchantRegisterFormLoading}
+          user={user}
         />
       </Button>
       <Text

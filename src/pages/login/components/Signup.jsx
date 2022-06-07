@@ -65,7 +65,12 @@ const Signup = () => {
     };
     setBvn(data.BVN);
     setMerchant(data);
-    verifyBVN(payload);
+    //since i am not verifying BVN anymore
+    // verifyBVN(payload);
+
+    setMerchantFirst(true);
+    setUserData({ first_name: 'NULL' });
+    setMerchantFirstFormLoading(false);
   };
 
   const verifyBVN = async (payload) => {
@@ -154,36 +159,38 @@ const Signup = () => {
     //Its weird that i had to do this twice to update
     setUserData({ ...userData, ...data });
     let payload = {
-      ...userData,
-      firstName: userData?.first_name,
-      middleName: userData?.middle_name,
-      lastName: userData?.last_name,
-      phoneNumber: userData?.phone_number,
-      dateOfBirth: userData?.date_of_birth,
-      LGAOfResidence: userData?.lga_of_residence,
-      maritalStatus: userData?.marital_status,
-      stateOfResidence: userData?.state_of_residence,
-      password: data.password,
-      confirmPassword: data.confirmPassword,
-      BVN: bvn,
+      // ...userData,
+      // firstName: userData?.first_name,
+      // middleName: userData?.middle_name,
+      // lastName: userData?.last_name,
+      // phoneNumber: userData?.phone_number,
+      // dateOfBirth: userData?.date_of_birth,
+      // LGAOfResidence: userData?.lga_of_residence,
+      // maritalStatus: userData?.marital_status,
+      // stateOfResidence: userData?.state_of_residence,
+      // password: data.password,
+      // confirmPassword: data.confirmPassword,
+      ...data,
+      // BVN: bvn,
       type: 'MERCHANT',
     };
-    delete payload.first_name;
-    delete payload.last_name;
-    delete payload.middle_name;
-    delete payload.id;
-    delete payload.phone_number;
-    delete payload.date_of_birth;
-    delete payload.lga_of_residence;
-    delete payload.marital_status;
-    delete payload.state_of_residence;
+    // delete payload.first_name;
+    // delete payload.last_name;
+    // delete payload.middle_name;
+    // delete payload.id;
+    // delete payload.phone_number;
+    // delete payload.date_of_birth;
+    // delete payload.lga_of_residence;
+    // delete payload.marital_status;
+    // delete payload.state_of_residence;
     console.log('Completed: ', payload);
     registerUser(payload);
   };
 
   const registerMerchant = async (user) => {
     const userId = user.id;
-    const payload = { ...merchant, userId };
+    const BVN = user.BVN;
+    const payload = { ...merchant, userId, BVN };
     var form_data = new FormData();
     for (var key in payload) {
       form_data.append(key, payload[key]);
@@ -195,14 +202,12 @@ const Signup = () => {
     })
       .then((response) => {
         console.log('MERCHANT SUCCESS', response);
-        // const newMerchant = response.data.payload;
-        // localStorage.setItem(REACT_APP_MERCHANT, JSON.stringify(newMerchant));
         getToast(
           'Successful',
           'Your Merchant created successfully.',
           'success'
         );
-        navigate('/'); //dashboard
+        navigate('/verify-email'); //dashboard fufu
       })
       .catch((error) => {
         console.log('merchat API ERROR', error);

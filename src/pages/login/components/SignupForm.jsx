@@ -83,13 +83,13 @@ export const SignupForm = ({
       email,
       companyPhoneNumber,
       nameOfBank,
-      BVN,
+      // BVN,
       businessName,
       businessAcountNumber,
       file: companyLogo,
       isActive: true,
     };
-    if (!companyAddress || !email || !companyPhoneNumber || !BVN) {
+    if (!companyAddress || !email || !companyPhoneNumber) {
       getToast('Validation', 'All fields are required', 'error');
       return;
     }
@@ -135,7 +135,7 @@ export const SignupForm = ({
           </GridItem>
         </SimpleGrid>
 
-        <SimpleGrid columns={3} columnGap={3} rowGap={6} w='full'>
+        <SimpleGrid columns={2} columnGap={3} rowGap={6} w='full'>
           <GridItem colSpan={1}>
             <div className='inputContainer'>
               <input
@@ -161,7 +161,7 @@ export const SignupForm = ({
             </div>
           </GridItem>
 
-          <GridItem colSpan={1}>
+          {/* <GridItem colSpan={1}>
             <div className='inputContainer'>
               <input
                 type='text'
@@ -172,7 +172,7 @@ export const SignupForm = ({
                 BVN
               </label>
             </div>
-          </GridItem>
+          </GridItem> */}
         </SimpleGrid>
 
         {/* <SimpleGrid columns={2} columnGap={3} rowGap={6} w='full'>
