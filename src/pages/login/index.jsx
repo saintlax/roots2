@@ -53,6 +53,11 @@ const Index = () => {
   };
 
   const processPayload = (payload) => {
+    const { id, isActive } = payload;
+    if (!isActive) {
+      getToast('Access Denied', 'Your account has not been activated', 'error');
+      return;
+    }
     localStorage.setItem(REACT_APP_USER, JSON.stringify(payload));
     dispatch({
       type: ActionTypes.ADD_USER,

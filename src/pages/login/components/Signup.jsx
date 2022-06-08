@@ -207,7 +207,7 @@ const Signup = () => {
           'Your Merchant created successfully.',
           'success'
         );
-        navigate('/verify-email'); //dashboard fufu
+        navigate('/verify-email'); //dashboard
       })
       .catch((error) => {
         console.log('merchat API ERROR', error);

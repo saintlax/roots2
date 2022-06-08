@@ -70,6 +70,7 @@ export const ConfirmUserForm = ({
     gender,
     maritalStatus,
     BVN,
+    middleName,
   ]);
 
   const createBioData = () => {
@@ -86,6 +87,7 @@ export const ConfirmUserForm = ({
       gender,
       maritalStatus,
       BVN,
+      middleName,
     };
     setUser(data);
   };

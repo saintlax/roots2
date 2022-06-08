@@ -114,15 +114,15 @@ export const SignupUserForm = ({ onVerifyPhone }) => {
     setUserData({ ...userData, ...data });
     let payload = {
       ...userData,
-      firstName: userData?.first_name,
-      middleName: userData?.middle_name,
-      lastName: userData?.last_name,
-      phoneNumber: userData?.phone_number,
-      dateOfBirth: userData?.date_of_birth,
-      LGAOfResidence: userData?.lga_of_residence,
-      maritalStatus: userData?.marital_status,
-      stateOfResidence: userData?.state_of_residence,
-      BVN: bvn,
+      // firstName: userData?.first_name,
+      // middleName: userData?.middle_name,
+      // lastName: userData?.last_name,
+      // phoneNumber: userData?.phone_number,
+      // dateOfBirth: userData?.date_of_birth,
+      // LGAOfResidence: userData?.lga_of_residence,
+      // maritalStatus: userData?.marital_status,
+      // stateOfResidence: userData?.state_of_residence,
+      // BVN: bvn,
       type: 'USER',
     };
     delete payload.first_name;
