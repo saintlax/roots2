@@ -21,6 +21,7 @@ import { allUsersReducer } from './allUsersReducer';
 import { withdrawalReducer } from './withdrawalReducer';
 import { banksReducer } from './bankReducer';
 import { transactionPinReducer } from './TransactionPin';
+import { bankAccountsReducer } from './bankAccounts';
 const reducers = combineReducers({
   user: userReducer,
   products: productReducer,
@@ -44,6 +45,7 @@ const reducers = combineReducers({
   withdrawals: withdrawalReducer,
   banks: banksReducer,
   transactionPin: transactionPinReducer,
+  bankAccounts: bankAccountsReducer,
 });
 
 export default reducers;

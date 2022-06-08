@@ -9,12 +9,14 @@ import {
   Button,
   HStack,
   ModalHeader,
+  Select,
+  Avatar,
 } from '@chakra-ui/react';
 
-import { AiFillEdit } from 'react-icons/ai';
+import { AiFillEdit, AiOutlineCalendar } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { ActionTypes } from '../../../../redux/constants/action-types';
+import { useDispatch } from 'react-redux';
+import { ActionTypes } from '../../../../redux/constants/action-types';
 import Axios from 'axios';
 import { useToast } from '@chakra-ui/toast';
 import IsMobile from '../../../../components/common/IsMobile';
@@ -41,8 +43,11 @@ export const EditStaffBankModal = ({
   const [accountName, setAccountName] = useState('');
   const [bankCode, setBankCode] = useState('');
   const user = useSelector((state) => state.user);
+  const [allBanks, setAllBanks] = useState([]);
+  const [selectedBank, setSelectedBank] = useState({});
+  const [disabled, setDisabled] = useState(true);
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [loadingText, setLoadingText] = useState('Please wait..');
@@ -65,41 +70,53 @@ export const EditStaffBankModal = ({
   };
 
   const handleUpdate = () => {
-    if (!nameOfBank || !accountNumber || !accountName || !bankCode) {
-      getToast('Validation Error', 'All fields are required fields', 'error');
+    let code = '';
+    if (!nameOfBank) {
+      getToast('Validation Error', 'You have not selected a bank', 'error');
       return;
     }
 
+    if (!accountNumber || !accountName) {
+      getToast(
+        'Validation Error',
+        'Account number and account name are required fields',
+        'error'
+      );
+      return;
+    }
+    allBanks.forEach((bank) => {
+      if (nameOfBank === bank.name) {
+        code = bank.code;
+      }
+    });
+
     const payload = {
-      ...bankAccount,
       nameOfBank,
       accountName,
       accountNumber,
-      bankCode,
+      bankCode: code,
       userId: user?.id,
     };
 
-    const { __v, _id, createdOn, updatedOn, isActive, id, ...rest } = payload;
-    putStaff(rest, payload);
+    postAccount(payload);
   };
 
-  // const clearFields = () => {
-  //   setNameOfBank('');
-  //   setAccountName('');
-  //   setAccountNumber('');
-  // };
-  const putStaff = async (payload, original) => {
+  const clearFields = () => {
+    setNameOfBank('');
+    setAccountName('');
+    setAccountNumber('');
+  };
+  const postAccount = async (payload) => {
     setIsLoading(true);
     setLoadingText('please wait..');
     await Axios.post(`${REACT_APP_API_URL}/bankAccounts`, payload)
       .then((response) => {
         if (response.status == 200) {
           const data = response.data.payload;
-          console.log(data);
+          clearFields();
           onBankAccountUpdate(data);
-          // dispatch({ type: ActionTypes.EDIT_MERCHANT, payload: original });
-
-          getToast('Success', 'Bank Account updated successfully', 'success');
+          dispatch({ type: ActionTypes.ADD_BANK_ACCOUNT, payload: data });
+          getToast('Success', 'Bank Account created successfully', 'success');
           setIsLoading(false);
           onClose();
         } else {
@@ -118,6 +135,34 @@ export const EditStaffBankModal = ({
       });
   };
 
+  useEffect(() => {
+    getAllBanks();
+  }, []);
+
+  useEffect(() => {
+    !accountName || !accountNumber || !nameOfBank
+      ? setDisabled(true)
+      : setDisabled(false);
+  }, [accountName, accountNumber, nameOfBank]);
+
+  const getAllBanks = async () => {
+    setIsLoading(true);
+    setLoadingText('please wait..');
+    await Axios.get(`${REACT_APP_API_URL}/banks`)
+      .then((response) => {
+        if (response.status == 200) {
+          const data = response.data.payload;
+          setAllBanks(data);
+        }
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        getToast('Error', 'Bank details could not be updated', 'error');
+        setIsLoading(false);
+      });
+  };
+
   return (
     <>
       <Flex onClick={onOpen} alignItems='center' width={'100%'}>
@@ -126,7 +171,7 @@ export const EditStaffBankModal = ({
         ) : (
           <>
             <AiFillEdit color='#fff' />
-            <span style={{ marginLeft: '10px' }}>Edit</span>
+            <span style={{ marginLeft: '10px' }}>Add Account</span>
           </>
         )}
       </Flex>
@@ -134,10 +179,40 @@ export const EditStaffBankModal = ({
       <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Edit Bank</ModalHeader>
+          <ModalHeader>Add an account</ModalHeader>
           <ModalCloseButton />
           <ModalBody p='20px'>
-            <div className='inputContainer'>
+            <Flex
+              pl='3'
+              bg='#fff'
+              align={'center'}
+              border='2px solid #eee '
+              borderRadius={'5'}
+            >
+              {/* {selectedBank.id ? (
+                <Avatar
+                  size={'sm'}
+                  name={selectedBank?.name}
+                  src={selectedBank?.logo}
+                />
+              ) : (
+                <AiOutlineCalendar size={26} />
+              )} */}
+              <AiOutlineCalendar size={26} />
+              <Select
+                border='none'
+                onChange={(e) => setNameOfBank(e.target.value)}
+                placeholder='Select a bank'
+              >
+                {allBanks.map((parameter, i) => {
+                  return (
+                    <option value={parameter.name}>{parameter.name}</option>
+                  );
+                })}
+              </Select>
+            </Flex>
+
+            {/* <div className='inputContainer'>
               <input
                 type='text'
                 className='input'
@@ -147,7 +222,7 @@ export const EditStaffBankModal = ({
               <label htmlFor='name' className='label'>
                 Name of Bank
               </label>
-            </div>
+            </div> */}
             <div className='inputContainer'>
               <input
                 type='text'
@@ -171,7 +246,7 @@ export const EditStaffBankModal = ({
               </label>
             </div>
 
-            <div className='inputContainer'>
+            {/* <div className='inputContainer'>
               <input
                 type='text'
                 className='input'
@@ -181,7 +256,7 @@ export const EditStaffBankModal = ({
               <label htmlFor='name' className='label'>
                 Bank Code
               </label>
-            </div>
+            </div> */}
 
             <HStack mt='8' justify={['space-between', 'flex-end']}>
               <Button
@@ -191,6 +266,7 @@ export const EditStaffBankModal = ({
                 onClick={handleUpdate}
                 isLoading={isLoading}
                 loadingText={loadingText}
+                isDisabled={disabled}
               >
                 Update
               </Button>

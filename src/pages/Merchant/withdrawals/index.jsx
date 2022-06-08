@@ -13,10 +13,30 @@ export const Withdrawals = () => {
   const isMobile = IsMobile();
   const [wallet, setWallet] = useState({});
   const user = useSelector((state) => state.user);
+  const [hasBankAccount, setHasBankAccount] = useState(false);
+  const bankAccounts = useSelector((state) => state.bankAccounts.accounts);
+
   useEffect(() => {
     getWallet();
+    getBankAccount();
   }, []);
 
+  const getBankAccount = async () => {
+    let query = `userId=${user.id}`;
+    await Axios.get(`${REACT_APP_API_URL}/bankAccounts/filter/filter?${query}`)
+      .then((response) => {
+        console.log(response);
+        if (response.status == 200) {
+          const payload = response.data.payload;
+          if (payload && payload.length > 0) {
+            setHasBankAccount(true);
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const getWallet = async () => {
     await Axios.get(
       `${REACT_APP_API_URL}/wallets/filter/filter?userId=${user.id}`
@@ -37,6 +57,33 @@ export const Withdrawals = () => {
   const onWalletChange = (wallet) => {
     setWallet(wallet);
   };
+
+  const ShowWithdrawalButton = () => {
+    if (!hasBankAccount && bankAccounts.length === 0) {
+      return <Text color='red'>You have not setup your bank details</Text>;
+    }
+    if (isMobile) {
+      return (
+        <Button size='sm' bg='primary'>
+          <AddWithdrawalModal
+            isMobile={isMobile}
+            wallet={wallet}
+            onWalletChange={onWalletChange}
+          />
+        </Button>
+      );
+    } else {
+      return (
+        <Button size='sm' bg={'#1459DF'} color='#fff'>
+          <AddWithdrawalModal
+            isMobile={isMobile}
+            wallet={wallet}
+            onWalletChange={onWalletChange}
+          />
+        </Button>
+      );
+    }
+  };
   return (
     <Stack w='100%' h='100%'>
       <HStack justify='space-between' py='5'>
@@ -45,7 +92,8 @@ export const Withdrawals = () => {
           {wallet?.amount ? formatCurrency(wallet?.amount) : '0.00'}
         </Text>
 
-        {isMobile ? (
+        <ShowWithdrawalButton />
+        {/* {isMobile ? (
           <Button size='sm' bg='primary'>
             <AddWithdrawalModal
               isMobile={isMobile}
@@ -61,7 +109,7 @@ export const Withdrawals = () => {
               onWalletChange={onWalletChange}
             />
           </Button>
-        )}
+        )} */}
       </HStack>
       <Stack className='products-page-grid'>
         <Box className='product-catalogue'>

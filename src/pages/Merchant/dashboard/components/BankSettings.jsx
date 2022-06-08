@@ -10,13 +10,19 @@ import { EditBankModal } from './EditBankModal';
 import { useSelector, useDispatch } from 'react-redux';
 import { EditStaffBankModal } from './EditStaffBankModal';
 import Axios from 'axios';
-// import { useSelector, useDispatch } from 'react-redux';
+import { ActionTypes } from '../../../../redux/constants/action-types';
+import { BsCheckLg, BsTrash } from 'react-icons/bs';
+import { DeleteBankAccountAlert } from './DeleteBankAccountAlert';
+import { PrimaryAccountAlert } from './PrimaryAccountAlert';
 const { REACT_APP_API_URL } = process.env;
 const BankSettings = () => {
   const merchant = useSelector((state) => state.merchant);
   const userBranch = useSelector((state) => state.userBranch);
   const user = useSelector((state) => state.user);
   const [bankAccount, setBankAccount] = useState({});
+  const bankAccounts = useSelector((state) => state.bankAccounts.accounts);
+  const dispatch = useDispatch();
+
   const ShowBankAccount = () => {
     if (userBranch && Object.keys(userBranch).length > 0) {
       return (
@@ -40,37 +46,43 @@ const BankSettings = () => {
     return <></>;
   };
   const BankModal = () => {
-    if (userBranch && Object.keys(userBranch).length > 0) {
-      return (
-        <EditStaffBankModal
-          staff={userBranch}
-          bankAccount={bankAccount}
-          onBankAccountUpdate={onBankAccountUpdate}
-        />
-      );
-    } else if (merchant && Object.keys(merchant).length > 0) {
-      return <EditBankModal merchant={merchant} />;
-    }
-    return <></>;
+    // if (userBranch && Object.keys(userBranch).length > 0) {
+    //   return (
+    //     <EditStaffBankModal
+    //       staff={userBranch}
+    //       bankAccount={bankAccount}
+    //       onBankAccountUpdate={onBankAccountUpdate}
+    //     />
+    //   );
+    // } else if (merchant && Object.keys(merchant).length > 0) {
+    //   return <EditBankModal merchant={merchant} />;
+    // }
+    // return <></>;
+    return (
+      <EditStaffBankModal
+        staff={userBranch}
+        bankAccount={bankAccount}
+        onBankAccountUpdate={onBankAccountUpdate}
+      />
+    );
   };
   useEffect(() => {
     getBankAccount();
   }, []);
   const getBankAccount = async () => {
-    let query = ``;
-    if (userBranch && Object.keys(userBranch).length > 0) {
-      query = `userId=${user.id}`;
-    } else {
-      return;
-    }
+    let query = `userId=${user.id}`;
     await Axios.get(`${REACT_APP_API_URL}/bankAccounts/filter/filter?${query}`)
       .then((response) => {
         console.log(response);
         if (response.status == 200) {
           const payload = response.data.payload;
-          if (payload && payload.length > 0) {
-            setBankAccount(payload[payload.length - 1]);
-          }
+          // if (payload && payload.length > 0) {
+          //   setBankAccount(payload[payload.length - 1]);
+          // }
+          dispatch({
+            type: ActionTypes.REFRESH_BANK_ACCOUNT,
+            payload: payload,
+          });
         }
       })
       .catch((error) => {
@@ -91,17 +103,35 @@ const BankSettings = () => {
           <BankModal />
         </Button>
       </HStack>
-      <Flex
-        gap='3'
-        p='2'
-        align='center'
-        borderRadius='5px'
-        border='1px solid #eee'
-      >
-        {/* <Img src={firstBank} alt='bank' /> */}
-        <AiFillCheckSquare />
-        <ShowBankAccount />
-      </Flex>
+
+      {/* <Img src={firstBank} alt='bank' /> */}
+      {/* <AiFillCheckSquare />
+        <ShowBankAccount /> */}
+
+      {bankAccounts.map((bankAccount, i) => {
+        return (
+          <Flex
+            gap='3'
+            p='2'
+            align='center'
+            borderRadius='5px'
+            border='1px solid #eee'
+          >
+            {/* <AiFillCheckSquare /> */}
+            <Text as='h6'>
+              {bankAccount?.nameOfBank} [ {bankAccount?.accountNumber} ]
+            </Text>
+            <Text as='h6'>Name: {bankAccount?.accountName}</Text>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <DeleteBankAccountAlert account={bankAccount} />
+            {bankAccount?.isPrimary ? (
+              <BsCheckLg />
+            ) : (
+              <PrimaryAccountAlert account={bankAccount} />
+            )}
+          </Flex>
+        );
+      })}
     </Stack>
   );
 };
