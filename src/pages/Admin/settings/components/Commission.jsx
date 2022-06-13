@@ -49,7 +49,7 @@ const Commission = () => {
 
     const payload = { amount, userId: user.id };
     if (adminCommission && Object.keys(adminCommission).length > 0) {
-      const { _id, __v, createdOn, updatedOn, ...rest } = {
+      const { _id, __v, createdOn, updatedOn, isDeleted, ...rest } = {
         ...adminCommission,
         ...payload,
       };
@@ -84,7 +84,7 @@ const Commission = () => {
       })
       .catch((error) => {
         console.log(error);
-        getToast('Error', 'Commision could not be created', 'error');
+        getToast('Error', error?.response?.data?.error, 'error');
         // setIsLoading(false);
       });
   };
@@ -118,7 +118,7 @@ const Commission = () => {
       })
       .catch((error) => {
         console.log(error);
-        getToast('Error', 'Commision could not be updated', 'error');
+        getToast('Error', error?.response?.data?.error, 'error');
         setIsLoading(false);
       });
   };
@@ -152,7 +152,7 @@ const Commission = () => {
       })
       .catch((error) => {
         console.log(error);
-        getToast('Error', 'Commision could not be created', 'error');
+        getToast('Error', error?.response?.data?.error, 'error');
         // setIsLoading(false);
       });
   };

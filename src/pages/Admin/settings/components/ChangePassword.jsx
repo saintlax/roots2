@@ -69,7 +69,7 @@ const ChangePassword = () => {
       .catch((err) => {
         console.log(err);
 
-        getToast('Error', 'Something went wrong', 'error');
+        getToast('Error', err?.response?.data?.error, 'error');
         setIsLoading(false);
       });
   };

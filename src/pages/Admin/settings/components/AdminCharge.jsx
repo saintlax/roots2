@@ -6,19 +6,18 @@ import {
   Input,
   Text,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ActionTypes } from '../../../../redux/constants/action-types';
 import Axios from 'axios';
 import { useToast } from '@chakra-ui/toast';
-import { useEffect, useState } from 'react';
 const { REACT_APP_API_URL } = process.env;
 
-const DefaultPayback = () => {
-  const [days, setDays] = useState('');
-  const [interestRate, setInterestRate] = useState('');
+const AdminCharge = () => {
+  const [amount, setAmount] = useState('');
   const user = useSelector((state) => state.user);
-  const loanDays = useSelector((state) => state.loanDays);
+  const adminCharge = useSelector((state) => state.adminCharge);
   const dispatch = useDispatch();
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
@@ -39,79 +38,40 @@ const DefaultPayback = () => {
       },
     });
   };
-  const updateDefaultDays = () => {
-    if (!days) {
-      getToast('Error', 'Number of days is required', 'error');
-      return;
-    }
-    if (!interestRate) {
-      getToast('Error', 'Interest rate is required', 'error');
+  useEffect(() => {
+    getCharges();
+  }, []);
+  const updateCharge = () => {
+    if (!amount) {
+      getToast('Error', 'Amount is required', 'error');
       return;
     }
 
-    const payload = { days, interestRate, userId: user.id };
-    if (loanDays && Object.keys(loanDays).length > 0) {
+    const payload = { amount, userId: user.id };
+    if (adminCharge && Object.keys(adminCharge).length > 0) {
       const { _id, __v, createdOn, updatedOn, isDeleted, ...rest } = {
-        ...loanDays,
+        ...adminCharge,
         ...payload,
       };
-      putDays(rest);
+      putCharge(rest);
     } else {
-      postDays(payload);
+      postCharge(payload);
     }
   };
-  useEffect(() => {
-    getDefaultDays();
-  }, []);
-  const getDefaultDays = async () => {
+  const postCharge = async (charge) => {
     setIsLoading(true);
     setLoadingText('please wait..');
-    await Axios.get(`${REACT_APP_API_URL}/adminLoanPaybackDays`)
+    await Axios.post(`${REACT_APP_API_URL}/adminCharges`, charge)
       .then((response) => {
         console.log(response);
         if (response.status == 200) {
-          const defaultDays = response.data.payload;
-          if (defaultDays && defaultDays.length > 0) {
-            const payload = defaultDays[defaultDays.length - 1];
-            setDays(payload?.days);
-            setInterestRate(payload?.interestRate);
-            dispatch({
-              type: ActionTypes.ADD_LOAN_DAYS,
-              payload,
-            });
-          }
-          getToast('Success', 'Loan days pulled successfully', 'success');
-          setIsLoading(false);
-        } else {
-          getToast(
-            'Unknown',
-            'Server replied with: ' + response.status,
-            'error'
-          );
-          setIsLoading(false);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        getToast('Error', error?.response?.data?.error, 'error');
-        setIsLoading(false);
-      });
-  };
-
-  const postDays = async (days) => {
-    setIsLoading(true);
-    setLoadingText('please wait..');
-    await Axios.post(`${REACT_APP_API_URL}/adminLoanPaybackDays`, days)
-      .then((response) => {
-        console.log(response);
-        if (response.status == 200) {
-          const newDay = response.data.payload;
-          const payload = { ...newDay };
+          const newCharge = response.data.payload;
+          const payload = { ...newCharge };
           dispatch({
-            type: ActionTypes.ADD_LOAN_DAYS,
+            type: ActionTypes.ADD_ADMIN_CHARGE,
             payload,
           });
-          getToast('Success', 'Loan days created successfully', 'success');
+          getToast('Success', 'Charge created successfully', 'success');
           setIsLoading(false);
         } else {
           getToast(
@@ -125,24 +85,24 @@ const DefaultPayback = () => {
       .catch((error) => {
         console.log(error);
         getToast('Error', error?.response?.data?.error, 'error');
-        setIsLoading(false);
+        // setIsLoading(false);
       });
   };
 
-  const putDays = async (day) => {
+  const putCharge = async (charge) => {
     setIsLoading(true);
     setLoadingText('Updating..');
-    await Axios.put(`${REACT_APP_API_URL}/adminLoanPaybackDays/${day.id}`, day)
+    await Axios.put(`${REACT_APP_API_URL}/adminCharges/${charge.id}`, charge)
       .then((response) => {
         console.log(response);
         if (response.status == 200) {
           const payload = response.data.payload;
-          // const { userId, days } = payload;
+          const { userId, amount } = payload;
           dispatch({
-            type: ActionTypes.EDIT_LOAN_DAYS,
-            payload: { ...loanDays, ...payload },
+            type: ActionTypes.EDIT_ADMIN_CHARGE,
+            payload: { ...adminCharge, userId, amount },
           });
-          getToast('Success', 'Loan days Updated successfully', 'success');
+          getToast('Success', 'Charge Updated successfully', 'success');
           setIsLoading(false);
         } else {
           getToast(
@@ -159,36 +119,62 @@ const DefaultPayback = () => {
         setIsLoading(false);
       });
   };
+
+  const getCharges = async () => {
+    setIsLoading(true);
+    setLoadingText('please wait..');
+    await Axios.get(`${REACT_APP_API_URL}/adminCharges`)
+      .then((response) => {
+        console.log(response);
+        if (response.status == 200) {
+          const charges = response.data.payload;
+          if (charges && charges.length > 0) {
+            const payload = charges[charges.length - 1];
+            setAmount(payload?.amount);
+            dispatch({
+              type: ActionTypes.ADD_ADMIN_CHARGE,
+              payload,
+            });
+          }
+          getToast('Success', 'Charged pulled successfully', 'success');
+          setIsLoading(false);
+        } else {
+          getToast(
+            'Unknown',
+            'Server replied with: ' + response.status,
+            'error'
+          );
+          setIsLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        getToast('Error', error?.response?.data?.error, 'error');
+        // setIsLoading(false);
+      });
+  };
+
   return (
     <FormControl borderRadius='10px' p='10' bg='#fff'>
       <Text as='h3' mb='5' fontSize='16px' color='primary'>
-        Set the default validity period for loans in days
+        Set Adminstrative charge
       </Text>
-      <FormLabel htmlFor='current-password' {...labelStyles}>
-        Number of days
+      <FormLabel htmlFor='amount' {...labelStyles}>
+        Amount
       </FormLabel>
       <Input
-        id='current-password'
-        name='current-password'
-        onChange={(e) => setDays(e.target.value)}
-        value={days}
+        id='amount'
+        name='amount'
+        onChange={(e) => setAmount(e.target.value)}
+        value={amount}
       />
 
-      <FormLabel htmlFor='current-password' {...labelStyles}>
-        Interest Rate eg 30 for 30%
-      </FormLabel>
-      <Input
-        id='current-password'
-        name='current-password'
-        onChange={(e) => setInterestRate(e.target.value)}
-        value={interestRate}
-      />
       <HStack mt='8' justify={['space-between', 'flex-end']}>
         <Button
           bg='primary'
           px='30px'
           color='#fff'
-          onClick={updateDefaultDays}
+          onClick={updateCharge}
           isLoading={isLoading}
           loadingText={loadingText}
         >
@@ -199,7 +185,7 @@ const DefaultPayback = () => {
   );
 };
 
-export default DefaultPayback;
+export default AdminCharge;
 
 const labelStyles = {
   fontSize: '14px',

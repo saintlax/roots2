@@ -6,7 +6,9 @@ import {
   FiBriefcase,
   FiAlertTriangle,
   FiActivity,
+  FiCreditCard,
 } from 'react-icons/fi';
+import AdminCharge from './components/AdminCharge';
 import ChangePassword from './components/ChangePassword';
 import Commission from './components/Commission';
 import DefaultPayback from './components/DefaultPayback';
@@ -21,6 +23,9 @@ const Settings = () => {
     }
     if (settingType === 'commission') {
       return <Commission />;
+    }
+    if (settingType === 'admin-charge') {
+      return <AdminCharge />;
     }
     if (settingType === 'notifications') {
       return <NotificationsSettings />;
@@ -69,6 +74,14 @@ const Settings = () => {
           >
             <FiActivity size={25} />
             <Text>Interest Rate</Text>
+          </HStack>
+          <HStack
+            cursor='pointer'
+            onClick={() => setSettingType('admin-charge')}
+            className={settingType === 'admin-charge' && 'active-setting'}
+          >
+            <FiCreditCard size={25} />
+            <Text>Administrative Charge</Text>
           </HStack>
         </Stack>
         <ShowView />
