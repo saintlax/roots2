@@ -77,7 +77,7 @@ export const VerifyPINModal = ({ onVerify }) => {
         }
       })
       .catch((err) => {
-        getToast('PIN ERROR', 'PIN does not match', 'error');
+        getToast('PIN ERROR', err?.response?.data?.error, 'error');
         console.log(err);
       });
   };

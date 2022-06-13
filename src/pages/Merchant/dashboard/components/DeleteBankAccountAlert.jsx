@@ -69,7 +69,7 @@ export function DeleteBankAccountAlert({ account }) {
       })
       .catch((error) => {
         console.log(error);
-        getToast('Delete error', 'Staff could not be deleted', 'error');
+        getToast('Delete error', error?.response?.data?.error, 'error');
         setIsLoading(false);
       });
   };

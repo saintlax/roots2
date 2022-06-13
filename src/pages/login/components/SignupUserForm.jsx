@@ -40,6 +40,7 @@ export const SignupUserForm = ({ onVerifyPhone }) => {
       })
       .catch((err) => {
         console.log('AXIOs error', err);
+        getToast('Error', err?.response?.data?.error, 'error');
       });
   };
 

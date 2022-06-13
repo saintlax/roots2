@@ -126,7 +126,7 @@ const ViewUserProfile = ({ onClose, user }) => {
       })
       .catch((error) => {
         console.log(error);
-        getToast('Updtae error', 'User could not be updated', 'error');
+        getToast('Updtae error', error?.response?.data?.error, 'error');
         setIsLoading(false);
       });
   };

@@ -143,6 +143,9 @@ export const UserTabs = ({ data }) => {
         <Tab fontSize={['12px', '14px']} _focus={{ boxShadow: 'none' }}>
           Payments
         </Tab>
+        <Tab fontSize={['12px', '14px']} _focus={{ boxShadow: 'none' }}>
+          Contacts
+        </Tab>
       </TabList>
 
       <TabPanels>
@@ -213,6 +216,7 @@ export const UserTabs = ({ data }) => {
         <TabPanel>
           <ShowPayments />
         </TabPanel>
+        <TabPanel>Phone numbers</TabPanel>
       </TabPanels>
     </Tabs>
   );

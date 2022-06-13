@@ -90,7 +90,7 @@ export function OrderActionAlert({
       })
       .catch((error) => {
         console.log(error);
-        getToast('Order error', 'Order could not be updated', 'error');
+        getToast('Order error', error?.response?.data?.error, 'error');
         setIsLoading(false);
       });
   };

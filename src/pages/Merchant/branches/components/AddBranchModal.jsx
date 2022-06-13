@@ -65,17 +65,7 @@ export const AddBranchModal = ({ isMobile }) => {
           const branch = {
             ...payload,
             ...response.data.payload,
-            // email: 'anayo@gmail.com',
-            // phone: '+23470345678',
-            // date: '22-01-2022',
-            // amount: '0.00',
             totalOrders: '0.00',
-            // description: 'Loan repayment',
-            // branches: '50',
-            // status: 'PENDING',
-            // imageUrl: '',
-            // dateCreated: '22-01-2022',
-            // orderId: '#546382',
           };
           console.log('=====>', branch);
           dispatch({
@@ -90,7 +80,7 @@ export const AddBranchModal = ({ isMobile }) => {
       })
       .catch((err) => {
         console.log(err);
-        getToast('Error', 'Something went wrong', 'error');
+        getToast('Error', err?.response?.data?.error, 'error');
         setIsLoading(false);
       });
   };
@@ -130,7 +120,7 @@ export const AddBranchModal = ({ isMobile }) => {
       .catch((error) => {
         console.log(error);
         setIsLoading(false);
-        getToast('Error', 'File could not be uploaded', 'error');
+        getToast('Error', error?.response?.data?.error, 'error');
       });
   };
 

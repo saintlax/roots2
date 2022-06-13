@@ -73,7 +73,7 @@ export const AddRolesModal = ({ isMobile }) => {
       })
       .catch((err) => {
         console.log(err);
-        getToast('Error', 'Something went wrong', 'error');
+        getToast('Error', err?.response?.data?.error, 'error');
         setIsLoading(false);
       });
   };

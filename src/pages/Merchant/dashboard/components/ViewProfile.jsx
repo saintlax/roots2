@@ -178,7 +178,7 @@ const ViewMerchantProfile = ({ onClose, merchant }) => {
       })
       .catch((error) => {
         console.log(error);
-        getToast('Error', 'Merchant could not be updated', 'error');
+        getToast('Error', error?.response?.data?.error, 'error');
         setIsLoading(false);
       });
   };

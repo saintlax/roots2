@@ -109,7 +109,7 @@ export const AddStaffModal = ({ branch }) => {
       })
       .catch((err) => {
         console.log(err);
-        getToast('Error', 'Invite user failed', 'error');
+        getToast('Error', err?.response?.data?.error, 'error');
         setIsLoading(false);
       });
   };
@@ -134,7 +134,7 @@ export const AddStaffModal = ({ branch }) => {
       })
       .catch((error) => {
         console.log('Put branch error', error);
-        getToast('Error', 'Branch could not be updated', 'error');
+        getToast('Error', error?.response?.data?.error, 'error');
         setIsLoading(false);
       });
   };

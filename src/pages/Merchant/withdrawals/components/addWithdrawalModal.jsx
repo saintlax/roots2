@@ -113,7 +113,7 @@ export const AddWithdrawalModal = ({ isMobile, wallet, onWalletChange }) => {
       })
       .catch((error) => {
         console.log('ERROR', error);
-        getToast('Error', 'Withdrawal could not be completed', 'error');
+        getToast('Error', error?.response?.data?.error, 'error');
         setIsLoading(false);
       });
   };

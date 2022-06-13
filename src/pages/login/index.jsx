@@ -131,12 +131,8 @@ const Index = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
-        getToast(
-          'Authentication error',
-          'Confirm your credentials and try again',
-          'error'
-        );
+        console.log(error.response.data.error);
+        getToast('Authentication error', error?.response?.data?.error, 'error');
         setIsLoading(false);
       });
   };

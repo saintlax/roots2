@@ -167,7 +167,7 @@ export const AddProductModal = ({ isMobile, userMerchant }) => {
       })
       .catch((error) => {
         console.log(error);
-        getToast('Product error', 'Product could not be created', 'error');
+        getToast('Product error', error?.response?.data?.error, 'error');
         setIsLoading(false);
       });
   };
@@ -196,7 +196,7 @@ export const AddProductModal = ({ isMobile, userMerchant }) => {
       .catch((error) => {
         console.log(error);
         setIsLoading(false);
-        getToast('Error', 'File could not be uploaded', 'error');
+        getToast('Error', error?.response?.data?.error, 'error');
       });
   };
 

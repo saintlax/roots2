@@ -118,7 +118,7 @@ export const AddCategoryModal = ({ isMobile }) => {
       })
       .catch((error) => {
         console.log(error);
-        getToast('CATEGORY error', 'CATEGORY could not be created', 'error');
+        getToast('CATEGORY error', error?.response?.data?.error, 'error');
         setIsLoading(false);
       });
   };

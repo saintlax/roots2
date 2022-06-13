@@ -79,7 +79,7 @@ export const PlaceOrderModal = ({ product }) => {
       })
       .catch((err) => {
         console.log(err);
-        getToast('Error', 'Something went wrong', 'error');
+        getToast('Error', err?.response?.data?.error, 'error');
         setIsLoading(false);
       });
   };
@@ -154,7 +154,7 @@ export const PlaceOrderModal = ({ product }) => {
       })
       .catch((err) => {
         console.log(err);
-        getToast('Error', 'Account Id could not be verified', 'error');
+        getToast('Error', err?.response?.data?.error, 'error');
         setIsLoading(false);
       });
   };

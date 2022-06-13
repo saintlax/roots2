@@ -73,7 +73,7 @@ export function DeactivateBranchAlert({ branch }) {
       })
       .catch((error) => {
         console.log(error);
-        getToast('Error', 'Branch could not be updated', 'error');
+        getToast('Error', error?.response?.data?.error, 'error');
         setIsLoading(false);
       });
   };

@@ -159,30 +159,9 @@ const Signup = () => {
     //Its weird that i had to do this twice to update
     setUserData({ ...userData, ...data });
     let payload = {
-      // ...userData,
-      // firstName: userData?.first_name,
-      // middleName: userData?.middle_name,
-      // lastName: userData?.last_name,
-      // phoneNumber: userData?.phone_number,
-      // dateOfBirth: userData?.date_of_birth,
-      // LGAOfResidence: userData?.lga_of_residence,
-      // maritalStatus: userData?.marital_status,
-      // stateOfResidence: userData?.state_of_residence,
-      // password: data.password,
-      // confirmPassword: data.confirmPassword,
       ...data,
-      // BVN: bvn,
       type: 'MERCHANT',
     };
-    // delete payload.first_name;
-    // delete payload.last_name;
-    // delete payload.middle_name;
-    // delete payload.id;
-    // delete payload.phone_number;
-    // delete payload.date_of_birth;
-    // delete payload.lga_of_residence;
-    // delete payload.marital_status;
-    // delete payload.state_of_residence;
     console.log('Completed: ', payload);
     registerUser(payload);
   };
@@ -211,7 +190,7 @@ const Signup = () => {
       })
       .catch((error) => {
         console.log('merchat API ERROR', error);
-        getToast('Error', 'Merchant account could not be created', 'error');
+        getToast('Error', error?.response?.data?.error, 'error');
         setMerchantRegisterFormLoading(false);
       });
   };
@@ -232,7 +211,7 @@ const Signup = () => {
       })
       .catch((err) => {
         console.log('REG ERROR', err);
-        getToast('Error', err.message, 'error');
+        getToast('Error', err.response.data.error, 'error');
         setMerchantRegisterFormLoading(false);
       });
   };

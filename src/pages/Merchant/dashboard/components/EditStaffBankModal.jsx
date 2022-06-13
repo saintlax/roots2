@@ -130,7 +130,7 @@ export const EditStaffBankModal = ({
       })
       .catch((error) => {
         console.log(error);
-        getToast('Error', 'Bank details could not be updated', 'error');
+        getToast('Error', error?.response?.data?.error, 'error');
         setIsLoading(false);
       });
   };
@@ -158,7 +158,7 @@ export const EditStaffBankModal = ({
       })
       .catch((error) => {
         console.log(error);
-        getToast('Error', 'Bank details could not be updated', 'error');
+        getToast('Error', error?.response?.data?.error, 'error');
         setIsLoading(false);
       });
   };

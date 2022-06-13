@@ -147,7 +147,7 @@ export const EditProductModal = ({ product }) => {
       })
       .catch((error) => {
         console.log(error);
-        getToast('Product error', 'Product could not be updated', 'error');
+        getToast('Product error', error?.response?.data?.error, 'error');
         setIsLoading(false);
       });
   };

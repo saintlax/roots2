@@ -72,7 +72,7 @@ export function DeleteProductAlert({ product }) {
       })
       .catch((error) => {
         console.log(error);
-        getToast('Product error', 'Product could not be deleted', 'error');
+        getToast('Product error', error?.response?.data?.error, 'error');
         setIsLoading(false);
       });
   };
