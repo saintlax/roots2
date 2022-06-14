@@ -14,7 +14,7 @@ import {
   Button,
   HStack,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useToast } from '@chakra-ui/toast';
 
 export const CreatePasswordModal = ({
@@ -26,6 +26,13 @@ export const CreatePasswordModal = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    !password || password !== confirmPassword
+      ? setDisabled(true)
+      : setDisabled(false);
+  }, [password, confirmPassword]);
   const toast = useToast();
 
   const handlePassword = (event) => {
@@ -148,6 +155,7 @@ export const CreatePasswordModal = ({
                 color='#fff'
                 onClick={register}
                 isLoading={isLoading}
+                isDisabled={disabled}
                 loadingText='Please wait..'
               >
                 Register

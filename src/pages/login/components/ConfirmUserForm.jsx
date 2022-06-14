@@ -7,12 +7,14 @@ import {
   GridItem,
   Select,
   Flex,
+  VStack,
 } from '@chakra-ui/react';
 
 import { Link } from 'react-router-dom';
 import { CreatePasswordModal } from './CreatePasswordModal';
 import { useEffect, useState } from 'react';
 import { BsBagCheck, BsPerson } from 'react-icons/bs';
+import { countryList } from '../../../constants/constants';
 export const ConfirmUserForm = ({
   onButtonClick,
   userData,
@@ -108,19 +110,30 @@ export const ConfirmUserForm = ({
               bg='#fff'
               borderRadius={'5px'}
             >
-              <BsPerson size={26} />
-              <Select
-                size='sm'
-                placeholder='Choose a gender'
-                border='none'
-                _focus={{ border: 'none' }}
-                value={gender}
-                onChange={(e) => setGender(e.target.value)}
-              >
-                {genders.map((genderr, i) => {
-                  return <option value={genderr}>{genderr}</option>;
-                })}
-              </Select>
+              <VStack align='stretch'>
+                <Box>
+                  {/* <BsPerson size={26} /> */}
+                  <Select
+                    size='sm'
+                    placeholder='Choose a gender'
+                    border='none'
+                    _focus={{ border: 'none' }}
+                    value={gender}
+                    onChange={(e) => setGender(e.target.value)}
+                  >
+                    {genders.map((genderr, i) => {
+                      return <option value={genderr}>{genderr}</option>;
+                    })}
+                  </Select>
+                </Box>
+                {!gender ? (
+                  <Box>
+                    <Text color='red'> Required field</Text>
+                  </Box>
+                ) : (
+                  <></>
+                )}
+              </VStack>
             </Flex>
           </GridItem>
           <GridItem colSpan={1}>
@@ -130,19 +143,32 @@ export const ConfirmUserForm = ({
               bg='#fff'
               borderRadius={'5px'}
             >
-              <BsPerson size={26} />
-              <Select
-                size='sm'
-                placeholder='Choose a Marital Status'
-                border='none'
-                _focus={{ border: 'none' }}
-                value={maritalStatus}
-                onChange={(e) => setMaritalStatus(e.target.value)}
-              >
-                {maritals.map((mar, i) => {
-                  return <option value={mar}>{mar}</option>;
-                })}
-              </Select>
+              {/* <BsPerson size={26} />
+               */}
+              <VStack align='stretch'>
+                <Box>
+                  {/* <BsPerson size={26} /> */}
+                  <Select
+                    size='sm'
+                    placeholder='Choose a Marital Status'
+                    border='none'
+                    _focus={{ border: 'none' }}
+                    value={maritalStatus}
+                    onChange={(e) => setMaritalStatus(e.target.value)}
+                  >
+                    {maritals.map((mar, i) => {
+                      return <option value={mar}>{mar}</option>;
+                    })}
+                  </Select>
+                </Box>
+                {!maritalStatus ? (
+                  <Box>
+                    <Text color='red'> Required field</Text>
+                  </Box>
+                ) : (
+                  <></>
+                )}
+              </VStack>
             </Flex>
           </GridItem>
         </SimpleGrid>
@@ -289,7 +315,7 @@ export const ConfirmUserForm = ({
           </GridItem>
 
           <GridItem colSpan={1}>
-            <div className='inputContainer'>
+            {/* <div className='inputContainer'>
               <input
                 type='text'
                 className='input'
@@ -299,7 +325,32 @@ export const ConfirmUserForm = ({
               <label htmlFor='business-name' className='label'>
                 Nationality
               </label>
-            </div>
+            </div> */}
+
+            <VStack align='stretch' className='inputContainer'>
+              <Box>
+                {/* <BsPerson size={26} /> */}
+                <Select
+                  size='sm'
+                  placeholder='Choose a Country'
+                  border='none'
+                  _focus={{ border: 'none' }}
+                  value={nationality}
+                  onChange={(e) => setNationality(e.target.value)}
+                >
+                  {countryList.map((country, i) => {
+                    return <option value={country}>{country}</option>;
+                  })}
+                </Select>
+              </Box>
+              {!nationality ? (
+                <Box>
+                  <Text color='red'> Required field</Text>
+                </Box>
+              ) : (
+                <></>
+              )}
+            </VStack>
           </GridItem>
         </SimpleGrid>
       </Box>
