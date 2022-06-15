@@ -8,7 +8,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 const { REACT_APP_API_URL, REACT_APP_USER, REACT_APP_MERCHANT } = process.env;
 
-export const VerifyEmail = ({ success, setSuccess }) => {
+export const VerifyEmail = ({ success, setSuccess, onVerified }) => {
   const navigate = useNavigate();
 
   const toast = useToast();
@@ -115,12 +115,10 @@ export const VerifyEmail = ({ success, setSuccess }) => {
       .then((response) => {
         if (response.status === 200 && response.data.payload) {
           console.log('User Data', response.data.payload);
-          getToast(
-            'Successful',
-            'Your been activaated. You can proceed to login',
-            'success'
-          );
-          navigate('/');
+          // getToast('Successful', 'Your been activaated.', 'success');
+          const data = response.data.payload;
+          onVerified(data);
+          // navigate('/');
         }
         setIsLoading(false);
       })

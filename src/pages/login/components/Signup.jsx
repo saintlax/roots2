@@ -11,6 +11,11 @@ import { SignupUserForm } from './SignupUserForm';
 import Axios from 'axios';
 import { useToast } from '@chakra-ui/toast';
 import { ConfirmUserForm } from './ConfirmUserForm';
+import { Step1 } from './Step1';
+import { VerifyEmail } from './VerifyEmail';
+import { BusinessInformation } from './BusinessInformation';
+import { BankInformation2 } from './BankInformation2';
+import { Success } from './Success';
 
 const { REACT_APP_API_URL, REACT_APP_USER, REACT_APP_MERCHANT } = process.env;
 
@@ -215,6 +220,80 @@ const Signup = () => {
         setMerchantRegisterFormLoading(false);
       });
   };
+
+  const step1Data = (data) => {
+    console.log(data);
+    if (data) {
+      setStep1Completed(true);
+      setNewUser(data);
+    }
+  };
+  const [step1Completed, setStep1Completed] = useState(false);
+  const [step2Completed, setStep2Completed] = useState(false);
+  const [step3Completed, setStep3Completed] = useState(false);
+  const [step4Completed, setStep4Completed] = useState(false);
+  const [step5Completed, setStep5Completed] = useState(false);
+  const [newMerchant, setNewMerchant] = useState({});
+  const [newUser, setNewUser] = useState({});
+  const onEmailVerified = (data) => {
+    if (data) {
+      setStep2Completed(true);
+      setNewUser({ ...newUser, ...data });
+    }
+  };
+  const Steps = () => {
+    if (!step1Completed) return <Step1 step1Data={step1Data} />;
+    if (step1Completed && !step2Completed)
+      return (
+        <VerifyEmail
+          success={false}
+          setSuccess={false}
+          onVerified={onEmailVerified}
+        />
+      );
+    if (step1Completed && step2Completed && !step3Completed)
+      return (
+        <BusinessInformation
+          businessInformationData={businessInformationData}
+          user={newUser}
+        />
+      );
+    if (step1Completed && step2Completed && step3Completed && !step4Completed)
+      return (
+        <BankInformation2
+          bankInformationData={bankInformationData}
+          user={newUser}
+          merchant={newMerchant}
+        />
+      );
+
+    if (
+      step1Completed &&
+      step2Completed &&
+      step3Completed &&
+      step4Completed &&
+      !step5Completed
+    )
+      return (
+        <Success
+          title={'Account setup complete'}
+          text={'Your account has been setup successfully'}
+        />
+      );
+  };
+  const businessInformationData = (data) => {
+    console.log(data);
+    if (data) {
+      setStep3Completed(true);
+      setNewMerchant(data);
+    }
+  };
+  const bankInformationData = (data) => {
+    if (data) {
+      setStep4Completed(true);
+      //setNewMerchant(...newMerchant, ...data);
+    }
+  };
   return (
     <Flex
       w='100%'
@@ -251,7 +330,9 @@ const Signup = () => {
       </Box>
 
       <Box width={['100%', '100%', '50%']}>
-        <MerchantSignup />
+        <Steps />
+        {/* <MerchantSignup /> */}
+
         {/* {verifyEmail ? (
           <>
             <VerifyEmail setSuccess={setSuccess} success={success} />
