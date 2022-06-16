@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useToast } from '@chakra-ui/toast';
 import Axios from 'axios';
-import { BiLock, BiPencil, BiUpload } from 'react-icons/bi';
+import { BiCheck, BiLock, BiPencil, BiUpload } from 'react-icons/bi';
 import FormInput from '../../../components/common/FormInput';
 const { REACT_APP_API_URL, REACT_APP_USER } = process.env;
 
@@ -129,6 +129,27 @@ export const BusinessInformation = ({ businessInformationData, user }) => {
         getToast('Error', err.response.data.error, 'error');
       });
   };
+  const UploadIcon = () => {
+    if (isLoading) {
+      return (
+        <Button
+          width={'100%'}
+          my={['10px', '10px', '30px']}
+          // isDisabled={disable}
+          {...NO_SHADOW}
+          {...BTN_STYLE}
+          isLoading={true}
+          isDisabled={true}
+        >
+          Proceed
+        </Button>
+      );
+    }
+    if (CACDocumentPath) {
+      return <BiCheck />;
+    }
+    return <BiUpload />;
+  };
   return (
     <Box width={'100%'} px={['3%', '5%', '5%']}>
       <Heading textAlign={['center']} as={'h2'} fontSize={'30px'} mb='50px'>
@@ -150,7 +171,7 @@ export const BusinessInformation = ({ businessInformationData, user }) => {
 
         <Box pos='relative'>
           <FormInput
-            icon={<BiUpload />}
+            icon={<UploadIcon />}
             label='CAC Document'
             placeholder={'CAC Document Name'}
             value={CACDocument}
