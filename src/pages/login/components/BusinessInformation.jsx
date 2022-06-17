@@ -48,12 +48,13 @@ export const BusinessInformation = ({ businessInformationData, user }) => {
     })
       .then((response) => {
         const payload = response.data.payload;
-        const { path } = payload;
+        const { path, name } = payload;
 
         setIsLoading(false);
 
         if (type === 'CACDOCUMENT') {
           setCACDocumentPath(path);
+          setCACDocument(name);
           // getToast(
           //   'Success',
           //   'CAC document was uploaded successfully',
@@ -175,6 +176,7 @@ export const BusinessInformation = ({ businessInformationData, user }) => {
             label='CAC Document'
             placeholder={'CAC Document Name'}
             value={CACDocument}
+            isDisabled={true}
             onChange={(e) => setCACDocument(e.target.value)}
           />
           <HStack pos='absolute' top='-5px' bottom='0' right='50px'>
