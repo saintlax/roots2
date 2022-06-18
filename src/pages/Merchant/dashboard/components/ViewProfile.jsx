@@ -105,7 +105,7 @@ const ViewMerchantProfile = ({ onClose, merchant }) => {
     })
       .then((response) => {
         const payload = response.data.payload;
-        const { path } = payload;
+        const { path, name } = payload;
 
         setIsLoading(false);
         if (type === 'LOGO') {
@@ -119,7 +119,7 @@ const ViewMerchantProfile = ({ onClose, merchant }) => {
           put(route, cover);
         }
         if (type === 'CACDOCUMENT') {
-          alert('here');
+          setCACDocument(name);
           let route = `${REACT_APP_API_URL}/merchant/updateCACDOCUMENT/${merchant.id}`;
           let cover = { CACDocumentPath: path };
           put(route, cover);
@@ -261,6 +261,7 @@ const ViewMerchantProfile = ({ onClose, merchant }) => {
               placeholder={'CAC Document Name'}
               value={CACDocument}
               onChange={(e) => setCACDocument(e.target.value)}
+              isDisabled={true}
             />
             <HStack pos='absolute' top='-5px' bottom='0' right='50px'>
               <Text fontSize={'12px'}>View</Text>
