@@ -8,6 +8,7 @@ import {
   Input,
   FormLabel,
   Button,
+  Avatar,
 } from '@chakra-ui/react';
 import profileBg from '../../../../assets/images/profile background.svg';
 import profilePic from '../../../../assets/images/profile-pic.svg';
@@ -182,6 +183,7 @@ const ViewMerchantProfile = ({ onClose, merchant }) => {
         setIsLoading(false);
       });
   };
+  const getCompanyLogo = () => {};
   return (
     <Stack h='100%' px={[0, 2, 5]} w='100%'>
       <Box px={[null, null, '5%']} pos='relative'>
@@ -200,14 +202,33 @@ const ViewMerchantProfile = ({ onClose, merchant }) => {
         </FormLabel>
 
         <FormLabel htmlFor='profilePic' pos='absolute' className='profile-pic'>
-          <Img
+          {merchant?.companyLogo &&
+          merchant?.companyLogo !== null &&
+          merchant?.companyLogo !== 'NIL' ? (
+            <Img
+              w='100%'
+              h='100%'
+              cursor='pointer'
+              src={merchant?.companyLogo ? merchant?.companyLogo : logo}
+              alt='profile picture'
+              borderRadius='20px'
+            />
+          ) : (
+            <Avatar
+              size='sm'
+              name={businessName}
+              src={merchant?.companyLogo}
+              size='xl'
+            />
+          )}
+          {/* <Img
             w='100%'
             h='100%'
             cursor='pointer'
             src={companyLogo ? companyLogo : logo}
             alt='profile picture'
             borderRadius='20px'
-          />
+          /> */}
           <Input
             type='file'
             id='profilePic'
