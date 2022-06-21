@@ -8,6 +8,9 @@ import Axios from 'axios';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { formatCurrency } from '../../../constants/constants';
+import CustomModal from '../../../components/common/CustomModal';
+import { FiSettings } from 'react-icons/fi';
+import Settings from '../../../pages/Merchant/dashboard/components/Settings';
 const { REACT_APP_API_URL } = process.env;
 export const Withdrawals = () => {
   const isMobile = IsMobile();
@@ -58,9 +61,25 @@ export const Withdrawals = () => {
     setWallet(wallet);
   };
 
+  const SettingsModal = () => {
+    return (
+      <CustomModal
+        btnIcon={<FiSettings size={26} />}
+        btnTitle='Settings'
+        title={'Settings'}
+      >
+        <Settings />
+      </CustomModal>
+    );
+  };
+
   const ShowWithdrawalButton = () => {
     if (!hasBankAccount && bankAccounts.length === 0) {
-      return <Text color='red'>You have not setup your bank details</Text>;
+      return (
+        <Text color='red'>
+          Go to "SETTINGS" =&#62; "Bank Settings" to add bank account
+        </Text>
+      );
     }
     if (isMobile) {
       return (

@@ -7,7 +7,7 @@ import { withdrawalTableHeadData } from './tableHeadData';
 export const Summary = () => {
   return (
     <Box bg={'#fff'} borderRadius='10px' border={'1px solid #E5E5E5'}>
-      <Flex
+      {/* <Flex
         justifyContent={'space-between'}
         px={['10px', '', '30px']}
         pt='10px'
@@ -24,7 +24,7 @@ export const Summary = () => {
           <option>Option2</option>
           <option>Option3</option>
         </Select>
-      </Flex>
+      </Flex> */}
       <Box w='100%' overflowX='auto'>
         <Table variant='striped' colorScheme={'blackAlpha'}>
           <TableHead tableHeadData={withdrawalTableHeadData} />
