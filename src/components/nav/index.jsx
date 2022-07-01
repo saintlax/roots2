@@ -277,20 +277,20 @@ export const Nav = () => {
                       <Avatar
                         size='sm'
                         name={
-                          user?.firstName +
-                          ' ' +
-                          user?.lastName +
-                          ' ' +
-                          user?.middleName
+                          user?.firstName + ' ' + user?.lastName
+                          // +
+                          // ' ' +
+                          // user?.middleName
                         }
                         src={user?.profileImage}
                       />
                       <Text>
-                        {user?.firstName +
-                          ' ' +
-                          user?.lastName +
-                          ' ' +
-                          user?.middleName}
+                        {
+                          user?.firstName + ' ' + user?.lastName
+                          // +
+                          // ' ' +
+                          // user?.middleName
+                        }
                       </Text>
                     </HStack>
                   </MenuButton>
@@ -327,9 +327,19 @@ export const Nav = () => {
                         </CustomModal>
                       </MenuItem>
                     ) : (
-                      <></>
+                      <MenuItem>
+                        <CustomModal
+                          title={'Profile'}
+                          btnIcon={
+                            <Avatar size='sm' src={user?.profileImage} />
+                          }
+                          btnTitle='Profile'
+                        >
+                          <ViewUserProfile user={user} />
+                        </CustomModal>
+                      </MenuItem>
                     )}
-                    <MenuItem>
+                    {/* <MenuItem>
                       <CustomModal
                         title={'Profile'}
                         btnIcon={<Avatar size='sm' src={user?.profileImage} />}
@@ -337,7 +347,7 @@ export const Nav = () => {
                       >
                         <ViewUserProfile user={user} />
                       </CustomModal>
-                    </MenuItem>
+                    </MenuItem> */}
 
                     <MenuItem>
                       <CustomModal
