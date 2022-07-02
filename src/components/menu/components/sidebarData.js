@@ -15,5 +15,6 @@ export const navLinks = [
   { title: 'Settings', icon: FiSettings, to: 'settings' },
   { title: 'Roles', icon: BiUserPin, to: 'roles' },
   { title: 'Banks', icon: BiUserPin, to: 'banks' },
+  { title: 'Product Categories', icon: BiUserPin, to: 'productCategories' },
   { title: 'Logout', icon: FiLogOut, to: '/' },
 ];

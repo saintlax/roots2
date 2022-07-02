@@ -26,7 +26,7 @@ export const CategoryDropdown = ({ onCategorySelected }) => {
       query = `${merchant.id}`;
     }
     await Axios.get(
-      `${REACT_APP_API_URL}/productCategories/filter/filter?merchantId=${query}`
+      `${REACT_APP_API_URL}/productCategories`///filter/filter?merchantId=${query}
     )
       .then((response) => {
         console.log(response);

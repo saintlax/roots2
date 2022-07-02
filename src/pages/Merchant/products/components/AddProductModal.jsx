@@ -19,6 +19,11 @@ import {
   Select,
   ModalHeader,
   Input,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
 } from '@chakra-ui/react';
 import { BsThreeDots, BsTrash, BsCheckLg } from 'react-icons/bs';
 import { BsBagCheck } from 'react-icons/bs';
@@ -52,6 +57,7 @@ export const AddProductModal = ({ isMobile, userMerchant }) => {
   const [loadingText, setLoadingText] = useState('Please wait..');
   const productCategories = useSelector((state) => state.productCategories);
   const [profileImage, setProfileImage] = useState('');
+  const parse = (val) => val.replace(/^\$/, '');
 
   const getToast = (title, description, status) => {
     const color = status === 'success' ? 'blue' : 'red';
@@ -249,6 +255,8 @@ export const AddProductModal = ({ isMobile, userMerchant }) => {
     setSelectedBranch(value);
   };
 
+  const productStatuses = ['In stock', 'Out of Stock'];
+
   return (
     <>
       <Flex onClick={onOpen} alignItems='center' width={'100%'}>
@@ -289,8 +297,8 @@ export const AddProductModal = ({ isMobile, userMerchant }) => {
               </GridItem>
               <GridItem colSpan={1}>
                 <div className='inputContainer'>
-                  <input
-                    type='text'
+                  <Input
+                    type='number'
                     className='input'
                     onChange={(e) => setPrice(e.target.value)}
                     value={price}
@@ -304,7 +312,7 @@ export const AddProductModal = ({ isMobile, userMerchant }) => {
 
             <SimpleGrid columns={2} columnGap={3} rowGap={6} w='full'>
               <GridItem colSpan={1}>
-                <div className='inputContainer'>
+                {/* <div className='inputContainer'>
                   <input
                     type='text'
                     className='input'
@@ -314,21 +322,59 @@ export const AddProductModal = ({ isMobile, userMerchant }) => {
                   <label htmlFor='business-name' className='label'>
                     Status
                   </label>
-                </div>
+                </div> */}
+                Product Status
+                <Flex
+                  // width={'160px'}
+                  justifyContent='center'
+                  alignItems={'center'}
+                  bg='#fff'
+                  borderRadius={'5px'}
+                >
+                  {/* <BsBagCheck size={26} /> */}
+                  
+                  <Select
+                    size='sm'
+                    placeholder='Select status'
+                    border='none'
+                    _focus={{ border: 'none' }}
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                  >
+                    {productStatuses.map((stat, i) => {
+                      return (
+                        <option key={i} value={stat}>{stat}</option>
+                      );
+                    })}
+                  </Select>
+                </Flex>
               </GridItem>
 
               <GridItem colSpan={1}>
-                <div className='inputContainer'>
-                  <input
-                    type='text'
+                {/* <div className='inputContainer'> */}
+                  {/* <Input
+                    type='number'
                     className='input'
                     onChange={(e) => setQty(e.target.value)}
                     value={qty}
-                  />
-                  <label htmlFor='business-name' className='label'>
+                  /> */}
+                  Quantity
+                  <NumberInput 
+                  defaultValue={1} 
+                  min={10} max={10000}
+                  onChange={(valueString) => setQty(parse(valueString))}
+                  placeholder='Quantity'
+                  >
+                    <NumberInputField />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
+                  {/* <label htmlFor='business-name' className='label'>
                     Qty
-                  </label>
-                </div>
+                  </label> */}
+                {/* </div> */}
               </GridItem>
             </SimpleGrid>
 

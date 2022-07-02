@@ -12,6 +12,7 @@ import Headerbar from '../components/headerbar';
 import Menu from '../components/menu';
 import Loans from '../pages/Admin/loans';
 import Banks from '../pages/Admin/banks';
+import ProductCategories from '../pages/Admin/productCategories';
 
 const AuthenticatedApp = () => {
   const {
@@ -23,6 +24,7 @@ const AuthenticatedApp = () => {
     SETTINGS,
     ROLES,
     BANKS,
+    PRODUCT_CATEGORIES,
   } = PROTECTED_PATHS;
 
   const isMobileScreen = IsMobile();
@@ -47,6 +49,7 @@ const AuthenticatedApp = () => {
             <Route path={SETTINGS} element={<Settings />} />
             <Route path={ROLES} element={<Roles />} />
             <Route path={BANKS} element={<Banks />} />
+            <Route path={PRODUCT_CATEGORIES} element={<ProductCategories />} />
           </Routes>
         </Box>
       </Stack>

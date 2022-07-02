@@ -129,7 +129,7 @@ const ProductCatalogue = ({ isMobile, userMerchant }) => {
             </Button>
           )}
 
-          {isMobile ? (
+          {/* {isMobile ? (
             <Button size='sm' bg='primary'>
               <AddCategoryModal isMobile={isMobile} />
             </Button>
@@ -137,7 +137,7 @@ const ProductCatalogue = ({ isMobile, userMerchant }) => {
             <Button size='sm' bg={'#1459DF'} color='#fff'>
               <AddCategoryModal isMobile={isMobile} />
             </Button>
-          )}
+          )} */}
         </Flex>
       </Flex>
       <Box>{views ? <OrdersTable /> : <GridView />}</Box>

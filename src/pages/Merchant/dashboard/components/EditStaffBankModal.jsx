@@ -14,7 +14,7 @@ import {
   Input,
 } from '@chakra-ui/react';
 
-import { AiFillEdit, AiOutlineCalendar } from 'react-icons/ai';
+import { AiFillEdit, AiOutlineCalendar, AiOutlineBank } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ActionTypes } from '../../../../redux/constants/action-types';
@@ -29,13 +29,13 @@ export const EditStaffBankModal = ({
   bankAccount,
   onBankAccountUpdate,
 }) => {
-  useEffect(() => {
-    setNameOfBank(bankAccount?.nameOfBank);
-    setAccountName(bankAccount?.accountName);
-    setAccountNumber(bankAccount?.accountNumber);
-    setBankCode(bankAccount?.bankCode);
-    setIsLoading(false);
-  }, [bankAccount]);
+  // useEffect(() => {
+  //   setNameOfBank(bankAccount?.nameOfBank);
+  //   setAccountName(bankAccount?.accountName);
+  //   setAccountNumber(bankAccount?.accountNumber);
+  //   setBankCode(bankAccount?.bankCode);
+  //   setIsLoading(false);
+  // }, [bankAccount]);
 
   const isMobile = IsMobile();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -176,13 +176,15 @@ export const EditStaffBankModal = ({
   };
 
   const handleAccountName = (e) =>{
+    
+    let acctNumber = e.target.value;
+    setAccountNumber(acctNumber);
     if(!bankCode || bankCode === ''){
       getToast('Error', 'Bank code not found', 'error');
       return;
     }
-    let acctNumber = e.target.value;
     if(acctNumber.length > 9 && acctNumber.length < 11){
-      setAccountNumber(acctNumber);
+      
       verifyAccount(acctNumber, bankCode);
     }
   }
@@ -241,7 +243,8 @@ export const EditStaffBankModal = ({
               ) : (
                 <AiOutlineCalendar size={26} />
               )} */}
-              <AiOutlineCalendar size={26} />
+              <AiOutlineBank size={26} />
+              
               <Select
                 border='none'
                 onChange={(e) => handleBankSelection(e)}
@@ -267,7 +270,7 @@ export const EditStaffBankModal = ({
               </label>
             </div> */}
             <div className='inputContainer'>
-              <input
+              <Input
                 type='text'
                 className='input'
                 onChange={(e) => handleAccountName(e)}

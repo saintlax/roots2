@@ -23,6 +23,7 @@ export const PROTECTED_PATHS = {
   SETTINGS: '/settings',
   ROLES: '/roles',
   BANKS: '/banks',
+  PRODUCT_CATEGORIES: '/productCategories',
 };
 
 /**
