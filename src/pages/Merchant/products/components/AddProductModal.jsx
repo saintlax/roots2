@@ -18,6 +18,7 @@ import {
   Text,
   Select,
   ModalHeader,
+  Input,
 } from '@chakra-ui/react';
 import { BsThreeDots, BsTrash, BsCheckLg } from 'react-icons/bs';
 import { BsBagCheck } from 'react-icons/bs';
@@ -375,7 +376,12 @@ export const AddProductModal = ({ isMobile, userMerchant }) => {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </FormControl>
-
+            <FormControl>
+            <label className='label'>
+              Choose a product image(s)
+            </label>
+                  <br/>
+            </FormControl>
             <SimpleGrid columns={1} columnGap={3} rowGap={6} w='full'>
               <GridItem colSpan={1}>
                 <div className='inputContainer'>
@@ -384,9 +390,9 @@ export const AddProductModal = ({ isMobile, userMerchant }) => {
                     className='input'
                     onChange={(e) => processImage(e)}
                   />
-                  <label htmlFor='business-logo' className='label'>
+                  {/* <label htmlFor='business-logo' className='label'>
                     Choose a product image
-                  </label>
+                  </label> */}
                 </div>
               </GridItem>
             </SimpleGrid>

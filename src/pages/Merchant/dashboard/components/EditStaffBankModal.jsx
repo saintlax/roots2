@@ -11,6 +11,7 @@ import {
   ModalHeader,
   Select,
   Avatar,
+  Input,
 } from '@chakra-ui/react';
 
 import { AiFillEdit, AiOutlineCalendar } from 'react-icons/ai';
@@ -21,7 +22,7 @@ import Axios from 'axios';
 import { useToast } from '@chakra-ui/toast';
 import IsMobile from '../../../../components/common/IsMobile';
 import { useSelector } from 'react-redux';
-const { REACT_APP_API_URL } = process.env;
+const { REACT_APP_API_URL, REACT_APP_PAYSTACK_SECREET_KEY, REACT_APP_PAYSTACK_BASE_URL } = process.env;
 
 export const EditStaffBankModal = ({
   staff,
@@ -69,6 +70,17 @@ export const EditStaffBankModal = ({
     });
   };
 
+  const handleBankSelection = (e) =>{
+    let bankName = e.target.value;
+    let code = '';
+    allBanks.forEach((bank) => {
+      if (bankName === bank.name) {
+        code = bank.code;
+      }
+    });
+    setBankCode(code);
+    setNameOfBank(bankName);
+  }
   const handleUpdate = () => {
     let code = '';
     if (!nameOfBank) {
@@ -163,6 +175,37 @@ export const EditStaffBankModal = ({
       });
   };
 
+  const handleAccountName = (e) =>{
+    if(!bankCode || bankCode === ''){
+      getToast('Error', 'Bank code not found', 'error');
+      return;
+    }
+    let acctNumber = e.target.value;
+    if(acctNumber.length > 9 && acctNumber.length < 11){
+      setAccountNumber(acctNumber);
+      verifyAccount(acctNumber, bankCode);
+    }
+  }
+
+  const verifyAccount = async (acctNumber, bankCode) => {
+    setIsLoading(true);
+    setLoadingText('please wait..');
+    //0001234567
+    //058
+    await Axios.get(`${REACT_APP_PAYSTACK_BASE_URL}/bank/resolve?account_number=${acctNumber}&bank_code=${bankCode}`,
+    { headers: { Authorization: REACT_APP_PAYSTACK_SECREET_KEY } })
+      .then((response) => {
+        const data = response.data.data;
+        setAccountName(data.account_name); 
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        getToast('Error', 'Account number could not be resolved', 'error');
+        setIsLoading(false);
+      });
+  };
+
   return (
     <>
       <Flex onClick={onOpen} alignItems='center' width={'100%'}>
@@ -201,7 +244,7 @@ export const EditStaffBankModal = ({
               <AiOutlineCalendar size={26} />
               <Select
                 border='none'
-                onChange={(e) => setNameOfBank(e.target.value)}
+                onChange={(e) => handleBankSelection(e)}
                 placeholder='Select a bank'
               >
                 {allBanks.map((parameter, i) => {
@@ -227,19 +270,20 @@ export const EditStaffBankModal = ({
               <input
                 type='text'
                 className='input'
-                onChange={(e) => setAccountNumber(e.target.value)}
+                onChange={(e) => handleAccountName(e)}
                 value={accountNumber}
+                
               />
               <label htmlFor='name' className='label'>
                 Account Number
               </label>
             </div>
             <div className='inputContainer'>
-              <input
+              <Input
                 type='text'
                 className='input'
-                onChange={(e) => setAccountName(e.target.value)}
-                value={accountName}
+              value={accountName}
+              isDisabled={true}
               />
               <label htmlFor='name' className='label'>
                 Account Name
@@ -268,7 +312,7 @@ export const EditStaffBankModal = ({
                 loadingText={loadingText}
                 isDisabled={disabled}
               >
-                Update
+                Add
               </Button>
             </HStack>
           </ModalBody>
