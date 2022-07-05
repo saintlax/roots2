@@ -10,7 +10,9 @@
 .product-catalogue {
   grid-column: 1/13;
 }
-
+.fit-grid {
+  object-fit: cover
+}
 @media (min-width: 980px) {
   .top-selling-products {
     grid-column: 1/9;

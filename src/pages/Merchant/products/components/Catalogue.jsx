@@ -13,6 +13,7 @@ export const Catalogue = ({ product }) => {
           height='100%'
           src={product?.profileImage}
           alt={product?.name}
+          className='fit-grid'
         />
       </Box>
 
