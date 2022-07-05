@@ -274,6 +274,7 @@ export const Nav = () => {
                     rightIcon={<IoIosArrowDown />}
                   >
                     <HStack>
+                    {/* src={user?.profileImage} */}
                       <Avatar
                         size='sm'
                         name={
@@ -282,7 +283,7 @@ export const Nav = () => {
                           // ' ' +
                           // user?.middleName
                         }
-                        src={user?.profileImage}
+                        
                       />
                       <Text>
                         {

@@ -1,5 +1,5 @@
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { MdOutlineDashboard } from 'react-icons/md';
+import { MdOutlineDashboard, MdInsertChartOutlined } from 'react-icons/md';
 import { GiHandBag, GiBuyCard } from 'react-icons/gi';
 import { PROTECTED_PATHS } from '../../../app/merchantConstants';
 
@@ -14,6 +14,7 @@ export const MERCHANT_NAV_ITEMS = [
   {
     title: 'Orders',
     to: ORDERS,
+    icon: <MdInsertChartOutlined />,
   },
 
   {
