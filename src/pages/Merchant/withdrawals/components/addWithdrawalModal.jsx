@@ -12,15 +12,17 @@ import {
   HStack,
   ModalHeader,
   Textarea,
+  Select,
 } from '@chakra-ui/react';
 
-import { AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlinePlus, AiOutlineBank } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ActionTypes } from '../../../../redux/constants/action-types';
 import Axios from 'axios';
 import { useToast } from '@chakra-ui/toast';
 import { VerifyPINModal } from './VerifyPINModal';
+
 const { REACT_APP_API_URL } = process.env;
 
 export const AddWithdrawalModal = ({ isMobile, wallet, onWalletChange }) => {
@@ -34,10 +36,14 @@ export const AddWithdrawalModal = ({ isMobile, wallet, onWalletChange }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [loadingText, setLoadingText] = useState('Please wait..');
   const [disable, setIsDisable] = useState(true);
+  const [bankAccounts, setBankAccounts] = useState([]);
+  const [nameOfBank, setNameOfBank] = useState('');
+  const [bankCode, setBankCode] = useState('');
+  const [accountNumber, setAccountNumber] = useState('');
 
   useEffect(() => {
-    amount && !isNaN(amount) ? setIsDisable(false) : setIsDisable(true);
-  }, [amount]);
+    amount && !isNaN(amount) && accountNumber ? setIsDisable(false) : setIsDisable(true);
+  }, [amount, nameOfBank, bankCode]);
   const getToast = (title, description, status) => {
     const color = status === 'success' ? 'blue' : 'red';
     toast({
@@ -78,8 +84,9 @@ export const AddWithdrawalModal = ({ isMobile, wallet, onWalletChange }) => {
       userId: user.id + '',
       status: 'PENDING',
       description,
-      accountNumber: merchant?.businessAcountNumber,
-      nameOfBank: merchant?.nameOfBank,
+      accountNumber,//: merchant?.businessAcountNumber
+      nameOfBank, //: merchant?.nameOfBank
+      bankCode,
     };
     postWithdrawal(withdrawal);
   };
@@ -123,6 +130,39 @@ export const AddWithdrawalModal = ({ isMobile, wallet, onWalletChange }) => {
       sendRequest();
     }
   };
+
+  useEffect(() => {
+    getBankAccount();
+  }, []);
+  const getBankAccount = async () => {
+    let query = `userId=${user.id}`;
+    await Axios.get(`${REACT_APP_API_URL}/bankAccounts/filter/filter?${query}`)
+      .then((response) => {
+        console.log(response);
+        if (response.status == 200) {
+          const payload = response.data.payload;
+          setBankAccounts(payload)
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleBankSelection = (e) =>{
+    let bankName = '';
+    let code = '';
+    let acctNumb = e.target.value;
+    bankAccounts.forEach((bank) => {
+      if (acctNumb === bank.accountNumber) {
+        code = bank.bankCode;
+        bankName = bank.nameOfBank;
+      }
+    });
+    setBankCode(code);
+    setNameOfBank(bankName);
+    setAccountNumber(acctNumb)
+  }
 
   return (
     <>
@@ -171,7 +211,29 @@ export const AddWithdrawalModal = ({ isMobile, wallet, onWalletChange }) => {
                 Description
               </label>
             </div>
-            <br />
+            <br /><br />
+            <Flex
+              pl='3'
+              bg='#fff'
+              align={'center'}
+              border='2px solid #eee '
+              borderRadius={'5'}
+            >
+              
+              <AiOutlineBank size={26} />
+              
+              <Select
+                border='none'
+                onChange={(e) => handleBankSelection(e)}
+                placeholder='Select a receiving account'
+              >
+                {bankAccounts.map((parameter, i) => {
+                  return (
+                    <option value={parameter.accountNumber}>{parameter.nameOfBank + ' ['+parameter.accountNumber+'] '}</option>
+                  );
+                })}
+              </Select>
+            </Flex>
             <HStack mt='8' justify={['space-between', 'flex-end']}>
               <Button
                 bg='primary'
