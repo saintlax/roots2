@@ -198,19 +198,6 @@ export const AddWithdrawalModal = ({ isMobile, wallet, onWalletChange }) => {
                 </div>
               </GridItem>
             </SimpleGrid>
-
-            <div className='inputContainer'>
-              <Textarea
-                type='text'
-                className='input'
-                onChange={(e) => setDescription(e.target.value)}
-                value={description}
-                size='sm'
-              />
-              <label htmlFor='name' className='label'>
-                Description
-              </label>
-            </div>
             <br /><br />
             <Flex
               pl='3'
@@ -234,6 +221,19 @@ export const AddWithdrawalModal = ({ isMobile, wallet, onWalletChange }) => {
                 })}
               </Select>
             </Flex>
+            <div className='inputContainer'>
+              <Textarea
+                type='text'
+                className='input'
+                onChange={(e) => setDescription(e.target.value)}
+                value={description}
+                size='sm'
+              />
+              <label htmlFor='name' className='label'>
+                Description (Optional)
+              </label>
+            </div>
+            <br/><br/>
             <HStack mt='8' justify={['space-between', 'flex-end']}>
               <Button
                 bg='primary'

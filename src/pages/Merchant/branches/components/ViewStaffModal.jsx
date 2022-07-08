@@ -35,7 +35,7 @@ export const ViewStaffModal = ({ branch }) => {
 
       <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent maxW='900px'>
           <ModalHeader>Staff of {branch?.name}</ModalHeader>
           <ModalCloseButton />
           <ModalBody p='10px'>
