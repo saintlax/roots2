@@ -7,7 +7,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { BsThreeDots } from 'react-icons/bs';
-import { DeleteBankAlert } from './DeleteBankAlert';
+import { DeleteCategoryAlert } from './DeleteCategoryAlert';
 
 export const MenuLItems = ({ name, data }) => {
   return (
@@ -18,7 +18,7 @@ export const MenuLItems = ({ name, data }) => {
         </MenuButton>
         <MenuList>
           <MenuItem>
-            <DeleteBankAlert bank={data} />
+            <DeleteCategoryAlert category={data} />
           </MenuItem>
         </MenuList>
       </Menu>

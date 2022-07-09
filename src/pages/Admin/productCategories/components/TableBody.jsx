@@ -18,7 +18,7 @@ export const TableBody = () => {
       .then((response) => {
         if (response.status == 200) {
           const payload = response.data.payload;
-          dispatch({ type: ActionTypes.REFRESH_BANK, payload });
+          dispatch({ type: ActionTypes.REFRESH_ADMIN_PRODUCT_CATEGORY, payload });
         }
       })
       .catch((error) => {
@@ -37,7 +37,7 @@ export const TableBody = () => {
             </Td>
 
             <Td>
-              {/* <MenuLItems name={data?.name} data={data} /> */}
+              <MenuLItems name={data?.name} data={data} />
             </Td>
           </Tr>
         );

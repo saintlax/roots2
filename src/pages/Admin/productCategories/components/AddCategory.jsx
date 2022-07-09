@@ -24,12 +24,10 @@ import {
   export const AddCategoryModal = ({}) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [name, setName] = useState('');
-    const [code, setCode] = useState('');
   
     const dispatch = useDispatch();
     const toast = useToast();
     const [isLoading, setIsLoading] = useState(false);
-    const [logo, setLogo] = useState('');
     const getToast = (title, description, status) => {
       const color = status === 'success' ? 'blue' : 'red';
       toast({
@@ -46,67 +44,42 @@ import {
         },
       });
     };
-    const postBank = async (payload) => {
-      await Axios.post(`${REACT_APP_API_URL}/banks`, payload)
+    const postCategory = async (payload) => {
+      await Axios.post(`${REACT_APP_API_URL}/productCategories`, payload)
         .then((response) => {
           if (response.status === 200 && response.data.payload) {
             console.log('Bank Data', response.data.payload);
             getToast('Successful', 'New bank created', 'success');
             const payload = response.data.payload;
             dispatch({
-              type: ActionTypes.ADD_BANK,
+              type: ActionTypes.ADD_ADMIN_PRODUCT_CATEGORY,
               payload,
             });
             setIsLoading(false);
             setName('');
-            setCode('');
             onClose();
           }
         })
         .catch((err) => {
           console.log(err);
-          getToast('Error', 'Something went wrong', 'error');
+          getToast('Error', err?.response?.data?.error, 'error');
           setIsLoading(false);
         });
     };
   
-    const addBank = () => {
-      if (!name && !code) {
-        getToast('Validation', 'Name and code are required', 'error');
+    const addCategory = () => {
+      if (!name) {
+        getToast('Validation', 'Name is required', 'error');
         return;
       }
       setIsLoading(true);
       const payload = {
         name,
-        code,
-        logo,
+        merchantId: -1,
       };
-      postBank(payload);
+      postCategory(payload);
     };
   
-    const uploadImage = (image) => {
-      let form = new FormData();
-      form.append('file', image);
-      setIsLoading(true);
-      Axios.post(`${REACT_APP_API_URL}/upload`, form, {
-        header: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-        .then((response) => {
-          const payload = response.data.payload;
-          const { path } = payload;
-          setIsLoading(false);
-          setLogo(path);
-  
-          getToast('Success', 'LOGO was uploaded successfully', 'success');
-        })
-        .catch((error) => {
-          console.log(error);
-          setIsLoading(false);
-          getToast('Error', 'File could not be uploaded', 'error');
-        });
-    };
     return (
       <>
         <Flex
@@ -134,7 +107,7 @@ import {
               >
                 {/* <Avatar size="lg" name={data?.name} src={data?.imageUrl} /> */}
                 <Text my='5px' fontSize={'20px'} fontWeight={'bold'}>
-                  Add Bank
+                  Add a product category
                 </Text>
                 {/* <Text>Account created {data?.dateCreated}</Text> */}
               </Flex>
@@ -148,27 +121,11 @@ import {
                 <FormControl>
                   <FormLabel>Name</FormLabel>
                   <Input
-                    placeholder='Zenith bank'
+                    placeholder='Example Electronics'
                     onChange={(e) => setName(e.target.value)}
                   />
                 </FormControl>
   
-                <FormControl mt={4}>
-                  <FormLabel>Code</FormLabel>
-                  <Input
-                    placeholder='064'
-                    onChange={(e) => setCode(e.target.value)}
-                  />
-                </FormControl>
-  
-                <FormControl mt={4}>
-                  <FormLabel>Logo</FormLabel>
-                  <Input
-                    id='CACDocumentPath'
-                    type='file'
-                    onChange={(e) => uploadImage(e.target.files[0])}
-                  />
-                </FormControl>
   
                 <Button
                   mt={4}
@@ -176,7 +133,7 @@ import {
                   color={'#fff'}
                   bg='#1459df'
                   _hover={{ bg: '#1459df' }}
-                  onClick={addBank}
+                  onClick={addCategory}
                   isLoading={isLoading}
                   loadingText='please wait...'
                 >

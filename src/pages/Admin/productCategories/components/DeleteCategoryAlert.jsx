@@ -20,7 +20,7 @@ import { useState } from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
 const { REACT_APP_API_URL } = process.env;
 
-export function DeleteBankAlert({ bank }) {
+export function DeleteCategoryAlert({ category }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
   const BTN = { _focus: { boxShadow: 'none' } };
@@ -46,14 +46,14 @@ export function DeleteBankAlert({ bank }) {
     });
   };
 
-  const deleteBank = async (bank) => {
+  const deleteCategory = async (category) => {
     setIsLoading(true);
-    await Axios.delete(`${REACT_APP_API_URL}/banks/${bank.id}`)
+    await Axios.delete(`${REACT_APP_API_URL}/productCategories/${category.id}`)
       .then((response) => {
         console.log(response);
         if (response.status == 200) {
-          dispatch({ type: ActionTypes.DELETE_BANK, payload: bank });
-          getToast('Success', 'Bank deleted successfully', 'success');
+          dispatch({ type: ActionTypes.DELETE_ADMIN_PRODUCT_CATEGORY, payload: category });
+          getToast('Success', 'Category deleted successfully', 'success');
           setIsLoading(false);
           onClose();
         } else {
@@ -97,7 +97,7 @@ export function DeleteBankAlert({ bank }) {
 
         <AlertDialogContent>
           <AlertDialogHeader fontSize={'18px'}>
-            Are you sure you want to delete {bank?.name} ?
+            Are you sure you want to delete {category?.name} ?
           </AlertDialogHeader>
           <Text px='20px' fontSize={'16px'} textAlign={'center'}>
             This action cannot be undone, if you choose to continue
@@ -120,7 +120,7 @@ export function DeleteBankAlert({ bank }) {
               width='100%'
               bg='red'
               colorScheme='red'
-              onClick={() => deleteBank(bank)}
+              onClick={() => deleteCategory(category)}
               ml={3}
               fontSize={'14px'}
               isLoading={isLoading}
