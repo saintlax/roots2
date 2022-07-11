@@ -1,11 +1,13 @@
 import { Box, Flex, Image, Progress, Text } from '@chakra-ui/react';
 import { BsThreeDots } from 'react-icons/bs';
 import { formatCurrency } from '../../../../constants/constants';
+import { MenuLItems } from './MenuList';
 export const Catalogue = ({ product }) => {
   return (
     <Box border={'none'} bg='#fff' p='20px' borderRadius='10px'>
       <Flex justifyContent={'flex-end'}>
-        <BsThreeDots size={'16px'} cursor='pointer' />
+        {/* <BsThreeDots size={'16px'} cursor='pointer' /> */}
+        <MenuLItems product={product} />
       </Flex>
       <Box height={'200px'} w='420px'>
         <Image

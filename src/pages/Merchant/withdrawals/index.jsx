@@ -16,14 +16,15 @@ export const Withdrawals = () => {
   const isMobile = IsMobile();
   const [wallet, setWallet] = useState({});
   const user = useSelector((state) => state.user);
-  const [hasBankAccount, setHasBankAccount] = useState(false);
+  //const [hasBankAccount, setHasBankAccount] = useState(false);
   const bankAccounts = useSelector((state) => state.bankAccounts.accounts);
 
+  
   useEffect(() => {
     getWallet();
-    getBankAccount();
+  //  getBankAccount();
   }, []);
-
+/*
   const getBankAccount = async () => {
     let query = `userId=${user.id}`;
     await Axios.get(`${REACT_APP_API_URL}/bankAccounts/filter/filter?${query}`)
@@ -40,6 +41,7 @@ export const Withdrawals = () => {
         console.log(error);
       });
   };
+  */
   const getWallet = async () => {
     await Axios.get(
       `${REACT_APP_API_URL}/wallets/filter/filter?userId=${user.id}`
@@ -74,7 +76,8 @@ export const Withdrawals = () => {
   };
 
   const ShowWithdrawalButton = () => {
-    if (!hasBankAccount && bankAccounts.length === 0) {
+    // if (!hasBankAccount && bankAccounts.length === 0) {
+    if(!user.bankAccounts || user.bankAccounts.length == 0){  
       return (
         <Text color='red'>
           Go to "SETTINGS" =&#62; "Bank Settings" to add bank account

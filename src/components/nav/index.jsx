@@ -160,6 +160,10 @@ export const Nav = () => {
       });
   };
 
+  const getName = () =>{
+    return isMerchant()? merchant?.businessName : userBranch?.users[0]?.merchantName;
+  }
+
   return (
     <>
       <Box width={'100%'} height={['100%']} bg='#fff'>
@@ -278,7 +282,8 @@ export const Nav = () => {
                       <Avatar
                         size='sm'
                         name={
-                          user?.firstName + ' ' + user?.lastName
+                          getName()
+                          //user?.firstName + ' ' + user?.lastName
                           // +
                           // ' ' +
                           // user?.middleName
@@ -287,10 +292,11 @@ export const Nav = () => {
                       />
                       <Text>
                         {
-                          user?.firstName + ' ' + user?.lastName
-                          // +
-                          // ' ' +
-                          // user?.middleName
+                          getName()
+                        }
+                        {
+                        //  user?.firstName + ' ' + user?.lastName
+                          
                         }
                       </Text>
                     </HStack>
