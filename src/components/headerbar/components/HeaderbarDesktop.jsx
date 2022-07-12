@@ -76,18 +76,21 @@ const HeaderbarDesktop = () => {
                   name={
                     user?.firstName +
                     ' ' +
-                    user?.lastName +
-                    ' ' +
-                    user?.middleName
+                    user?.lastName 
+                    // +
+                    // ' ' +
+                    // user?.middleName
                   }
-                  src='https://bit.ly/kent-c-dodds'
+                  // src='https://bit.ly/kent-c-dodds'
                 />
                 <Text>
                   {user?.firstName +
                     ' ' +
-                    user?.lastName +
-                    ' ' +
-                    user?.middleName}
+                    user?.lastName 
+                    // +
+                    // ' ' +
+                    // user?.middleName
+                    }
                 </Text>
               </HStack>
             </MenuButton>

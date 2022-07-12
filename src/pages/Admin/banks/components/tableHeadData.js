@@ -1,1 +1,3 @@
-export const tableHeadData = ['Name', 'Code', 'Action'];
+export const tableHeadData = ['Name', 'Code'
+//, 'Action'
+];

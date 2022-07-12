@@ -13,7 +13,7 @@ const Banks = () => {
           </Text>
         </Box>
         <Box>
-          <AddBankModal />
+          {/* <AddBankModal /> */}
         </Box>
       </Flex>
       <Box>

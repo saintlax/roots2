@@ -1,4 +1,4 @@
-import { BiUser, BiUserPin } from 'react-icons/bi';
+import { BiUser, BiUserPin, BiCreditCard, BiCloudRain } from 'react-icons/bi';
 import { RiDashboardLine } from 'react-icons/ri';
 import { BsWalletFill } from 'react-icons/bs';
 import { ImArrowUpRight2 } from 'react-icons/im';
@@ -14,7 +14,7 @@ export const navLinks = [
   { title: 'Loans', icon: GiReceiveMoney, to: 'loans' },
   { title: 'Settings', icon: FiSettings, to: 'settings' },
   { title: 'Roles', icon: BiUserPin, to: 'roles' },
-  { title: 'Banks', icon: BiUserPin, to: 'banks' },
-  { title: 'Product Categories', icon: BiUserPin, to: 'productCategories' },
+  { title: 'Banks', icon: BiCreditCard, to: 'banks' },
+  { title: 'Categories', icon: BiCloudRain, to: 'productCategories' },
   { title: 'Logout', icon: FiLogOut, to: '/' },
 ];

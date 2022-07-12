@@ -288,7 +288,7 @@ export const Nav = () => {
                           // ' ' +
                           // user?.middleName
                         }
-                        
+                        src={merchant?.companyLogo}
                       />
                       <Text>
                         {

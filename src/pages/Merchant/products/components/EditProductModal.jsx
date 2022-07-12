@@ -94,7 +94,7 @@ export const EditProductModal = ({ product }) => {
       name,
       price,
       qty,
-      status,
+      itemStatus: status,
       images,
       description,
       category,
@@ -106,6 +106,7 @@ export const EditProductModal = ({ product }) => {
     delete productt.__v;
     delete productt.createdOn;
     delete productt.profileImage;
+    delete productt.isDeleted;
     if (productt.payload) {
       delete productt.payload;
     }

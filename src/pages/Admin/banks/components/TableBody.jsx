@@ -43,9 +43,9 @@ export const TableBody = () => {
             </Td>
             <Td>{data?.code}</Td>
 
-            <Td>
+            {/* <Td>
               <MenuLItems name={data?.name} data={data} />
-            </Td>
+            </Td> */}
           </Tr>
         );
       })}
