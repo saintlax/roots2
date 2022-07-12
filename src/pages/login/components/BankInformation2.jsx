@@ -6,6 +6,7 @@ import {
   Flex,
   Button,
   Select,
+  
 } from '@chakra-ui/react';
 
 import { Link } from 'react-router-dom';
@@ -14,7 +15,7 @@ import { useToast } from '@chakra-ui/toast';
 import Axios from 'axios';
 import { BiLock, BiPencil, BiUpload } from 'react-icons/bi';
 import FormInput from '../../../components/common/FormInput';
-const { REACT_APP_API_URL, REACT_APP_USER } = process.env;
+const { REACT_APP_API_URL, REACT_APP_USER, REACT_APP_PAYSTACK_SECREET_KEY, REACT_APP_PAYSTACK_BASE_URL } = process.env;
 
 export const BankInformation2 = ({ bankInformationData, user, merchant }) => {
   const NO_SHADOW = { _focus: { boxShadow: 'none' } };
@@ -148,6 +149,51 @@ export const BankInformation2 = ({ bankInformationData, user, merchant }) => {
     bankInformationData(data);
   };
 
+  const handleBankSelection = (e) =>{
+    let bankName = e.target.value;
+    let code = '';
+    allBanks.forEach((bank) => {
+      if (bankName === bank.name) {
+        code = bank.code;
+      }
+    });
+    setBankCode(code);
+    setNameOfBank(bankName);
+  }
+
+  const handleAccountName = (e) =>{
+    
+    let acctNumber = e.target.value;
+    setAccountNumber(acctNumber);
+    if(!bankCode || bankCode === ''){
+      getToast('Error', 'Bank code not found', 'error');
+      return;
+    }
+    if(acctNumber.length > 9 && acctNumber.length < 11){
+      
+      verifyAccount(acctNumber, bankCode);
+    }
+  }
+
+  const verifyAccount = async (acctNumber, bankCode) => {
+    setIsLoading(true);
+    setLoadingText('please wait..');
+    //0001234567
+    //058
+    await Axios.get(`${REACT_APP_PAYSTACK_BASE_URL}/bank/resolve?account_number=${acctNumber}&bank_code=${bankCode}`,
+    { headers: { Authorization: REACT_APP_PAYSTACK_SECREET_KEY } })
+      .then((response) => {
+        const data = response.data.data;
+        setAccountName(data.account_name); 
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        getToast('Error', 'Account number could not be resolved', 'error');
+        setIsLoading(false);
+      });
+  };
+
   return (
     <Box width={'100%'} px={['3%', '5%', '5%']}>
       <Heading textAlign={['center']} as={'h2'} fontSize={'30px'} mb='50px'>
@@ -166,7 +212,7 @@ export const BankInformation2 = ({ bankInformationData, user, merchant }) => {
             {/* <AiOutlineCalendar size={26} /> */}
             <Select
               border='none'
-              onChange={(e) => setNameOfBank(e.target.value)}
+              onChange={(e) => handleBankSelection(e)}
               placeholder='Select a bank'
             >
               {allBanks.map((parameter, i) => {
@@ -179,7 +225,8 @@ export const BankInformation2 = ({ bankInformationData, user, merchant }) => {
           <input
             type='number'
             className='input'
-            onChange={(e) => setAccountNumber(e.target.value)}
+            
+            onChange={(e) => handleAccountName(e)}
             value={accountNumber}
           />
           <label htmlFor='name' className='label'>
@@ -187,11 +234,12 @@ export const BankInformation2 = ({ bankInformationData, user, merchant }) => {
           </label>
         </div>
         <div className='inputContainer'>
-          <input
+          <Input
             type='text'
             className='input'
-            onChange={(e) => setAccountName(e.target.value)}
+            
             value={accountName}
+            isDisabled={true}
           />
           <label htmlFor='name' className='label'>
             Account Name
