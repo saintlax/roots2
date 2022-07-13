@@ -104,12 +104,14 @@ export const BusinessInformation = ({ businessInformationData, user }) => {
       CACDocumentPath,
       isActive: true,
       userId: user.id,
+      email: user.email,
     };
 
     registerMerchant(data);
   };
 
   const registerMerchant = async (payload) => {
+    
     setIsLoading(true);
     await Axios.post(`${REACT_APP_API_URL}/merchant`, payload)
       .then((response) => {
