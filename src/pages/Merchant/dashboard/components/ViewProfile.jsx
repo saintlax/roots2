@@ -10,7 +10,7 @@ import {
   Button,
   Avatar,
 } from '@chakra-ui/react';
-import profileBg from '../../../../assets/images/profile background.svg';
+import profileBg from '../../../../assets/images/unsplash_HaziTVzN4CU.jpg';
 import profilePic from '../../../../assets/images/profile-pic.svg';
 import FormInput from '../../../../components/common/FormInput';
 import { BiLock, BiPencil } from 'react-icons/bi';
